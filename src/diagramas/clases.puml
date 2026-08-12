@@ -1,0 +1,133 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' --- ENUMS ---
+enum RolUsuario {
+  MEDICO
+  RECEPCIONISTA
+  ADMINISTRADOR
+  ENCARGADO_INVENTARIO
+}
+
+enum EstadoCita {
+  PROGRAMADA
+  REAGENDADA
+  CANCELADA
+  ATENDIDA
+  NO_ASISTIO
+}
+
+enum TipoMovimiento {
+  ENTRADA
+  SALIDA
+  AJUSTE
+}
+
+enum EstadoReceta {
+  PRESCRITA
+  DISPENSADA
+}
+
+' --- CLASSES ---
+class Usuario {
+  - String correo
+  - String contrasena
+  - RolUsuario rol
+  - String nombreCompleto
+  - String telefono
+  + iniciarSesion(): Boolean
+}
+
+class Medico {
+  - String especialidad
+  - String numeroLicencia
+  - Boolean disponible
+  + validarLicenciaUnica(): Boolean
+  + cambiarDisponibilidad(disponible: Boolean): Void
+}
+
+class Paciente {
+  - String codigoExpediente
+  - String nombres
+  - String apellidos
+  - String documentoIdentidad
+  - Date fechaNacimiento
+  - String telefono
+  - String genero
+  + validarDocumentoUnico(): Boolean
+}
+
+class Cita {
+  - Date fechaHora
+  - Int duracionMinutos
+  - EstadoCita estado
+  + programarCita(): Void
+  + reagendarCita(nuevaFechaHora: Date, motivo: String): Void
+  + cancelarCita(motivo: String): Void
+  + estaDisponible(medico: Medico, fechaHora: Date, duracion: Int): Boolean
+}
+
+class HistorialCita {
+  - EstadoCita estadoAnterior
+  - EstadoCita estadoNuevo
+  - String motivo
+  - Date fechaCambio
+}
+
+class ConsultaMedica {
+  - Date fechaConsulta
+  - String motivoConsulta
+  - String sintomatologia
+  - String diagnostico
+  + registrarConsulta(): Void
+}
+
+class CategoriaMedicamento {
+  - String nombre
+  - String descripcion
+  + crearCategoria(): Void
+  + editarCategoria(): Void
+  + eliminarCategoria(): Boolean
+  + tieneMedicamentosAsociados(): Boolean
+}
+
+class Medicamento {
+  - String nombreComercial
+  - String nombreGenerico
+  - String presentacion
+  - String unidadMedida
+  - String concentracion
+  - Int stockInicial
+  - Int stockDisponible
+  - Date fechaVencimiento
+  + validarCaducidad(): Boolean
+  + actualizarStock(cantidad: Int): Void
+}
+
+class MovimientoInventario {
+  - TipoMovimiento tipoMovimiento
+  - Int cantidad
+  - Date fechaMovimiento
+  - String motivo
+}
+
+class RecetaDetalle {
+  - Int cantidad
+  - String indicaciones
+  - EstadoReceta estado
+}
+
+' --- RELACIONES ---
+Usuario "1" -- "0..1" Medico : vincula/perfil >
+Usuario "1" -- "0..*" Cita : gestiona >
+Usuario "1" -- "0..*" HistorialCita : registra >
+Usuario "1" -- "0..*" MovimientoInventario : registra >
+Paciente "1" -- "0..*" Cita : agenda >
+Medico "1" -- "0..*" Cita : atiende >
+Cita "1" -- "0..1" ConsultaMedica : genera >
+Cita "1" -- "0..*" HistorialCita : registra cambios >
+ConsultaMedica "1" -- "0..*" RecetaDetalle : prescripcion >
+Medicamento "1" -- "0..*" RecetaDetalle : incluye >
+Medicamento "1" -- "0..*" MovimientoInventario : afecta >
+CategoriaMedicamento "1" -- "0..*" Medicamento : clasifica >
+@enduml

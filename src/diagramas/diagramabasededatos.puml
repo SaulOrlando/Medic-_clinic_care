@@ -1,0 +1,124 @@
+@startuml
+' Configuración visual para tablas ER
+hide circle
+skinparam linetype ortho
+
+entity "usuarios" as usuario {
+  * **id_usuario** : INT <<PK>>
+  --
+  * **correo** : VARCHAR(150) <<UNIQUE>>
+  * **contrasena** : VARCHAR(255)
+  * **rol** : VARCHAR(30)
+  * **nombre_completo** : VARCHAR(150)
+  * **telefono** : VARCHAR(20)
+}
+
+entity "medicos" as medico {
+  * **id_medico** : INT <<PK>>
+  --
+  * **id_usuario** : INT <<FK, UNIQUE>>
+  * **especialidad** : VARCHAR(100)
+  * **numero_licencia** : VARCHAR(50) <<UNIQUE>>
+  * **disponible** : BOOLEAN
+}
+
+entity "pacientes" as paciente {
+  * **id_paciente** : INT <<PK>>
+  --
+  * **codigo_expediente** : VARCHAR(20) <<UNIQUE>>
+  * **nombres** : VARCHAR(100)
+  * **apellidos** : VARCHAR(100)
+  * **documento_identidad** : VARCHAR(30) <<UNIQUE>>
+  * **fecha_nacimiento** : DATE
+  * **telefono** : VARCHAR(20)
+  * **genero** : VARCHAR(20)
+}
+
+entity "citas" as cita {
+  * **id_cita** : INT <<PK>>
+  --
+  * **id_paciente** : INT <<FK>>
+  * **id_medico** : INT <<FK>>
+  * **id_usuario_gestor** : INT <<FK>>
+  * **fecha_hora** : DATETIME
+  * **duracion_minutos** : INT
+  * **estado** : VARCHAR(30)
+}
+
+entity "historial_citas" as historial {
+  * **id_historial** : INT <<PK>>
+  --
+  * **id_cita** : INT <<FK>>
+  * **id_usuario** : INT <<FK>>
+  * **estado_anterior** : VARCHAR(30)
+  * **estado_nuevo** : VARCHAR(30)
+  * **motivo** : TEXT
+  * **fecha_cambio** : DATETIME
+}
+
+entity "consultas_medicas" as consulta {
+  * **id_consulta** : INT <<PK>>
+  --
+  * **id_cita** : INT <<FK, UNIQUE>>
+  * **fecha_consulta** : DATETIME
+  * **motivo_consulta** : TEXT
+  * **sintomatologia** : TEXT
+  * **diagnostico** : TEXT
+}
+
+entity "categorias_medicamentos" as categoria {
+  * **id_categoria** : INT <<PK>>
+  --
+  * **nombre** : VARCHAR(100)
+  descripcion : TEXT
+}
+
+entity "medicamentos" as medicamento {
+  * **id_medicamento** : INT <<PK>>
+  --
+  * **id_categoria** : INT <<FK>>
+  * **nombre_comercial** : VARCHAR(150)
+  * **nombre_generico** : VARCHAR(150)
+  * **presentacion** : VARCHAR(50)
+  * **unidad_medida** : VARCHAR(30)
+  * **concentracion** : VARCHAR(50)
+  * **stock_inicial** : INT
+  * **stock_disponible** : INT
+  * **fecha_vencimiento** : DATE
+}
+
+entity "movimientos_inventario" as movimiento {
+  * **id_movimiento** : INT <<PK>>
+  --
+  * **id_medicamento** : INT <<FK>>
+  * **id_usuario** : INT <<FK>>
+  * **tipo_movimiento** : VARCHAR(20)
+  * **cantidad** : INT
+  * **fecha_movimiento** : DATETIME
+  motivo : TEXT
+}
+
+entity "recetas_detalles" as receta {
+  * **id_receta_detalle** : INT <<PK>>
+  --
+  * **id_consulta** : INT <<FK>>
+  * **id_medicamento** : INT <<FK>>
+  * **cantidad** : INT
+  * **indicaciones** : TEXT
+  * **estado** : VARCHAR(20)
+}
+
+' --- RELACIONES DE BASE DE DATOS ---
+usuario ||--o| medico : "1:0..1 (id_usuario)"
+usuario ||--o{ cita : "1:N gestiona (id_usuario_gestor)"
+usuario ||--o{ historial : "1:N registra (id_usuario)"
+usuario ||--o{ movimiento : "1:N registra (id_usuario)"
+paciente ||--o{ cita : "1:N (id_paciente)"
+medico ||--o{ cita : "1:N (id_medico)"
+cita ||--o| consulta : "1:0..1 (id_cita)"
+cita ||--o{ historial : "1:N (id_cita)"
+consulta ||--o{ receta : "1:N (id_consulta)"
+medicamento ||--o{ receta : "1:N (id_medicamento)"
+medicamento ||--o{ movimiento : "1:N (id_medicamento)"
+categoria ||--o{ medicamento : "1:N (id_categoria)"
+@enduml
