@@ -30,6 +30,7 @@ enum EstadoReceta {
 
 ' --- CLASSES ---
 class Usuario {
+  - Integer idUsuario
   - String correo
   - String contrasena
   - RolUsuario rol
@@ -39,6 +40,7 @@ class Usuario {
 }
 
 class Medico {
+  - Integer idMedico
   - String especialidad
   - String numeroLicencia
   - Boolean disponible
@@ -47,6 +49,7 @@ class Medico {
 }
 
 class Paciente {
+  - Integer idPaciente
   - String codigoExpediente
   - String nombres
   - String apellidos
@@ -58,6 +61,7 @@ class Paciente {
 }
 
 class Cita {
+ - Integer idCita
   - Date fechaHora
   - Int duracionMinutos
   - EstadoCita estado
@@ -68,6 +72,7 @@ class Cita {
 }
 
 class HistorialCita {
+ - Integer idHistorial
   - EstadoCita estadoAnterior
   - EstadoCita estadoNuevo
   - String motivo
@@ -75,6 +80,7 @@ class HistorialCita {
 }
 
 class ConsultaMedica {
+  - Integer idConsulta
   - Date fechaConsulta
   - String motivoConsulta
   - String sintomatologia
@@ -83,6 +89,7 @@ class ConsultaMedica {
 }
 
 class CategoriaMedicamento {
+  - Integer idCategoria
   - String nombre
   - String descripcion
   + crearCategoria(): Void
@@ -92,6 +99,7 @@ class CategoriaMedicamento {
 }
 
 class Medicamento {
+  - Integer idMedicamento
   - String nombreComercial
   - String nombreGenerico
   - String presentacion
@@ -105,6 +113,7 @@ class Medicamento {
 }
 
 class MovimientoInventario {
+  - Integer idMovimiento
   - TipoMovimiento tipoMovimiento
   - Int cantidad
   - Date fechaMovimiento
@@ -112,6 +121,7 @@ class MovimientoInventario {
 }
 
 class RecetaDetalle {
+  - Integer idRecetaDetalle
   - Int cantidad
   - String indicaciones
   - EstadoReceta estado
