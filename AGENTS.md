@@ -13,14 +13,14 @@ Spring Boot medical clinic management system for scheduling appointments, managi
 # Compile
 ./mvnw compile
 
-# Run the application
-./mvnw spring-boot:run
+# Run the application (local profile)
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
 
 # Run tests
 ./mvnw test
 ```
 
-> **Note:** `application.properties` currently has no database configuration. A SQL Server connection must be configured before the app can start. Use `db.sql` to create the schema.
+> **Note:** Credentials live in `application-local.properties` (gitignored). `application.properties` uses `${DB_USERNAME}` / `${DB_PASSWORD}` placeholders — never commit real secrets. Use `db.sql` to create the schema.
 
 ## Project Structure
 
