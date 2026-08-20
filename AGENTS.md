@@ -13,14 +13,19 @@ Spring Boot medical clinic management system for scheduling appointments, managi
 # Compile
 ./mvnw compile
 
-# Run the application (local profile)
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# Run the application (local profile — credentials from application-local.properties)
+./mvnw spring-boot:run "-Dspring-boot.run.profiles=local"
+
+# Run the application (default profile — uses fallback credentials in application.properties)
+./mvnw spring-boot:run
 
 # Run tests
 ./mvnw test
 ```
 
-> **Note:** Credentials live in `application-local.properties` (gitignored). `application.properties` uses `${DB_USERNAME}` / `${DB_PASSWORD}` placeholders — never commit real secrets. Use `db.sql` to create the schema.
+The application starts on **http://localhost:8081**.
+
+> **Note:** Credentials live in `application-local.properties` (gitignored). `application.properties` uses `${DB_USERNAME}` / `${DB_PASSWORD}` placeholders with fallback defaults — never commit real secrets. Use `db.sql` to create the schema.
 
 ## Project Structure
 

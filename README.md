@@ -18,13 +18,19 @@ El sistema esta enfocado en simplificar y automatizar los procesos clave del dí
 # Compilar
 ./mvnw compile
 
-# Ejecutar (requiere application-local.properties con credenciales de SQL Server)
-./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+# Ejecutar (con profile local — usa credenciales de application-local.properties)
+./mvnw spring-boot:run "-Dspring-boot.run.profiles=local"
+
+# Ejecutar (sin profile — usa valores por defecto de application.properties)
+./mvnw spring-boot:run
 
 # Ejecutar tests
 ./mvnw test
 ```
 
+La aplicación abre en **http://localhost:8081**
+
 ## Configuración
 
-Las credenciales de la base de datos están en `src/main/resources/application-local.properties` (gitignored).
+- Las credenciales de la base de datos están en `src/main/resources/application-local.properties` (gitignored).
+- Sin el profile `local`, se usan los valores por defecto definidos en `application.properties` (`mediclinic_app` / `Med1cl1nic!2024`).
