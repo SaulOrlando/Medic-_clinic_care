@@ -15,6 +15,8 @@ public interface IMedicamentoRepository extends JpaRepository<Medicamento, Integ
 
     List<Medicamento> findByCategoriaIdCategoria(Integer idCategoria);
 
+    boolean existsByCategoriaIdCategoria(Integer idCategoria);
+
     List<Medicamento> findByNombreComercialContainingIgnoreCase(String nombreComercial);
 
     Optional<Medicamento> findByNombreComercial(String nombreComercial);
