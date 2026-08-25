@@ -54,7 +54,7 @@ class Paciente {
   - String nombres
   - String apellidos
   - String documentoIdentidad
-  - Date fechaNacimiento
+  - LocalDate fechaNacimiento
   - String telefono
   - String genero
   + validarDocumentoUnico(): Boolean
@@ -62,13 +62,13 @@ class Paciente {
 
 class Cita {
  - Integer idCita
-  - Date fechaHora
-  - Int duracionMinutos
+  - LocalDateTime fechaHora
+  - Integer duracionMinutos
   - EstadoCita estado
   + programarCita(): Void
-  + reagendarCita(nuevaFechaHora: Date, motivo: String): Void
+  + reagendarCita(nuevaFechaHora: LocalDateTime, motivo: String): Void
   + cancelarCita(motivo: String): Void
-  + estaDisponible(medico: Medico, fechaHora: Date, duracion: Int): Boolean
+  + estaDisponible(medico: Medico, fechaHora: LocalDateTime, duracion: Integer): Boolean
 }
 
 class HistorialCita {
@@ -76,12 +76,12 @@ class HistorialCita {
   - EstadoCita estadoAnterior
   - EstadoCita estadoNuevo
   - String motivo
-  - Date fechaCambio
+  - LocalDateTime fechaCambio
 }
 
 class ConsultaMedica {
   - Integer idConsulta
-  - Date fechaConsulta
+  - LocalDateTime fechaConsulta
   - String motivoConsulta
   - String sintomatologia
   - String diagnostico
@@ -105,24 +105,24 @@ class Medicamento {
   - String presentacion
   - String unidadMedida
   - String concentracion
-  - Int stockInicial
-  - Int stockDisponible
-  - Date fechaVencimiento
+  - Integer stockInicial
+  - Integer stockDisponible
+  - LocalDate fechaVencimiento
   + validarCaducidad(): Boolean
-  + actualizarStock(cantidad: Int): Void
+  + actualizarStock(cantidad: Integer): Void
 }
 
 class MovimientoInventario {
   - Integer idMovimiento
   - TipoMovimiento tipoMovimiento
-  - Int cantidad
-  - Date fechaMovimiento
+  - Integer cantidad
+  - LocalDateTime fechaMovimiento
   - String motivo
 }
 
 class RecetaDetalle {
   - Integer idRecetaDetalle
-  - Int cantidad
+  - Integer cantidad
   - String indicaciones
   - EstadoReceta estado
 }
