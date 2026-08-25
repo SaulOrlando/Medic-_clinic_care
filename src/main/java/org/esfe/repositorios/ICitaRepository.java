@@ -28,4 +28,6 @@ public interface ICitaRepository extends JpaRepository<Cita, Integer> {
     List<Cita> findByMedicoIdMedicoAndFechaHoraBetween(Integer idMedico, LocalDateTime inicio, LocalDateTime fin);
 
     boolean existsByMedicoIdMedicoAndFechaHoraAndEstadoNot(Integer idMedico, LocalDateTime fechaHora, EstadoCita estado);
+
+    boolean existsByMedicoIdMedico(Integer idMedico);
 }
