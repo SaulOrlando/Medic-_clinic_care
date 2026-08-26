@@ -36,7 +36,15 @@ class Usuario {
   - RolUsuario rol
   - String nombreCompleto
   - String telefono
-  + iniciarSesion(): Boolean
+  + obtenerTodos(): List<Usuario>
+  + obtenerPorId(idUsuario: Integer): Optional<Usuario>
+  + buscarPorCorreo(correo: String): Optional<Usuario>
+  + buscarPorRol(rol: RolUsuario): List<Usuario>
+  + autenticar(correo: String, contrasena: String): Optional<Usuario>
+  + existeCorreo(correo: String): boolean
+  + crearUsuario(usuario: Usuario): Usuario
+  + editarUsuario(usuario: Usuario): Usuario
+  + eliminarUsuario(idUsuario: Integer): Boolean
 }
 
 class Medico {
@@ -44,8 +52,17 @@ class Medico {
   - String especialidad
   - String numeroLicencia
   - Boolean disponible
-  + validarLicenciaUnica(): Boolean
-  + cambiarDisponibilidad(disponible: Boolean): Void
+  + obtenerTodos(): List<Medico>
+  + obtenerPorId(idMedico: Integer): Optional<Medico>
+  + buscarPorNumeroLicencia(numeroLicencia: String): Optional<Medico>
+  + buscarPorUsuario(idUsuario: Integer): Optional<Medico>
+  + obtenerPorEspecialidad(especialidad: String): List<Medico>
+  + obtenerPorDisponible(disponible: Boolean): List<Medico>
+  + crearMedico(medico: Medico): Medico
+  + editarMedico(medico: Medico): Medico
+  + cambiarDisponibilidad(idMedico: Integer, disponible: Boolean): Medico
+  + eliminarMedico(idMedico: Integer): Boolean
+  + tieneCitasAsociadas(idMedico: Integer): Boolean
 }
 
 class Paciente {
@@ -54,48 +71,83 @@ class Paciente {
   - String nombres
   - String apellidos
   - String documentoIdentidad
-  - Date fechaNacimiento
+  - LocalDate fechaNacimiento
   - String telefono
   - String genero
-  + validarDocumentoUnico(): Boolean
+  + obtenerTodos(): List<Paciente>
+  + obtenerPorId(idPaciente: Integer): Optional<Paciente>
+  + buscarPorCodigoExpediente(codigoExpediente: String): Optional<Paciente>
+  + buscarPorDocumentoIdentidad(documentoIdentidad: String): Optional<Paciente>
+  + buscarPorNombre(nombre: String): List<Paciente>
+  + existeDocumentoIdentidad(documentoIdentidad: String): boolean
+  + crearPaciente(paciente: Paciente): Paciente
+  + editarPaciente(paciente: Paciente): Paciente
+  + eliminarPaciente(idPaciente: Integer): Boolean
+  + tieneCitasAsociadas(idPaciente: Integer): Boolean
 }
 
 class Cita {
- - Integer idCita
-  - Date fechaHora
-  - Int duracionMinutos
+  - Integer idCita
+  - LocalDateTime fechaHora
+  - Integer duracionMinutos
   - EstadoCita estado
-  + programarCita(): Void
-  + reagendarCita(nuevaFechaHora: Date, motivo: String): Void
-  + cancelarCita(motivo: String): Void
-  + estaDisponible(medico: Medico, fechaHora: Date, duracion: Int): Boolean
+  + obtenerTodos(): List<Cita>
+  + obtenerPorId(idCita: Integer): Optional<Cita>
+  + obtenerPorPaciente(idPaciente: Integer): List<Cita>
+  + obtenerPorMedico(idMedico: Integer): List<Cita>
+  + obtenerPorEstado(estado: EstadoCita): List<Cita>
+  + obtenerPorMedicoYEstado(idMedico: Integer, estado: EstadoCita): List<Cita>
+  + obtenerPorPacienteYEstado(idPaciente: Integer, estado: EstadoCita): List<Cita>
+  + obtenerPorRangoFechas(inicio: LocalDateTime, fin: LocalDateTime): List<Cita>
+  + obtenerAgendaMedico(idMedico: Integer, inicio: LocalDateTime, fin: LocalDateTime): List<Cita>
+  + verificarDisponibilidad(cita: Cita): Boolean
+  + programarCita(cita: Cita): Cita
+  + reagendarCita(idCita: Integer, nuevaFechaHora: LocalDateTime, motivo: String): Cita
+  + cancelarCita(idCita: Integer, motivo: String): Cita
+  + eliminarCita(idCita: Integer): Boolean
+  + tieneConsultaAsociada(idCita: Integer): Boolean
 }
 
 class HistorialCita {
- - Integer idHistorial
+  - Integer idHistorial
   - EstadoCita estadoAnterior
   - EstadoCita estadoNuevo
   - String motivo
-  - Date fechaCambio
+  - LocalDateTime fechaCambio
+  + obtenerTodos(): List<HistorialCita>
+  + obtenerPorId(idHistorial: Integer): Optional<HistorialCita>
+  + buscarPorCita(idCita: Integer): List<HistorialCita>
+  + buscarPorUsuario(idUsuario: Integer): List<HistorialCita>
+  + guardar(historialCita: HistorialCita): HistorialCita
 }
 
 class ConsultaMedica {
   - Integer idConsulta
-  - Date fechaConsulta
+  - LocalDateTime fechaConsulta
   - String motivoConsulta
   - String sintomatologia
   - String diagnostico
-  + registrarConsulta(): Void
+  + obtenerTodos(): List<ConsultaMedica>
+  + obtenerPorId(idConsulta: Integer): Optional<ConsultaMedica>
+  + buscarPorCita(idCita: Integer): Optional<ConsultaMedica>
+  + buscarPorMedico(idMedico: Integer): List<ConsultaMedica>
+  + buscarPorPaciente(idPaciente: Integer): List<ConsultaMedica>
+  + registrarConsulta(consulta: ConsultaMedica): ConsultaMedica
+  + guardar(consulta: ConsultaMedica): ConsultaMedica
+  + eliminar(idConsulta: Integer): Void
 }
 
 class CategoriaMedicamento {
   - Integer idCategoria
   - String nombre
   - String descripcion
-  + crearCategoria(): Void
-  + editarCategoria(): Void
-  + eliminarCategoria(): Boolean
-  + tieneMedicamentosAsociados(): Boolean
+  + obtenerTodos(): List<CategoriaMedicamento>
+  + obtenerPorId(idCategoria: Integer): Optional<CategoriaMedicamento>
+  + buscarPorNombre(nombre: String): Optional<CategoriaMedicamento>
+  + crearCategoria(categoria: CategoriaMedicamento): CategoriaMedicamento
+  + editarCategoria(categoria: CategoriaMedicamento): CategoriaMedicamento
+  + eliminarCategoria(idCategoria: Integer): Boolean
+  + tieneMedicamentosAsociados(idCategoria: Integer): Boolean
 }
 
 class Medicamento {
@@ -105,26 +157,50 @@ class Medicamento {
   - String presentacion
   - String unidadMedida
   - String concentracion
-  - Int stockInicial
-  - Int stockDisponible
-  - Date fechaVencimiento
-  + validarCaducidad(): Boolean
-  + actualizarStock(cantidad: Int): Void
+  - Integer stockInicial
+  - Integer stockDisponible
+  - LocalDate fechaVencimiento
+  + obtenerTodos(): List<Medicamento>
+  + obtenerPorId(idMedicamento: Integer): Optional<Medicamento>
+  + buscarPorNombreComercial(nombreComercial: String): Optional<Medicamento>
+  + buscarPorNombreComercialConteniendo(nombreComercial: String): List<Medicamento>
+  + obtenerPorCategoria(idCategoria: Integer): List<Medicamento>
+  + obtenerVencidosAntesDe(fecha: LocalDate): List<Medicamento>
+  + obtenerConStockBajo(cantidad: Integer): List<Medicamento>
+  + crearMedicamento(medicamento: Medicamento): Medicamento
+  + editarMedicamento(medicamento: Medicamento): Medicamento
+  + eliminarMedicamento(idMedicamento: Integer): Boolean
+  + actualizarStock(idMedicamento: Integer, cantidad: Integer): Boolean
 }
 
 class MovimientoInventario {
   - Integer idMovimiento
   - TipoMovimiento tipoMovimiento
-  - Int cantidad
-  - Date fechaMovimiento
+  - Integer cantidad
+  - LocalDateTime fechaMovimiento
   - String motivo
+  + obtenerTodos(): List<MovimientoInventario>
+  + obtenerPorId(idMovimiento: Integer): Optional<MovimientoInventario>
+  + obtenerPorMedicamento(idMedicamento: Integer): List<MovimientoInventario>
+  + obtenerPorUsuario(idUsuario: Integer): List<MovimientoInventario>
+  + obtenerPorTipoMovimiento(tipoMovimiento: TipoMovimiento): List<MovimientoInventario>
+  + registrarMovimiento(movimiento: MovimientoInventario): MovimientoInventario
+  + eliminar(idMovimiento: Integer): Void
 }
 
 class RecetaDetalle {
   - Integer idRecetaDetalle
-  - Int cantidad
+  - Integer cantidad
   - String indicaciones
   - EstadoReceta estado
+  + obtenerTodos(): List<RecetaDetalle>
+  + obtenerPorId(idRecetaDetalle: Integer): Optional<RecetaDetalle>
+  + buscarPorConsulta(idConsulta: Integer): List<RecetaDetalle>
+  + buscarPorMedicamento(idMedicamento: Integer): List<RecetaDetalle>
+  + buscarPorEstado(estado: EstadoReceta): List<RecetaDetalle>
+  + guardar(recetaDetalle: RecetaDetalle): RecetaDetalle
+  + dispensar(idRecetaDetalle: Integer): RecetaDetalle
+  + eliminar(idRecetaDetalle: Integer): Void
 }
 
 ' --- RELACIONES ---
