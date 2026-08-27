@@ -331,7 +331,6 @@
     font-weight: 600;
     padding: 0.25rem 0.5rem;
     border-radius: var(--radius-sm);
-    margin-top: var(--space-2);
 }
 
 .panel-appointment-badge--scheduled {

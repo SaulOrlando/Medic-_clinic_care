@@ -29,8 +29,15 @@ public class HomeController {
 
     @GetMapping("/panel")
     public String panel(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-        Optional<Usuario> usuario = usuarioRepository.findByCorreo(userDetails.getUsername());
-        usuario.ifPresent(u -> model.addAttribute("usuario", u));
+        if (userDetails != null) {
+            Optional<Usuario> usuario = usuarioRepository.findByCorreo(userDetails.getUsername());
+            usuario.ifPresent(u -> model.addAttribute("usuario", u));
+        }
+        model.addAttribute("activePage", "panel");
+        // Datos de ejemplo para el diseño — se reemplazan cuando haya consultas reales
+        if (!model.containsAttribute("citasHoy")) model.addAttribute("citasHoy", 12);
+        if (!model.containsAttribute("pacientesRecientes")) model.addAttribute("pacientesRecientes", 48);
+        if (!model.containsAttribute("reportesPendientes")) model.addAttribute("reportesPendientes", 5);
         return "panel";
     }
 }

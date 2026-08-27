@@ -6,8 +6,8 @@
 
     <!-- Welcome Header -->
     <div class="panel-welcome animate-fade-in">
-        <h2 class="panel-welcome-title">Bienvenida de nuevo, <span th:text="${usuario?.nombreCompleto} ?: 'Doctor'">Doctor</span></h2>
-        <p class="panel-welcome-subtitle">Este es su resumen clinico de hoy.</p>
+        <h2 class="panel-welcome-title">Bienvenida de nuevo, <span th:text="${usuario?.nombreCompleto} ?: 'Dra. Smith'">Dra. Smith</span></h2>
+        <p class="panel-welcome-subtitle">Este es su resumen clínico de hoy.</p>
     </div>
 
     <!-- Stats Cards -->
@@ -43,7 +43,7 @@
                 <div class="panel-stat-icon panel-stat-icon--error">
                     <span class="material-symbols-outlined">pending_actions</span>
                 </div>
-                <span class="panel-stat-badge panel-stat-badge--error">Accion Necesaria</span>
+                <span class="panel-stat-badge panel-stat-badge--error">Acción Necesaria</span>
             </div>
             <div class="panel-stat-content">
                 <h3 class="panel-stat-value" th:text="${reportesPendientes} ?: '5'">5</h3>
@@ -54,7 +54,8 @@
 
     <!-- Main Content Grid -->
     <div class="panel-grid animate-fade-in">
-        <!-- Chart Area -->
+
+        <!-- Chart Card -->
         <div class="panel-chart-card">
             <div class="panel-chart-header">
                 <h3 class="panel-chart-title">Volumen Semanal de Consultas</h3>
@@ -73,19 +74,19 @@
                         <span>0</span>
                     </div>
                     <div class="panel-chart-bars">
-                        <div class="panel-chart-bar" style="height: 60%;"></div>
-                        <div class="panel-chart-bar" style="height: 45%;"></div>
-                        <div class="panel-chart-bar" style="height: 80%;"></div>
-                        <div class="panel-chart-bar panel-chart-bar--peak" style="height: 90%;">
-                            <div class="panel-chart-bar-tooltip">Dia Pico: 18</div>
+                        <div class="panel-chart-bar" style="height: 58%;"></div>
+                        <div class="panel-chart-bar" style="height: 38%;"></div>
+                        <div class="panel-chart-bar" style="height: 72%;"></div>
+                        <div class="panel-chart-bar panel-chart-bar--peak" style="height: 85%;">
+                            <div class="panel-chart-bar-tooltip">Día Pico: 18</div>
                         </div>
-                        <div class="panel-chart-bar" style="height: 50%;"></div>
+                        <div class="panel-chart-bar" style="height: 46%;"></div>
                     </div>
                 </div>
                 <div class="panel-chart-labels">
                     <span>Lun</span>
                     <span>Mar</span>
-                    <span>Mie</span>
+                    <span>Mié</span>
                     <span>Jue</span>
                     <span>Vie</span>
                 </div>
@@ -95,8 +96,8 @@
         <!-- Upcoming Appointments -->
         <div class="panel-upcoming-card">
             <div class="panel-upcoming-header">
-                <h3 class="panel-upcoming-title">Proximos</h3>
-                <button class="panel-upcoming-more" aria-label="Mas opciones">
+                <h3 class="panel-upcoming-title">Próximos</h3>
+                <button class="panel-upcoming-more" aria-label="Más opciones">
                     <span class="material-symbols-outlined">more_horiz</span>
                 </button>
             </div>
@@ -139,11 +140,12 @@
                     </div>
                     <div class="panel-appointment-type">
                         <span class="material-symbols-outlined" style="font-size: 14px;">vaccines</span>
-                        Vacunacion
+                        Vacunación
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </th:block>
