@@ -132,6 +132,7 @@ body {
     color: var(--color-text);
     background-color: var(--color-bg);
     min-height: 100vh;
+    overflow: hidden;
 }
 
 a {
@@ -470,6 +471,9 @@ img {
 }
 
 /* --- Utilities --- */
+.flex { display: flex; }
+.flex-1 { flex: 1 1 0%; }
+.flex-col { flex-direction: column; }
 .sr-only {
     position: absolute;
     width: 1px;

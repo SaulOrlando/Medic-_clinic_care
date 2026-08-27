@@ -1,14 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-
-<!-- ============================================
-     Base Layout — MediClinic Care
-     Stitch Clinical Precision Theme
-     ============================================ -->
-
-<!-- Fragment: HTML Head -->
-<th:fragment th:fragment="head">
-<head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MediClinic Care — Sistema de Gestion Clinica">
@@ -25,23 +17,20 @@
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231976d2'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
-</th:fragment>
+<body>
 
-<!-- Fragment: Header -->
-<th:fragment th:fragment="header">
-<header class="app-header">
+<header th:fragment="header" class="app-header">
     <div class="header-left">
         <button class="header-toggle" id="sidebarToggle" aria-label="Alternar menu lateral">
             <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
         </button>
-    </div>
-
-    <div class="header-right">
         <div class="header-search">
             <span class="material-symbols-outlined">search</span>
             <input type="text" placeholder="Buscar pacientes, registros..." />
         </div>
+    </div>
 
+    <div class="header-right">
         <div class="header-actions">
             <button class="header-action-btn" aria-label="Notificaciones">
                 <span class="material-symbols-outlined">notifications</span>
@@ -56,33 +45,28 @@
 
         <div class="header-user">
             <div class="header-user-info">
-                <span class="header-user-name" th:text="${usuario?.nombreCompleto} ?: 'Usuario'">Usuario</span>
-                <span class="header-user-role" th:text="${usuario?.rol} ?: 'Rol'">Rol</span>
+                <span class="header-user-name" th:text="${usuario?.nombreCompleto} ?: 'Dra. Smith'">Dra. Smith</span>
+                <span class="header-user-role">Recepcionista</span>
             </div>
             <div class="header-user-avatar">
                 <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
             </div>
         </div>
 
-        <a href="/logout" class="header-logout" title="Cerrar sesion" aria-label="Cerrar sesion">
+        <a href="/logout" class="header-logout" title="Cerrar sesión" aria-label="Cerrar sesión">
             <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
         </a>
     </div>
 </header>
-</th:fragment>
 
-<!-- Fragment: Sidebar -->
-<th:fragment th:fragment="sidebar">
-<aside class="app-sidebar" id="appSidebar">
+<aside th:fragment="sidebar" class="app-sidebar" id="appSidebar">
     <nav class="sidebar-nav" aria-label="Navegacion principal">
 
-        <!-- Brand -->
         <div class="sidebar-brand">
             <h1 class="sidebar-brand-title">MediClinic Care</h1>
-            <span class="sidebar-brand-subtitle">Gestion Clinica</span>
+            <span class="sidebar-brand-subtitle">Gestión Clínica</span>
         </div>
 
-        <!-- Main Navigation -->
         <ul class="sidebar-menu">
             <li>
                 <a href="/panel" class="sidebar-link" th:classappend="${activePage == 'panel'} ? 'active' : ''">
@@ -91,7 +75,6 @@
                 </a>
             </li>
 
-            <!-- Pacientes -->
             <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/pacientes" class="sidebar-link" th:classappend="${activePage == 'pacientes'} ? 'active' : ''">
                     <span class="material-symbols-outlined">person</span>
@@ -99,15 +82,13 @@
                 </a>
             </li>
 
-            <!-- Medicos -->
             <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/medicos" class="sidebar-link" th:classappend="${activePage == 'medicos'} ? 'active' : ''">
                     <span class="material-symbols-outlined">medical_services</span>
-                    <span>Medicos</span>
+                    <span>Médicos</span>
                 </a>
             </li>
 
-            <!-- Citas -->
             <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/citas" class="sidebar-link" th:classappend="${activePage == 'citas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">calendar_month</span>
@@ -115,7 +96,6 @@
                 </a>
             </li>
 
-            <!-- Consultas -->
             <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/consultas" class="sidebar-link" th:classappend="${activePage == 'consultas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">monitor_heart</span>
@@ -123,7 +103,6 @@
                 </a>
             </li>
 
-            <!-- Recetas -->
             <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/recetas" class="sidebar-link" th:classappend="${activePage == 'recetas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">description</span>
@@ -131,7 +110,6 @@
                 </a>
             </li>
 
-            <!-- Inventario -->
             <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/medicamentos" class="sidebar-link" th:classappend="${activePage == 'medicamentos'} ? 'active' : ''">
                     <span class="material-symbols-outlined">inventory_2</span>
@@ -139,28 +117,26 @@
                 </a>
             </li>
 
-            <!-- Categorias -->
             <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
                 <a href="/categorias-medicamentos" class="sidebar-link" th:classappend="${activePage == 'categorias'} ? 'active' : ''">
                     <span class="material-symbols-outlined">category</span>
-                    <span>Categorias</span>
+                    <span>Categorías</span>
                 </a>
             </li>
         </ul>
 
-        <!-- Footer Navigation -->
         <div class="sidebar-footer">
             <ul class="sidebar-menu">
                 <li>
                     <a href="/configuracion" class="sidebar-link" th:classappend="${activePage == 'configuracion'} ? 'active' : ''">
                         <span class="material-symbols-outlined">settings</span>
-                        <span>Configuracion</span>
+                        <span>Configuración</span>
                     </a>
                 </li>
                 <li>
                     <a href="/logout" class="sidebar-link">
                         <span class="material-symbols-outlined">logout</span>
-                        <span>Cerrar Sesion</span>
+                        <span>Cerrar Sesión</span>
                     </a>
                 </li>
             </ul>
@@ -168,32 +144,21 @@
 
     </nav>
 </aside>
-</th:fragment>
 
-<!-- Fragment: Full Layout (head + body) -->
-<th:fragment th:fragment="layout(content)">
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html th:fragment="layout (content)" lang="es" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{fragments/base :: head}"></th:block>
 <body class="app-body">
 
     <div class="app-layout">
-        <!-- Header -->
         <div th:replace="~{fragments/base :: header}"></div>
-
-        <!-- Sidebar -->
         <div th:replace="~{fragments/base :: sidebar}"></div>
-
-        <!-- Overlay for mobile sidebar -->
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-        <!-- Main Content -->
         <main class="app-main" role="main">
-            <div class="main-content" th:insert="${content}">
-            </div>
+            <div class="main-content" th:insert="${content}"></div>
         </main>
     </div>
 
-    <!-- Sidebar toggle script -->
     <script>
         (function () {
             'use strict';
@@ -218,6 +183,6 @@
 
 </body>
 </html>
-</th:fragment>
 
+</body>
 </html>
