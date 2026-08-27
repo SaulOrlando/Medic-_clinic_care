@@ -1,0 +1,384 @@
+/* ============================================
+   MediClinic Care — Panel Principal Styles
+   Stitch Clinical Precision Theme
+   ============================================ */
+
+/* --- Welcome Section --- */
+.panel-welcome {
+    margin-bottom: var(--space-6);
+}
+
+.panel-welcome-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+
+.panel-welcome-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+/* --- Stats Row --- */
+.panel-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+}
+
+.panel-stat-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.panel-stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.panel-stat-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+}
+
+.panel-stat-icon--primary {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-primary);
+}
+
+.panel-stat-icon--error {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.panel-stat-icon .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.panel-stat-badge {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    line-height: 1;
+}
+
+.panel-stat-badge--primary {
+    color: var(--color-secondary);
+    background-color: #f8fafc;
+    border: 1px solid #eceff1;
+}
+
+.panel-stat-badge--neutral {
+    color: var(--color-text-secondary);
+    background-color: #f8fafc;
+    border: 1px solid #eceff1;
+}
+
+.panel-stat-badge--error {
+    color: var(--color-error);
+    background-color: var(--color-error-bg);
+}
+
+.panel-stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-stat-value {
+    font-size: var(--font-size-display);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    line-height: 1.1;
+}
+
+.panel-stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+/* --- Main Content Grid --- */
+.panel-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-4);
+}
+
+/* --- Chart Card --- */
+.panel-chart-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-5);
+}
+
+.panel-chart-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.panel-chart-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+}
+
+.panel-chart-link:hover {
+    text-decoration: underline;
+}
+
+.panel-chart-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+}
+
+.panel-chart-plot {
+    flex: 1;
+    display: flex;
+    gap: var(--space-2);
+    min-height: 160px;
+}
+
+.panel-chart-yaxis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    flex-shrink: 0;
+    font-size: 10px;
+    color: var(--color-text-secondary);
+    padding-right: var(--space-2);
+    text-align: right;
+    line-height: 0;
+}
+
+.panel-chart-bars {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    border-left: 1px solid var(--color-border);
+    padding: var(--space-2) var(--space-3) 0 var(--space-3);
+    position: relative;
+}
+
+.panel-chart-bar {
+    width: 100%;
+    max-width: 60px;
+    background-color: var(--color-primary-container);
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    transition: opacity var(--transition-fast);
+    cursor: pointer;
+    position: relative;
+}
+
+.panel-chart-bar:hover {
+    opacity: 0.8;
+}
+
+.panel-chart-bar--peak {
+    background-color: var(--color-primary);
+    cursor: pointer;
+}
+
+.panel-chart-bar-tooltip {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-text);
+    color: var(--color-text-inverse);
+    font-size: 10px;
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    pointer-events: none;
+}
+
+.panel-chart-bar:hover .panel-chart-bar-tooltip {
+    opacity: 1;
+}
+
+.panel-chart-labels {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space-2) var(--space-3) 0 calc(20px + var(--space-3));
+    font-size: 10px;
+    color: var(--color-text-secondary);
+}
+
+/* --- Upcoming Card --- */
+.panel-upcoming-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-upcoming-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-5);
+}
+
+.panel-upcoming-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.panel-upcoming-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.panel-upcoming-more:hover {
+    color: var(--color-primary);
+}
+
+.panel-upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* --- Appointment Item --- */
+.panel-appointment-item {
+    padding: var(--space-3);
+    background-color: #f8fafc;
+    border: 1px solid #eceff1;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.panel-appointment-item:hover {
+    background-color: var(--color-surface-container-low);
+}
+
+.panel-appointment-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.panel-appointment-time {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    line-height: 1rem;
+}
+
+.panel-appointment-name {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.panel-appointment-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    margin-top: var(--space-2);
+}
+
+.panel-appointment-badge--scheduled {
+    color: var(--color-primary);
+    background-color: var(--color-primary-100);
+}
+
+.panel-appointment-badge--attended {
+    color: var(--color-secondary);
+    background-color: var(--color-secondary-light);
+}
+
+.panel-appointment-badge--rescheduled {
+    color: var(--color-tertiary);
+    background-color: var(--color-tertiary-light);
+}
+
+.panel-appointment-type {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    margin-top: var(--space-2);
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+/* --- Responsive --- */
+@media (max-width: 1024px) {
+    .panel-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panel-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .panel-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-welcome-title {
+        font-size: var(--font-size-2xl);
+    }
+
+    .panel-stat-value {
+        font-size: var(--font-size-3xl);
+    }
+}

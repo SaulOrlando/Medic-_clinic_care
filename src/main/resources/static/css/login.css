@@ -1,48 +1,33 @@
 /* ============================================
    MediClinic Care — Login Page Styles
+   Stitch Clinical Precision Theme
    ============================================ */
+
+/* --- Login Body --- */
+.login-body {
+    background-color: var(--color-bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    font-family: var(--font-family);
+    color: var(--color-text);
+}
 
 /* --- Login Layout --- */
 .login-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    width: 100%;
     padding: var(--space-6);
-    background: linear-gradient(145deg, #E8F4FD 0%, #F0F5FA 40%, #E6F7F0 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Decorative background elements */
-.login-page::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    right: -10%;
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, rgba(27, 108, 176, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.login-page::after {
-    content: '';
-    position: absolute;
-    bottom: -15%;
-    left: -8%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(14, 138, 95, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
 }
 
 /* --- Login Container --- */
 .login-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     position: relative;
     z-index: 1;
     animation: fadeIn 0.4s ease-out;
@@ -50,15 +35,15 @@
 
 /* --- Login Card --- */
 .login-card {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border-light);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-ambient);
     overflow: hidden;
 }
 
 .login-card-body {
-    padding: var(--space-10) var(--space-8);
+    padding: var(--space-8);
 }
 
 /* --- Brand / Header --- */
@@ -66,39 +51,38 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-3);
     margin-bottom: var(--space-8);
+    text-align: center;
 }
 
 .login-logo {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--color-primary) 0%, #2980B9 100%);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 4px 14px rgba(27, 108, 176, 0.3);
+    background-color: var(--color-surface-container-high);
+    border-radius: var(--radius-full);
+    color: var(--color-primary);
 }
 
-.login-logo svg {
-    width: 30px;
-    height: 30px;
-    color: var(--color-text-inverse);
+.login-logo-icon {
+    font-size: 28px;
 }
 
 .login-title {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
     letter-spacing: -0.01em;
-    line-height: var(--line-height-tight);
+    line-height: 1.25;
 }
 
 .login-subtitle {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-text-secondary);
-    margin-top: calc(-1 * var(--space-2));
+    margin-top: calc(-1 * var(--space-1));
 }
 
 /* --- Login Form --- */
@@ -113,46 +97,66 @@
 }
 
 .login-form .form-input {
-    height: 3rem;
-    font-size: var(--font-size-md);
+    height: 2.75rem;
+    font-size: var(--font-size-base);
 }
 
 .login-form .input-toggle {
-    right: var(--space-4);
+    right: var(--space-3);
 }
 
-/* Remember me + Forgot password row */
-.login-options {
+/* Label row with link */
+.form-label-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: calc(-1 * var(--space-1));
 }
 
-.login-forgot {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+.form-link {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-primary);
+    letter-spacing: 0.01em;
 }
 
-.login-forgot:hover {
-    color: var(--color-primary-hover);
+.form-link:hover {
+    color: var(--color-primary-700);
 }
 
 /* Submit button */
 .login-submit {
-    height: 3rem;
-    font-size: var(--font-size-md);
+    height: 2.75rem;
+    font-size: var(--font-size-xs);
     margin-top: var(--space-2);
 }
 
 /* --- Error Alert --- */
 .login-alert {
+    margin-bottom: var(--space-4);
     animation: slideDown 0.3s ease-out;
 }
 
 .login-alert .alert {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-4);
+}
+
+.login-alert .alert-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.login-alert .alert-title {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1rem;
+}
+
+.login-alert .alert-desc {
+    font-size: var(--font-size-sm);
+    opacity: 0.9;
+    margin-top: var(--space-1);
+    line-height: 1.25rem;
 }
 
 /* --- Footer --- */
@@ -163,14 +167,18 @@
 }
 
 .login-footer p {
-    font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
 }
 
-.login-footer-brand {
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-secondary);
+.login-footer a {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
 }
 
 /* --- Responsive --- */
@@ -182,21 +190,20 @@
     }
 
     .login-card-body {
-        padding: var(--space-8) var(--space-6);
+        padding: var(--space-6);
     }
 
     .login-title {
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-2xl);
     }
 
     .login-logo {
-        width: 48px;
-        height: 48px;
+        width: 40px;
+        height: 40px;
     }
 
-    .login-logo svg {
-        width: 26px;
-        height: 26px;
+    .login-logo-icon {
+        font-size: 24px;
     }
 }
 

@@ -3,25 +3,27 @@
 
 <!-- ============================================
      Base Layout — MediClinic Care
-     Use: th:replace="~{fragments/base :: layout(~{::content})}"
+     Stitch Clinical Precision Theme
      ============================================ -->
 
 <!-- Fragment: HTML Head -->
-<th:fragment th:fragment="head(title)">
+<th:fragment th:fragment="head">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MediClinic Care — Sistema de Gestión Clínica">
-    <title th:text="${title} ?: 'MediClinic Care'">MediClinic Care</title>
+    <meta name="description" content="MediClinic Care — Sistema de Gestion Clinica">
+    <title>MediClinic Care</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/design-system.css}">
     <link rel="stylesheet" th:href="@{/css/layout.css}">
+    <link rel="stylesheet" th:href="@{/css/panel.css}">
 
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B6CB0'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231976d2'/%3E%3Cpath d='M16 7v18M7 16h18' stroke='white' stroke-width='3.5' stroke-linecap='round'/%3E%3C/svg%3E">
 </head>
 </th:fragment>
 
@@ -29,47 +31,41 @@
 <th:fragment th:fragment="header">
 <header class="app-header">
     <div class="header-left">
-        <button class="header-toggle" id="sidebarToggle" aria-label="Alternar menú lateral">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"/>
-                <line x1="3" y1="6" x2="21" y2="6"/>
-                <line x1="3" y1="18" x2="21" y2="18"/>
-            </svg>
+        <button class="header-toggle" id="sidebarToggle" aria-label="Alternar menu lateral">
+            <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
         </button>
-        <a href="/" class="header-brand">
-            <div class="header-logo" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2v20"/>
-                    <path d="M2 12h20"/>
-                </svg>
-            </div>
-            <span class="header-brand-text">MediClinic Care</span>
-        </a>
     </div>
 
     <div class="header-right">
+        <div class="header-search">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" placeholder="Buscar pacientes, registros..." />
+        </div>
+
+        <div class="header-actions">
+            <button class="header-action-btn" aria-label="Notificaciones">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="notification-dot"></span>
+            </button>
+            <button class="header-action-btn" aria-label="Ayuda">
+                <span class="material-symbols-outlined">help</span>
+            </button>
+        </div>
+
+        <div class="header-divider"></div>
+
         <div class="header-user">
-            <div class="header-user-avatar" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
-            </div>
             <div class="header-user-info">
-                <span class="header-user-name" th:text="${usuario?.nombre} ?: 'Usuario'">Usuario</span>
+                <span class="header-user-name" th:text="${usuario?.nombreCompleto} ?: 'Usuario'">Usuario</span>
                 <span class="header-user-role" th:text="${usuario?.rol} ?: 'Rol'">Rol</span>
             </div>
+            <div class="header-user-avatar">
+                <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+            </div>
         </div>
-        <a href="/logout" class="header-logout" title="Cerrar sesión" aria-label="Cerrar sesión">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                <polyline points="16 17 21 12 16 7"/>
-                <line x1="21" y1="12" x2="9" y2="12"/>
-            </svg>
+
+        <a href="/logout" class="header-logout" title="Cerrar sesion" aria-label="Cerrar sesion">
+            <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
         </a>
     </div>
 </header>
@@ -78,122 +74,93 @@
 <!-- Fragment: Sidebar -->
 <th:fragment th:fragment="sidebar">
 <aside class="app-sidebar" id="appSidebar">
-    <nav class="sidebar-nav" aria-label="Navegación principal">
+    <nav class="sidebar-nav" aria-label="Navegacion principal">
 
-        <!-- General -->
-        <div class="sidebar-section">
-            <span class="sidebar-section-title">General</span>
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="/dashboard" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="7" height="7"/>
-                            <rect x="14" y="3" width="7" height="7"/>
-                            <rect x="14" y="14" width="7" height="7"/>
-                            <rect x="3" y="14" width="7" height="7"/>
-                        </svg>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-            </ul>
+        <!-- Brand -->
+        <div class="sidebar-brand">
+            <h1 class="sidebar-brand-title">MediClinic Care</h1>
+            <span class="sidebar-brand-subtitle">Gestion Clinica</span>
         </div>
 
-        <!-- Citas (Recepcionista / Médico) -->
-        <div class="sidebar-section"
-             th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
-            <span class="sidebar-section-title">Citas</span>
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="/citas" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                        <span>Agenda de Citas</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <!-- Main Navigation -->
+        <ul class="sidebar-menu">
+            <li>
+                <a href="/panel" class="sidebar-link" th:classappend="${activePage == 'panel'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Panel</span>
+                </a>
+            </li>
 
-        <!-- Pacientes (Recepcionista / Médico) -->
-        <div class="sidebar-section"
-             th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
-            <span class="sidebar-section-title">Pacientes</span>
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="/pacientes" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                        <span>Registro de Pacientes</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <!-- Pacientes -->
+            <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/pacientes" class="sidebar-link" th:classappend="${activePage == 'pacientes'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">person</span>
+                    <span>Pacientes</span>
+                </a>
+            </li>
 
-        <!-- Consultas (Médico) -->
-        <div class="sidebar-section"
-             th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
-            <span class="sidebar-section-title">Consultas</span>
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="/consultas" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                            <polyline points="14 2 14 8 20 8"/>
-                            <line x1="16" y1="13" x2="8" y2="13"/>
-                            <line x1="16" y1="17" x2="8" y2="17"/>
-                            <polyline points="10 9 9 9 8 9"/>
-                        </svg>
-                        <span>Consultas Médicas</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+            <!-- Medicos -->
+            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/medicos" class="sidebar-link" th:classappend="${activePage == 'medicos'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">medical_services</span>
+                    <span>Medicos</span>
+                </a>
+            </li>
 
-        <!-- Administración (Administrador) -->
-        <div class="sidebar-section" th:if="${usuario?.rol == 'ADMINISTRADOR'}">
-            <span class="sidebar-section-title">Administración</span>
+            <!-- Citas -->
+            <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/citas" class="sidebar-link" th:classappend="${activePage == 'citas'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    <span>Citas</span>
+                </a>
+            </li>
+
+            <!-- Consultas -->
+            <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/consultas" class="sidebar-link" th:classappend="${activePage == 'consultas'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">monitor_heart</span>
+                    <span>Consulta</span>
+                </a>
+            </li>
+
+            <!-- Recetas -->
+            <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/recetas" class="sidebar-link" th:classappend="${activePage == 'recetas'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">description</span>
+                    <span>Recetas</span>
+                </a>
+            </li>
+
+            <!-- Inventario -->
+            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/medicamentos" class="sidebar-link" th:classappend="${activePage == 'medicamentos'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span>Inventario</span>
+                </a>
+            </li>
+
+            <!-- Categorias -->
+            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+                <a href="/categorias-medicamentos" class="sidebar-link" th:classappend="${activePage == 'categorias'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">category</span>
+                    <span>Categorias</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Footer Navigation -->
+        <div class="sidebar-footer">
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/medicos" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                        </svg>
-                        <span>Médicos</span>
+                    <a href="/configuracion" class="sidebar-link" th:classappend="${activePage == 'configuracion'} ? 'active' : ''">
+                        <span class="material-symbols-outlined">settings</span>
+                        <span>Configuracion</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/medicamentos" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                        </svg>
-                        <span>Medicamentos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/categorias-medicamentos" class="sidebar-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="8" y1="6" x2="21" y2="6"/>
-                            <line x1="8" y1="12" x2="21" y2="12"/>
-                            <line x1="8" y1="18" x2="21" y2="18"/>
-                            <line x1="3" y1="6" x2="3.01" y2="6"/>
-                            <line x1="3" y1="12" x2="3.01" y2="12"/>
-                            <line x1="3" y1="18" x2="3.01" y2="18"/>
-                        </svg>
-                        <span>Categorías de Medicamentos</span>
+                    <a href="/logout" class="sidebar-link">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span>Cerrar Sesion</span>
                     </a>
                 </li>
             </ul>
@@ -203,8 +170,10 @@
 </aside>
 </th:fragment>
 
-<!-- Fragment: Main Content Wrapper -->
-<th:fragment th:fragment="content(content)">
+<!-- Fragment: Full Layout (head + body) -->
+<th:fragment th:fragment="layout(content)">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{fragments/base :: head}"></th:block>
 <body class="app-body">
 
     <div class="app-layout">
@@ -220,7 +189,6 @@
         <!-- Main Content -->
         <main class="app-main" role="main">
             <div class="main-content" th:insert="${content}">
-                <!-- Page content injected here -->
             </div>
         </main>
     </div>
@@ -249,6 +217,7 @@
     </script>
 
 </body>
+</html>
 </th:fragment>
 
 </html>

@@ -1,73 +1,87 @@
 /* ============================================
    MediClinic Care — Design System
-   Clinical, clean, trustworthy aesthetic
+   Clinical Precision Theme (Stitch)
    ============================================ */
 
 /* --- Custom Properties --- */
 :root {
     /* Primary — Medical Blue */
-    --color-primary: #1B6CB0;
-    --color-primary-hover: #155A94;
-    --color-primary-light: #E8F4FD;
-    --color-primary-50: #EFF8FF;
-    --color-primary-100: #D6EDFF;
-    --color-primary-200: #B5DEFF;
-    --color-primary-600: #1B6CB0;
-    --color-primary-700: #155A94;
-    --color-primary-800: #0F4575;
+    --color-primary: #005dac;
+    --color-primary-hover: #004a8f;
+    --color-primary-light: #e6f6ff;
+    --color-primary-50: #f3faff;
+    --color-primary-100: #d4e3ff;
+    --color-primary-200: #a5c8ff;
+    --color-primary-600: #005dac;
+    --color-primary-700: #004786;
+    --color-primary-800: #001c3a;
+    --color-primary-container: #1976d2;
 
     /* Secondary — Clinical Green */
-    --color-secondary: #0E8A5F;
-    --color-secondary-hover: #0A7250;
-    --color-secondary-light: #E6F7F0;
+    --color-secondary: #1b6d24;
+    --color-secondary-hover: #155a1d;
+    --color-secondary-light: #a0f399;
+    --color-secondary-container: #a0f399;
+
+    /* Tertiary — Amber */
+    --color-tertiary: #845100;
+    --color-tertiary-light: #ffddba;
+    --color-tertiary-container: #a66700;
 
     /* Neutrals */
-    --color-bg: #F0F5FA;
-    --color-surface: #FFFFFF;
-    --color-surface-elevated: #FFFFFF;
-    --color-border: #D4DDE8;
-    --color-border-light: #E8EDF2;
+    --color-bg: #f3faff;
+    --color-surface: #f3faff;
+    --color-surface-elevated: #ffffff;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #e6f6ff;
+    --color-surface-container: #dbf1fe;
+    --color-surface-container-high: #d5ecf8;
+    --color-surface-container-highest: #cfe6f2;
+    --color-border: #c1c6d4;
+    --color-border-light: #c1c6d4;
 
     /* Text */
-    --color-text: #1A2332;
-    --color-text-secondary: #5A6B7F;
-    --color-text-muted: #8B99AB;
-    --color-text-inverse: #FFFFFF;
+    --color-text: #071e27;
+    --color-text-secondary: #414752;
+    --color-text-muted: #717783;
+    --color-text-inverse: #ffffff;
 
     /* Semantic */
-    --color-error: #C53030;
-    --color-error-bg: #FEE2E2;
-    --color-error-border: #FECACA;
-    --color-success: #0E8A5F;
-    --color-success-bg: #E6F7F0;
-    --color-success-border: #A7F3D0;
-    --color-warning: #B7791F;
-    --color-warning-bg: #FEF9C3;
-    --color-warning-border: #FDE68A;
+    --color-error: #ba1a1a;
+    --color-error-bg: #ffdad6;
+    --color-error-border: #ffb4ab;
+    --color-success: #1b6d24;
+    --color-success-bg: #a0f399;
+    --color-success-border: #88d982;
+    --color-warning: #845100;
+    --color-warning-bg: #ffddba;
+    --color-warning-border: #ffb865;
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(26, 35, 50, 0.05);
-    --shadow-md: 0 4px 12px rgba(26, 35, 50, 0.08);
-    --shadow-lg: 0 8px 30px rgba(26, 35, 50, 0.12);
-    --shadow-xl: 0 16px 48px rgba(26, 35, 50, 0.14);
+    --shadow-sm: 0 1px 2px rgba(7, 30, 39, 0.05);
+    --shadow-md: 0 4px 12px rgba(7, 30, 39, 0.08);
+    --shadow-lg: 0 8px 30px rgba(7, 30, 39, 0.12);
+    --shadow-xl: 0 16px 48px rgba(7, 30, 39, 0.14);
+    --shadow-ambient: 0px 4px 12px rgba(0, 0, 0, 0.05);
 
     /* Typography */
     --font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.8125rem;
-    --font-size-base: 0.9375rem;
+    --font-size-base: 0.875rem;
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.25rem;
     --font-size-2xl: 1.5rem;
-    --font-size-3xl: 1.875rem;
+    --font-size-3xl: 1.75rem;
+    --font-size-display: 2.25rem;
     --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
     --line-height-tight: 1.25;
-    --line-height-normal: 1.5;
-    --line-height-relaxed: 1.625;
+    --line-height-normal: 1.43;
+    --line-height-relaxed: 1.6;
 
     /* Spacing */
     --space-1: 0.25rem;
@@ -82,10 +96,10 @@
     --space-16: 4rem;
 
     /* Border Radius */
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --radius-xl: 1rem;
+    --radius-sm: 0.125rem;
+    --radius-md: 0.25rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
     --radius-full: 9999px;
 
     /* Transitions */
@@ -145,6 +159,7 @@ img {
 .text-xl { font-size: var(--font-size-xl); }
 .text-2xl { font-size: var(--font-size-2xl); }
 .text-3xl { font-size: var(--font-size-3xl); }
+.text-display { font-size: var(--font-size-display); }
 
 .font-medium { font-weight: var(--font-weight-medium); }
 .font-semibold { font-weight: var(--font-weight-semibold); }
@@ -154,7 +169,7 @@ img {
 .text-secondary { color: var(--color-text-secondary); }
 .text-muted { color: var(--color-text-muted); }
 .text-error { color: var(--color-error); }
-.text-success { color: var(--color-success); }
+.text-success { color: var(--color-secondary); }
 .text-center { text-align: center; }
 
 /* --- Form Elements --- */
@@ -165,25 +180,26 @@ img {
 }
 
 .form-label {
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
     letter-spacing: 0.01em;
+    line-height: 1rem;
 }
 
 .form-input {
     width: 100%;
-    height: 2.75rem;
+    height: 2.5rem;
     padding: 0 var(--space-4);
     font-family: var(--font-family);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-normal);
     color: var(--color-text);
-    background-color: var(--color-surface);
-    border: 1.5px solid var(--color-border);
-    border-radius: var(--radius-md);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     outline: none;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition: border-color var(--transition-fast), border-width var(--transition-fast);
 }
 
 .form-input::placeholder {
@@ -191,20 +207,17 @@ img {
 }
 
 .form-input:focus {
+    border-width: 2px;
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px var(--color-primary-light);
+    padding: 0 calc(var(--space-4) - 1px);
 }
 
 .form-input:hover:not(:focus) {
-    border-color: #B8C5D4;
+    border-color: #b8c5d4;
 }
 
 .form-input.is-invalid {
     border-color: var(--color-error);
-}
-
-.form-input.is-invalid:focus {
-    box-shadow: 0 0 0 3px var(--color-error-bg);
 }
 
 /* Password field with toggle */
@@ -230,13 +243,13 @@ img {
     background: none;
     border: none;
     border-radius: var(--radius-sm);
-    color: var(--color-text-muted);
+    color: var(--color-text-secondary);
     cursor: pointer;
     transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .input-toggle:hover {
-    color: var(--color-text-secondary);
+    color: var(--color-primary);
     background-color: var(--color-bg);
 }
 
@@ -291,14 +304,15 @@ img {
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    height: 2.75rem;
+    height: 2.5rem;
     padding: 0 var(--space-6);
     font-family: var(--font-family);
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
     line-height: 1;
+    letter-spacing: 0.01em;
     border: 1.5px solid transparent;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     cursor: pointer;
     transition: all var(--transition-fast);
     user-select: none;
@@ -323,8 +337,8 @@ img {
 }
 
 .btn-primary:hover {
-    background-color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    background-color: var(--color-primary-700);
+    border-color: var(--color-primary-700);
 }
 
 .btn-primary:active {
@@ -370,14 +384,14 @@ img {
 }
 
 .btn-lg {
-    height: 3rem;
-    font-size: var(--font-size-md);
+    height: 2.75rem;
+    font-size: var(--font-size-sm);
     padding: 0 var(--space-8);
 }
 
 .btn-sm {
-    height: 2.25rem;
-    font-size: var(--font-size-sm);
+    height: 2rem;
+    font-size: var(--font-size-xs);
     padding: 0 var(--space-4);
 }
 
@@ -394,7 +408,7 @@ img {
     align-items: flex-start;
     gap: var(--space-3);
     padding: var(--space-4);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-relaxed);
 }
@@ -413,27 +427,27 @@ img {
 }
 
 .alert-success {
-    color: var(--color-success);
+    color: var(--color-secondary);
     background-color: var(--color-success-bg);
     border: 1px solid var(--color-success-border);
 }
 
 .alert-warning {
-    color: var(--color-warning);
+    color: var(--color-tertiary);
     background-color: var(--color-warning-bg);
     border: 1px solid var(--color-warning-border);
 }
 
 /* --- Cards --- */
 .card {
-    background-color: var(--color-surface);
-    border: 1px solid var(--color-border-light);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-ambient);
 }
 
 .card-body {
-    padding: var(--space-8);
+    padding: var(--space-6);
 }
 
 /* --- Dividers --- */
@@ -495,6 +509,24 @@ img {
     animation: slideDown var(--transition-slow) ease-out;
 }
 
+/* --- Material Icons --- */
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
 /* --- Responsive --- */
 @media (max-width: 640px) {
     :root {
@@ -502,7 +534,7 @@ img {
     }
 
     .btn-lg {
-        height: 2.75rem;
+        height: 2.5rem;
         font-size: var(--font-size-base);
     }
 }

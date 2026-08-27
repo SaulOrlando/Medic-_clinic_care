@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Welcome Header -->
+    <div class="panel-welcome animate-fade-in">
+        <h2 class="panel-welcome-title">Bienvenida de nuevo, <span th:text="${usuario?.nombreCompleto} ?: 'Doctor'">Doctor</span></h2>
+        <p class="panel-welcome-subtitle">Este es su resumen clinico de hoy.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="panel-stats animate-fade-in">
+        <div class="panel-stat-card">
+            <div class="panel-stat-header">
+                <div class="panel-stat-icon panel-stat-icon--primary">
+                    <span class="material-symbols-outlined">event</span>
+                </div>
+                <span class="panel-stat-badge panel-stat-badge--primary">Hoy</span>
+            </div>
+            <div class="panel-stat-content">
+                <h3 class="panel-stat-value" th:text="${citasHoy} ?: '12'">12</h3>
+                <p class="panel-stat-label">Citas Programadas</p>
+            </div>
+        </div>
+
+        <div class="panel-stat-card">
+            <div class="panel-stat-header">
+                <div class="panel-stat-icon panel-stat-icon--primary">
+                    <span class="material-symbols-outlined">group</span>
+                </div>
+                <span class="panel-stat-badge panel-stat-badge--neutral">Esta Semana</span>
+            </div>
+            <div class="panel-stat-content">
+                <h3 class="panel-stat-value" th:text="${pacientesRecientes} ?: '48'">48</h3>
+                <p class="panel-stat-label">Pacientes Recientes</p>
+            </div>
+        </div>
+
+        <div class="panel-stat-card">
+            <div class="panel-stat-header">
+                <div class="panel-stat-icon panel-stat-icon--error">
+                    <span class="material-symbols-outlined">pending_actions</span>
+                </div>
+                <span class="panel-stat-badge panel-stat-badge--error">Accion Necesaria</span>
+            </div>
+            <div class="panel-stat-content">
+                <h3 class="panel-stat-value" th:text="${reportesPendientes} ?: '5'">5</h3>
+                <p class="panel-stat-label">Informes Pendientes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="panel-grid animate-fade-in">
+        <!-- Chart Area -->
+        <div class="panel-chart-card">
+            <div class="panel-chart-header">
+                <h3 class="panel-chart-title">Volumen Semanal de Consultas</h3>
+                <a href="#" class="panel-chart-link">
+                    Ver Informe Completo
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                </a>
+            </div>
+            <div class="panel-chart-area">
+                <div class="panel-chart-plot">
+                    <div class="panel-chart-yaxis">
+                        <span>20</span>
+                        <span>15</span>
+                        <span>10</span>
+                        <span>5</span>
+                        <span>0</span>
+                    </div>
+                    <div class="panel-chart-bars">
+                        <div class="panel-chart-bar" style="height: 60%;"></div>
+                        <div class="panel-chart-bar" style="height: 45%;"></div>
+                        <div class="panel-chart-bar" style="height: 80%;"></div>
+                        <div class="panel-chart-bar panel-chart-bar--peak" style="height: 90%;">
+                            <div class="panel-chart-bar-tooltip">Dia Pico: 18</div>
+                        </div>
+                        <div class="panel-chart-bar" style="height: 50%;"></div>
+                    </div>
+                </div>
+                <div class="panel-chart-labels">
+                    <span>Lun</span>
+                    <span>Mar</span>
+                    <span>Mie</span>
+                    <span>Jue</span>
+                    <span>Vie</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="panel-upcoming-card">
+            <div class="panel-upcoming-header">
+                <h3 class="panel-upcoming-title">Proximos</h3>
+                <button class="panel-upcoming-more" aria-label="Mas opciones">
+                    <span class="material-symbols-outlined">more_horiz</span>
+                </button>
+            </div>
+            <div class="panel-upcoming-list">
+                <div class="panel-appointment-item">
+                    <div class="panel-appointment-info">
+                        <div class="flex flex-col">
+                            <span class="panel-appointment-time">09:00 AM</span>
+                            <span class="panel-appointment-name">Sarah Jenkins</span>
+                        </div>
+                        <span class="panel-appointment-badge panel-appointment-badge--scheduled">Programada</span>
+                    </div>
+                    <div class="panel-appointment-type">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">monitor_heart</span>
+                        Chequeo de Rutina
+                    </div>
+                </div>
+
+                <div class="panel-appointment-item">
+                    <div class="panel-appointment-info">
+                        <div class="flex flex-col">
+                            <span class="panel-appointment-time">09:45 AM</span>
+                            <span class="panel-appointment-name">Michael Chen</span>
+                        </div>
+                        <span class="panel-appointment-badge panel-appointment-badge--attended">Atendida</span>
+                    </div>
+                    <div class="panel-appointment-type">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">science</span>
+                        Resultados de Laboratorio
+                    </div>
+                </div>
+
+                <div class="panel-appointment-item">
+                    <div class="panel-appointment-info">
+                        <div class="flex flex-col">
+                            <span class="panel-appointment-time">10:30 AM</span>
+                            <span class="panel-appointment-name">Emily Davis</span>
+                        </div>
+                        <span class="panel-appointment-badge panel-appointment-badge--rescheduled">Reprogramada</span>
+                    </div>
+                    <div class="panel-appointment-type">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">vaccines</span>
+                        Vacunacion
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</html>
