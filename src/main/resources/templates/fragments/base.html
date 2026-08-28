@@ -31,31 +31,15 @@
     </div>
 
     <div class="header-right">
-        <div class="header-actions">
-            <button class="header-action-btn" aria-label="Notificaciones">
-                <span class="material-symbols-outlined">notifications</span>
-                <span class="notification-dot"></span>
-            </button>
-            <button class="header-action-btn" aria-label="Ayuda">
-                <span class="material-symbols-outlined">help</span>
-            </button>
-        </div>
-
-        <div class="header-divider"></div>
-
         <div class="header-user">
             <div class="header-user-info">
                 <span class="header-user-name" th:text="${usuario?.nombreCompleto} ?: 'Dra. Smith'">Dra. Smith</span>
-                <span class="header-user-role">Recepcionista</span>
+                <span class="header-user-role" th:text="${rolNombre}">Recepcionista</span>
             </div>
             <div class="header-user-avatar">
                 <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
             </div>
         </div>
-
-        <a href="/logout" class="header-logout" title="Cerrar sesión" aria-label="Cerrar sesión">
-            <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
-        </a>
     </div>
 </header>
 
@@ -74,53 +58,59 @@
                     <span>Panel</span>
                 </a>
             </li>
-
-            <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/pacientes" class="sidebar-link" th:classappend="${activePage == 'pacientes'} ? 'active' : ''">
                     <span class="material-symbols-outlined">person</span>
                     <span>Pacientes</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/medicos" class="sidebar-link" th:classappend="${activePage == 'medicos'} ? 'active' : ''">
                     <span class="material-symbols-outlined">medical_services</span>
                     <span>Médicos</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'RECEPCIONISTA' or usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/citas" class="sidebar-link" th:classappend="${activePage == 'citas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">calendar_month</span>
                     <span>Citas</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/consultas" class="sidebar-link" th:classappend="${activePage == 'consultas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">monitor_heart</span>
                     <span>Consulta</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'MEDICO' or usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR' or usuario?.rol?.name() == 'RECEPCIONISTA'}">
                 <a href="/recetas" class="sidebar-link" th:classappend="${activePage == 'recetas'} ? 'active' : ''">
                     <span class="material-symbols-outlined">description</span>
                     <span>Recetas</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'ENCARGADO_INVENTARIO' or usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/medicamentos" class="sidebar-link" th:classappend="${activePage == 'medicamentos'} ? 'active' : ''">
                     <span class="material-symbols-outlined">inventory_2</span>
                     <span>Inventario</span>
                 </a>
             </li>
 
-            <li th:if="${usuario?.rol == 'ADMINISTRADOR'}">
+            <li th:if="${usuario?.rol?.name() == 'ENCARGADO_INVENTARIO' or usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'MEDICO' or usuario?.rol?.name() == 'ADMINISTRADOR'}">
                 <a href="/categorias-medicamentos" class="sidebar-link" th:classappend="${activePage == 'categorias'} ? 'active' : ''">
                     <span class="material-symbols-outlined">category</span>
                     <span>Categorías</span>
+                </a>
+            </li>
+
+            <li th:if="${usuario?.rol?.name() == 'ADMINISTRADOR'}">
+                <a href="/usuarios" class="sidebar-link" th:classappend="${activePage == 'usuarios'} ? 'active' : ''">
+                    <span class="material-symbols-outlined">admin_panel_settings</span>
+                    <span>Usuarios</span>
                 </a>
             </li>
         </ul>

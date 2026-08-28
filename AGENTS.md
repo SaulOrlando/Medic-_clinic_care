@@ -7,6 +7,31 @@ Spring Boot medical clinic management system for scheduling appointments, managi
 - **Stack:** Java 25, Spring Boot 4.1.0, Maven, SQL Server (mssql-jdbc), Thymeleaf, Jakarta Persistence (Hibernate)
 - **Entry point:** `src/main/java/org/esfe/MediclinicAppApplication.java`
 
+## Functional Modules & Role Permissions
+
+### Roles del sistema
+| Rol | Código |
+|---|---|
+| Administrador | `ROLE_ADMINISTRADOR` |
+| Médico | `ROLE_MEDICO` |
+| Recepcionista | `ROLE_RECEPCIONISTA` |
+
+### Módulos
+
+| # | Módulo | Función | Roles |
+|---|---|---|---|
+| 2 | **Panel Principal (Dashboard)** | Vista general del estado de la clínica. Métricas clave (citas hoy, pacientes recientes, informes pendientes), gráfica de volumen semanal y agenda próxima. La info es dinámica: el médico ve su resumen clínico; el recepcionista ve el flujo general. | Todos |
+| 3 | **Agenda de Citas** | Gestión del calendario. Programar, cancelar o reprogramar citas médicas, filtrando por disponibilidad de médicos o especialidades. | Recepcionista y Médico. Admin con visibilidad total. |
+| 4 | **Gestión de Pacientes** | Directorio central con historias clínicas, antecedentes médicos y datos de contacto. | Médico y Recepcionista (solo datos de contacto/citas). Admin para auditoría. |
+| 5 | **Consulta Médica** | Interfaz de trabajo del médico: registrar signos vitales, motivos de consulta, diagnósticos y notas clínicas. | Exclusivo Médicos. Admin acceso a registros históricos (cumplimiento legal). |
+| 6 | **Receta Médica** | Generación de prescripciones digitales con dosis, frecuencia y duración del tratamiento. | Exclusivo Médicos. Recepcionista solo lectura para impresión. |
+| 7 | **Inventario de Medicamentos y Categorías** | Control de stock, alertas de caducidad, organización por categorías. | Admin y Recepcionista (farmacia). Médicos solo lectura. |
+| 8 | **Gestión de Médicos** | Directorio de personal médico, especialidades, horarios y asignación de consultorios. | Admin y Recepcionista. |
+| 9 | **Gestión de Usuarios (Personal)** | Creación de cuentas, asignación de roles, restablecimiento de contraseñas, desactivación de personal. | Exclusivo Administrador. |
+| 10 | **Mi Perfil y Ajustes** | Cambio de nombre, imagen de perfil o teléfono. Acceso rápido para que el admin registre nuevos usuarios. | Todos (cada quien ve su propio perfil). |
+
+> **IMPORTANTE:** Al implementar cualquier funcionalidad, verificar la tabla de permisos por rol antes de crear controladores, vistas o endpoints. Los endpoints sensibles deben validarse con `@PreAuthorize` o equivalente.
+
 ## Setup Commands
 
 ```bash
