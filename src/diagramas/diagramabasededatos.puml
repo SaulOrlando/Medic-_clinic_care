@@ -11,6 +11,7 @@ entity "usuarios" as usuario {
   * **rol** : VARCHAR(30)
   * **nombre_completo** : VARCHAR(150)
   * **telefono** : VARCHAR(20)
+  * **foto** : VARCHAR(MAX)
 }
 
 entity "medicos" as medico {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="MediClinic Care — Inicio de sesion">
-    <title>MediClinic Care — Login</title>
+    <title>MediClinic Care — Iniciar Sesión</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,15 +29,15 @@
                         <span class="material-symbols-outlined login-logo-icon">medical_services</span>
                     </div>
                     <h1 class="login-title">MediClinic Care</h1>
-                    <p class="login-subtitle">Clinical Management System</p>
+                    <p class="login-subtitle">Sistema de Gestión Clínica</p>
                 </header>
 
                 <div th:if="${param.error}" class="login-alert" role="alert">
                     <div class="alert alert-error">
                         <span class="material-symbols-outlined alert-icon" style="font-variation-settings: 'FILL' 1;">error</span>
                         <div>
-                            <p class="alert-title">Invalid credentials</p>
-                            <p class="alert-desc">Please check your email and password and try again.</p>
+                            <p class="alert-title">Credenciales inválidas</p>
+                            <p class="alert-desc">Revisa tu correo y contraseña e intenta nuevamente.</p>
                         </div>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                     <div class="alert alert-success">
                         <span class="material-symbols-outlined alert-icon">check_circle</span>
                         <div>
-                            <p class="alert-title">Session closed</p>
-                            <p class="alert-desc">You have successfully logged out. Enter your credentials to continue.</p>
+                            <p class="alert-title">Sesión cerrada</p>
+                            <p class="alert-desc">Has cerrado sesión correctamente. Ingresa tus credenciales para continuar.</p>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                       novalidate>
 
                     <div class="form-group">
-                        <label class="form-label" for="username">Email or Username</label>
+                        <label class="form-label" for="username">Correo o Usuario</label>
                         <input class="form-input"
                                type="text"
                                id="username"
@@ -71,8 +71,8 @@
 
                     <div class="form-group">
                         <div class="form-label-row">
-                            <label class="form-label" for="password">Password</label>
-                            <a href="#" class="form-link">Forgot password?</a>
+                            <label class="form-label" for="password">Contraseña</label>
+                            <a href="#" class="form-link">¿Olvidaste tu contraseña?</a>
                         </div>
                         <div class="input-wrapper">
                             <input class="form-input"
@@ -85,15 +85,15 @@
                             <button type="button"
                                     class="input-toggle"
                                     id="togglePassword"
-                                    aria-label="Mostrar contrasena"
-                                    title="Mostrar contrasena">
+                                    aria-label="Mostrar contraseña"
+                                    title="Mostrar contraseña">
                                 <span class="material-symbols-outlined" id="visibility-icon" style="font-size: 20px;">visibility_off</span>
                             </button>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block login-submit" id="loginBtn">
-                        Login
+                        Iniciar Sesión
                         <span class="material-symbols-outlined" style="font-size: 18px;">login</span>
                     </button>
                 </form>
@@ -103,8 +103,8 @@
 
         <footer class="login-footer">
             <p>
-                Authorized clinical personnel only.<br>
-                Need assistance? <a href="#">Contact IT Support</a>.
+                Solo personal clínico autorizado.<br>
+                ¿Necesitas ayuda? <a href="#">Contacta al Soporte de TI</a>.
             </p>
         </footer>
 
@@ -125,9 +125,9 @@
             visibilityIcon.textContent = isPassword ? 'visibility' : 'visibility_off';
 
             toggleBtn.setAttribute('aria-label',
-                isPassword ? 'Ocultar contrasena' : 'Mostrar contrasena');
+                isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña');
             toggleBtn.setAttribute('title',
-                isPassword ? 'Ocultar contrasena' : 'Mostrar contrasena');
+                isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña');
 
             passwordInput.focus();
         });

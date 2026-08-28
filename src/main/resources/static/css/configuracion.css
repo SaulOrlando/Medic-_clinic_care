@@ -1,0 +1,205 @@
+/* ============================================
+   MediClinic Care — Perfil / Configuración
+   ============================================ */
+
+.config-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+}
+
+/* --- Header / Breadcrumb --- */
+.config-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.config-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.config-breadcrumb a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.config-breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+.config-breadcrumb-icon {
+    font-size: 16px;
+    color: var(--color-text-muted);
+}
+
+.config-breadcrumb-current {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+}
+
+.config-header-text .page-title {
+    margin-bottom: var(--space-1);
+}
+
+/* --- Grid --- */
+.config-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    max-width: 820px;
+}
+
+/* --- Cards --- */
+.config-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-ambient);
+    padding: var(--space-6);
+}
+
+.config-card-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.config-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-container-low);
+    color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.config-icon-box .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.config-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+/* --- Profile --- */
+.config-profile {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.config-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.03em;
+}
+
+.config-avatar-img {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    border: 2px solid var(--color-primary-100);
+    background-color: var(--color-surface-container-low);
+}
+
+.config-profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+}
+
+.config-profile-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.config-profile-correo {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.config-badge {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-800);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* --- Form --- */
+.config-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.config-actions {
+    margin-top: var(--space-2);
+}
+
+.config-save-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+}
+
+/* --- Foto de perfil --- */
+.config-file-input {
+    display: block;
+    width: 100%;
+    padding: var(--space-3);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.config-file-input:hover {
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-50);
+}
+
+.config-file-hint {
+    margin-top: var(--space-2);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}

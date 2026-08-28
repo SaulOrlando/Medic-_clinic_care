@@ -20,7 +20,13 @@ public class GlobalModelAdvice {
         if (userDetails == null) {
             return null;
         }
-        return usuarioRepository.findByCorreo(userDetails.getUsername()).orElse(null);
+        return usuarioRepository.findByCorreo(userDetails.getUsername())
+                .orElseGet(() -> {
+                    Usuario usuario = new Usuario();
+                    usuario.setCorreo(userDetails.getUsername());
+                    usuario.setNombreCompleto(userDetails.getUsername());
+                    return usuario;
+                });
     }
 
     @ModelAttribute("rolNombre")

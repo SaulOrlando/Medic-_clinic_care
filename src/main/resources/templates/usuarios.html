@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="usuarios-header">
+        <div class="usuarios-header-text">
+            <h2 class="page-title">Gestión de Personal</h2>
+            <p class="page-subtitle">Administra las cuentas y niveles de acceso de todo el personal clínico y administrativo de la institución.</p>
+        </div>
+        <a href="/usuarios/nuevo" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+            Nuevo Usuario
+        </a>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="usuarios-table-card">
+
+        <!-- Toolbar (Filters & Search) -->
+        <form method="get" action="/usuarios" class="usuarios-toolbar" data-combo-auto>
+            <div class="usuarios-search">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" name="q" th:value="${q}" placeholder="Buscar por nombre, email o teléfono..." aria-label="Buscar usuario" />
+            </div>
+
+            <div class="usuarios-filters">
+                <div class="usuarios-filter">
+                    <label class="usuarios-filter-label" for="filtroRol">Rol:</label>
+                    <div class="usuarios-combo" id="filtroRol" data-combo>
+                        <button type="button" class="usuarios-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                            <span class="usuarios-combo-label" data-combo-label>Filtrar por rol</span>
+                            <span class="material-symbols-outlined usuarios-combo-caret">expand_more</span>
+                        </button>
+                        <ul class="usuarios-combo-lista" role="listbox" data-combo-lista hidden>
+                            <li role="option" class="usuarios-combo-opcion" data-combo-option="todos">Todos los roles</li>
+                            <li th:each="rol : ${roles}"
+                                role="option"
+                                class="usuarios-combo-opcion"
+                                th:attr="data-combo-option=${rol.name()}"
+                                th:text="${etiquetasRol.get(rol)}">Médico</li>
+                        </ul>
+                        </ul>
+                        <input type="hidden" name="rol" data-combo-hidden th:value="${rolFiltro}" value="todos" />
+                    </div>
+                </div>
+                <div class="usuarios-filter">
+                    <label class="usuarios-filter-label" for="filtroEstado">Estado:</label>
+                    <div class="usuarios-combo" id="filtroEstado" data-combo>
+                        <button type="button" class="usuarios-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                            <span class="usuarios-combo-label" data-combo-label>Filtrar por estado</span>
+                            <span class="material-symbols-outlined usuarios-combo-caret">expand_more</span>
+                        </button>
+                        <ul class="usuarios-combo-lista" role="listbox" data-combo-lista hidden>
+                            <li role="option" class="usuarios-combo-opcion" data-combo-option="todos">Todos los estados</li>
+                            <li role="option" class="usuarios-combo-opcion" data-combo-option="activo">Activo</li>
+                            <li role="option" class="usuarios-combo-opcion" data-combo-option="inactivo">Inactivo</li>
+                        </ul>
+                        <input type="hidden" name="estado" data-combo-hidden th:value="${estadoFiltro}" value="todos" />
+                    </div>
+                </div>
+                <button type="submit" class="usuarios-filter-btn" title="Aplicar filtros">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">filter_alt</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Table -->
+        <div class="usuarios-table-wrap">
+            <table class="usuarios-table">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Email Institucional</th>
+                        <th>Teléfono</th>
+                        <th>Estado</th>
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(usuarios)}">
+                        <td colspan="6">
+                            <div class="usuarios-empty">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">person_off</span>
+                                <p>No se encontraron usuarios con los filtros seleccionados.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="usuario : ${usuarios}"
+                        th:classappend="${!usuario.activo} ? 'usuarios-row-inactive' : ''"
+                        class="usuarios-row">
+                        <td>
+                            <div class="usuarios-user">
+                                <div class="usuarios-avatar"
+                                     th:classappend="${!usuario.activo} ? 'usuarios-avatar--inactive' : ''"
+                                     th:text="${usuario.iniciales}">SM</div>
+                                <div>
+                                    <p class="usuarios-name" th:text="${usuario.nombreCompleto}">Saul Tobar</p>
+                                    <p class="usuarios-id" th:text="'ID: ' + ${usuario.idUsuario}">ID: 4</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="usuarios-rol-badge"
+                                  th:classappend="${usuario.rol.name() == 'ADMINISTRADOR' ? 'usuarios-rol--admin' : (usuario.rol.name() == 'MEDICO' ? 'usuarios-rol--medico' : (usuario.rol.name() == 'RECEPCIONISTA' ? 'usuarios-rol--recepcionista' : 'usuarios-rol--encargado'))}"
+                                  th:text="${etiquetasRol[usuario.rol]}">Médico</span>
+                        </td>
+                        <td class="usuarios-mono" th:text="${usuario.correo}">saul.tobar@mediclinic.com</td>
+                        <td class="usuarios-mono" th:text="${usuario.telefono}">7711-1001</td>
+                        <td>
+                            <div class="usuarios-estado"
+                                 th:classappend="${usuario.activo} ? 'usuarios-estado--activo' : 'usuarios-estado--inactivo'">
+                                <span class="usuarios-estado-dot"></span>
+                                <span th:text="${usuario.activo} ? 'Activo' : 'Inactivo'">Activo</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="usuarios-acciones">
+                                <a th:href="@{/usuarios/{id}/editar(id=${usuario.idUsuario})}"
+                                   class="usuarios-accion" title="Editar">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                </a>
+                                <th:block th:if="${usuario.activo}">
+                                    <a th:href="@{/usuarios/{id}/restablecer-contrasena(id=${usuario.idUsuario})}"
+                                       class="usuarios-accion" title="Restablecer Contraseña">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">key</span>
+                                    </a>
+                                    <form th:action="@{/usuarios/{id}/estado(id=${usuario.idUsuario})}" method="post"
+                                          class="usuarios-accion-form" th:data-confirm="'¿Desactivar la cuenta de ' + ${usuario.nombreCompleto} + '?'">
+                                        <button type="submit" class="usuarios-accion usuarios-accion--peligro" title="Desactivar Cuenta">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">toggle_off</span>
+                                        </button>
+                                    </form>
+                                </th:block>
+                                <form th:unless="${usuario.activo}" th:action="@{/usuarios/{id}/estado(id=${usuario.idUsuario})}" method="post"
+                                      class="usuarios-accion-form">
+                                    <button type="submit" class="usuarios-accion" title="Activar Cuenta">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">settings_backup_restore</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="usuarios-pagination">
+            <span class="usuarios-pagination-info">
+                Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">8</span> de
+                <span th:text="${totalUsuarios}">128</span> usuarios
+            </span>
+            <div class="usuarios-pagination-controls">
+                <a th:if="${paginaActual > 1}"
+                   th:href="@{/usuarios(q=${q}, rol=${rolFiltro}, estado=${estadoFiltro}, pagina=${paginaActual - 1})}"
+                   class="usuarios-paginbtn" title="Anterior" aria-label="Página anterior">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </a>
+                <span th:if="${paginaActual <= 1}" class="usuarios-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </span>
+
+                <th:block th:if="${totalPaginas <= 7}">
+                    <a th:each="pagina : ${paginasVisibles}"
+                       th:href="@{/usuarios(q=${q}, rol=${rolFiltro}, estado=${estadoFiltro}, pagina=${pagina})}"
+                       class="usuarios-paginbtn usuarios-paginbtn--numero"
+                       th:classappend="${pagina == paginaActual} ? 'usuarios-paginbtn--activo' : ''"
+                       th:text="${pagina}">1</a>
+                </th:block>
+                <span th:if="${totalPaginas > 7}" class="usuarios-paginbtn usuarios-paginbtn--numero"
+                      th:text="${paginaActual + ' / ' + totalPaginas}">1 / 16</span>
+
+                <a th:if="${paginaActual < totalPaginas}"
+                   th:href="@{/usuarios(q=${q}, rol=${rolFiltro}, estado=${estadoFiltro}, pagina=${paginaActual + 1})}"
+                   class="usuarios-paginbtn" title="Siguiente" aria-label="Página siguiente">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </a>
+                <span th:if="${paginaActual >= totalPaginas}" class="usuarios-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+
+        (function () {
+            'use strict';
+            document.querySelectorAll('[data-combo]').forEach(function (combo) {
+                var trigger = combo.querySelector('[data-combo-trigger]');
+                var lista = combo.querySelector('[data-combo-lista]');
+                var label = combo.querySelector('[data-combo-label]');
+                var hidden = combo.querySelector('[data-combo-hidden]');
+                var opciones = Array.prototype.slice.call(combo.querySelectorAll('[data-combo-option]'));
+                var form = combo.closest('form');
+
+                function abrir(abierto) {
+                    lista.hidden = !abierto;
+                    trigger.setAttribute('aria-expanded', String(abierto));
+                }
+
+                function sincronizar() {
+                    var seleccionada = false;
+                    opciones.forEach(function (o) {
+                        if (o.getAttribute('data-combo-option') === hidden.value) {
+                            o.classList.add('is-selected');
+                            label.textContent = o.textContent.trim();
+                            seleccionada = true;
+                        } else {
+                            o.classList.remove('is-selected');
+                        }
+                    });
+                    if (!seleccionada && opciones.length > 0) {
+                        hidden.value = opciones[0].getAttribute('data-combo-option');
+                        opciones[0].classList.add('is-selected');
+                        label.textContent = opciones[0].textContent.trim();
+                    }
+                }
+
+                trigger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    abrir(lista.hidden);
+                    if (!lista.hidden) {
+                        lista.querySelectorAll('.usuarios-combo-opcion').forEach(function (o) {
+                            if (o.classList.contains('is-selected')) {
+                                o.scrollIntoView({ block: 'nearest' });
+                            }
+                        });
+                    }
+                });
+
+                opciones.forEach(function (o) {
+                    o.addEventListener('click', function () {
+                        hidden.value = o.getAttribute('data-combo-option');
+                        sincronizar();
+                        abrir(false);
+                        trigger.focus();
+                        if (form && form.hasAttribute('data-combo-auto')) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!combo.contains(e.target)) {
+                        abrir(false);
+                    }
+                });
+
+                combo.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        abrir(false);
+                        trigger.focus();
+                    }
+                });
+
+                sincronizar();
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>

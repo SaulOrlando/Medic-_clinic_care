@@ -36,6 +36,7 @@ class Usuario {
   - RolUsuario rol
   - String nombreCompleto
   - String telefono
+  - String foto
   + obtenerTodos(): List<Usuario>
   + obtenerPorId(idUsuario: Integer): Optional<Usuario>
   + buscarPorCorreo(correo: String): Optional<Usuario>

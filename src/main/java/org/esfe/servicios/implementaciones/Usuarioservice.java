@@ -49,6 +49,70 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Usuario> buscarPorFiltro(String busqueda, RolUsuario rol, Boolean activo) {
+        List<Usuario> resultados;
+        if (rol == null && activo == null) {
+            resultados = usuarioRepository.findAll();
+        } else if (rol == null) {
+            resultados = usuarioRepository.findByActivo(activo);
+        } else if (activo == null) {
+            resultados = usuarioRepository.findByRol(rol);
+        } else {
+            resultados = usuarioRepository.findByRolAndActivo(rol, activo);
+        }
+
+        if (busqueda == null || busqueda.isBlank()) {
+            return resultados;
+        }
+
+        String termino = busqueda.trim().toLowerCase();
+        return resultados.stream()
+                .filter(u -> coinciden(u, termino))
+                .toList();
+    }
+
+    private boolean coinciden(Usuario usuario, String termino) {
+        return termino == null || termino.isBlank()
+                || usuario.getNombreCompleto() != null && usuario.getNombreCompleto().toLowerCase().contains(termino)
+                || usuario.getCorreo() != null && usuario.getCorreo().toLowerCase().contains(termino)
+                || usuario.getTelefono() != null && usuario.getTelefono().toLowerCase().contains(termino);
+    }
+
+    @Override
+    @Transactional
+    public Usuario restablecerContrasena(Integer idUsuario, String nuevaContrasena) {
+        if (idUsuario == null) {
+            throw new IllegalArgumentException("El identificador del usuario es obligatorio.");
+        }
+        if (nuevaContrasena == null || nuevaContrasena.length() < 8) {
+            throw new IllegalArgumentException("La nueva contraseña debe tener al menos 8 caracteres.");
+        }
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Usuario no encontrado con id: " + idUsuario));
+        usuario.setContrasena(nuevaContrasena);
+        return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    @Transactional
+    public Usuario cambiarEstado(Integer idUsuario) {
+        if (idUsuario == null) {
+            throw new IllegalArgumentException("El identificador del usuario es obligatorio.");
+        }
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Usuario no encontrado con id: " + idUsuario));
+        if (Boolean.TRUE.equals(usuario.getActivo())) {
+            usuario.desactivar();
+        } else {
+            usuario.activar();
+        }
+        return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public Optional<Usuario> autenticar(String correo, String contrasena) {
         if (correo == null || correo.isBlank() || contrasena == null || contrasena.isBlank()) {
             throw new IllegalArgumentException("El correo y la contraseña son obligatorios.");
@@ -116,6 +180,9 @@ public class UsuarioService implements IUsuarioService {
         }
         if (usuario.getContrasena() == null || usuario.getContrasena().isBlank()) {
             throw new IllegalArgumentException("La contraseña del usuario es obligatoria.");
+        }
+        if (usuario.getContrasena().length() < 8) {
+            throw new IllegalArgumentException("La contraseña debe tener al menos 8 caracteres.");
         }
         if (usuario.getRol() == null) {
             throw new IllegalArgumentException("El rol del usuario es obligatorio.");

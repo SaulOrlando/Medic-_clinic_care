@@ -143,7 +143,13 @@ a {
 
 a:hover {
     color: var(--color-primary-hover);
-    text-decoration: underline;
+    text-decoration: none;
+}
+
+a.btn-primary:hover,
+a.btn-primary:active,
+a.btn-primary:focus-visible {
+    color: var(--color-text-inverse);
 }
 
 img {
@@ -219,6 +225,21 @@ img {
 
 .form-input.is-invalid {
     border-color: var(--color-error);
+}
+
+select.form-input {
+    color: #ffffff !important;
+    background-color: var(--color-primary) !important;
+    color-scheme: light;
+    -webkit-text-fill-color: #ffffff;
+    forced-color-adjust: none;
+}
+
+select.form-input option {
+    color: var(--color-text) !important;
+    background-color: var(--color-primary-200) !important;
+    -webkit-text-fill-color: var(--color-text);
+    forced-color-adjust: none;
 }
 
 /* Password field with toggle */
@@ -333,13 +354,16 @@ img {
 
 .btn-primary {
     color: var(--color-text-inverse);
+    text-decoration: none;
     background-color: var(--color-primary);
     border-color: var(--color-primary);
 }
 
 .btn-primary:hover {
-    background-color: var(--color-primary-700);
-    border-color: var(--color-primary-700);
+    background-color: var(--color-primary-800);
+    border-color: var(--color-primary-800);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
 .btn-primary:active {

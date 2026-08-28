@@ -357,6 +357,13 @@
     color: var(--color-text-secondary);
 }
 
+.panel-upcoming-empty {
+    padding: var(--space-6) var(--space-3);
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
 /* --- Responsive --- */
 @media (max-width: 1024px) {
     .panel-stats {

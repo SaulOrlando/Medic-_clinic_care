@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="usuarios-header">
+        <div class="usuarios-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/usuarios">Usuarios</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Restablecer Contraseña</span>
+            </nav>
+            <h2 class="page-title">Restablecer Contraseña</h2>
+            <p class="page-subtitle"
+               th:text="'Asigna una nueva contraseña de acceso a la cuenta de ' + ${usuarioObjetivo.nombreCompleto} + '.'">
+                Asigna una nueva contraseña de acceso.
+            </p>
+        </div>
+    </div>
+
+    <div class="card usuarios-form-card">
+        <div class="card-body">
+            <form th:action="@{/usuarios/{id}/restablecer-contrasena(id=${usuarioObjetivo.idUsuario})}"
+                  method="post" class="usuarios-form">
+
+                <div class="usuarios-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="nuevaContrasena">Nueva Contraseña *</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="nuevaContrasena" name="nuevaContrasena"
+                                   class="form-input" minlength="8" maxlength="255"
+                                   placeholder="Mínimo 8 caracteres" required autofocus />
+                            <button type="button" class="input-toggle" tabindex="-1"
+                                    onclick="togglePassword()" aria-label="Mostrar u ocultar contraseña">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="form-hint">La nueva contraseña debe tener al menos 8 caracteres.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="confirmarContrasena">Confirmar Contraseña *</label>
+                        <input type="password" id="confirmarContrasena" class="form-input"
+                               minlength="8" placeholder="Repite la nueva contraseña" required />
+                    </div>
+                </div>
+
+                <div class="usuarios-form-actions">
+                    <a href="/usuarios" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var input = document.getElementById('nuevaContrasena');
+            if (input) {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            }
+        }
+
+        (function () {
+            'use strict';
+            var formulario = document.querySelector('.usuarios-form');
+            var confirmar = document.getElementById('confirmarContrasena');
+            var original = document.getElementById('nuevaContrasena');
+
+            if (formulario && confirmar && original) {
+                formulario.addEventListener('submit', function (e) {
+                    if (original.value !== confirmar.value) {
+                        e.preventDefault();
+                        alert('Las contraseñas no coinciden.');
+                        confirmar.focus();
+                    }
+                });
+            }
+        })();
+    </script>
+
+</th:block>
+
+</html>
