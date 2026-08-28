@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="config-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="config-header">
+        <nav class="config-breadcrumb" aria-label="Ruta de navegación">
+            <a href="/panel" th:href="@{/panel}">Inicio</a>
+            <span class="material-symbols-outlined config-breadcrumb-icon">chevron_right</span>
+            <span class="config-breadcrumb-current">Ajustes</span>
+        </nav>
+        <div class="config-header-text">
+            <h2 class="page-title">Mi Perfil / Ajustes</h2>
+            <p class="page-subtitle">Administre sus datos personales y la imagen de su perfil.</p>
+        </div>
+    </div>
+
+    <!-- Edit Profile -->
+    <div class="config-card">
+        <div class="config-card-head">
+            <div class="config-icon-box">
+                <span class="material-symbols-outlined">manage_accounts</span>
+            </div>
+            <h3 class="config-card-title">Editar Perfil</h3>
+        </div>
+
+        <form th:object="${usuarioPerfil}" method="post" th:action="@{/configuracion}"
+              enctype="multipart/form-data" class="config-form">
+            <div class="config-profile">
+                <img th:if="${usuarioPerfil.foto}" th:src="${usuarioPerfil.foto}"
+                     alt="Foto de perfil" class="config-avatar-img" id="avatarPreview" />
+                <div th:unless="${usuarioPerfil.foto}" class="config-avatar"
+                     id="avatarIniciales" th:text="${usuarioPerfil.iniciales}">?</div>
+                <div class="config-profile-info">
+                    <span class="config-profile-name" th:text="${usuarioPerfil.nombreCompleto}">Nombre Apellido</span>
+                    <span class="config-profile-correo" th:text="${usuarioPerfil.correo}">correo@mediclinic.com</span>
+                    <span class="config-badge" th:text="${rolNombre}">Rol</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="fotoArchivo">Imagen de Perfil</label>
+                <input type="file" id="fotoArchivo" name="fotoArchivo"
+                       accept="image/png,image/jpeg,image/webp" class="config-file-input" />
+                <p class="config-file-hint">JPG, PNG o WebP · máximo 3 MB.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="nombreCompleto">Nombre Completo</label>
+                <input type="text" id="nombreCompleto" class="form-input"
+                       th:field="*{nombreCompleto}" placeholder="Nombre y apellidos" required maxlength="150" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="telefono">Número de Teléfono</label>
+                <input type="text" id="telefono" class="form-input"
+                       th:field="*{telefono}" placeholder="7012-3456" required maxlength="20" />
+            </div>
+
+            <div class="config-actions">
+                <button type="submit" class="btn btn-primary config-save-btn">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var inputFoto = document.getElementById('fotoArchivo');
+            var preview = document.getElementById('avatarPreview');
+            var iniciales = document.getElementById('avatarIniciales');
+            if (!inputFoto) return;
+
+            inputFoto.addEventListener('change', function () {
+                var archivo = inputFoto.files && inputFoto.files[0];
+                if (!archivo) return;
+                var lector = new FileReader();
+                lector.onload = function (ev) {
+                    var url = ev.target.result;
+                    if (!preview) {
+                        preview = document.createElement('img');
+                        preview.id = 'avatarPreview';
+                        preview.className = 'config-avatar-img';
+                        preview.alt = 'Foto de perfil';
+                        iniciales.parentNode.insertBefore(preview, iniciales);
+                    }
+                    preview.src = url;
+                    preview.style.display = '';
+                    if (iniciales) iniciales.style.display = 'none';
+                };
+                lector.readAsDataURL(archivo);
+            });
+        });
+    </script>
+
+</th:block>
+
+</html>

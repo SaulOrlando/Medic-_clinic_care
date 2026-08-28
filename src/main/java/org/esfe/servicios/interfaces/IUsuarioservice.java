@@ -16,6 +16,12 @@ public interface IUsuarioService {
 
     List<Usuario> buscarPorRol(RolUsuario rol);
 
+    List<Usuario> buscarPorFiltro(String busqueda, RolUsuario rol, Boolean activo);
+
+    Usuario restablecerContrasena(Integer idUsuario, String nuevaContrasena);
+
+    Usuario cambiarEstado(Integer idUsuario);
+
     Optional<Usuario> autenticar(String correo, String contrasena);
 
     boolean existeCorreo(String correo);

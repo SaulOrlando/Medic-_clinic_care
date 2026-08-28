@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="usuarios-alerts">
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="usuarios-header">
+        <div class="usuarios-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/usuarios">Usuarios</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item"
+                      th:text="${modo == 'crear'} ? 'Nuevo Usuario' : 'Editar Usuario'">Nuevo Usuario</span>
+            </nav>
+            <h2 class="page-title"
+                th:text="${modo == 'crear'} ? 'Nuevo Usuario' : 'Editar Usuario'">Nuevo Usuario</h2>
+            <p class="page-subtitle"
+               th:text="${modo == 'crear'} ? 'Crea la cuenta de acceso de un nuevo miembro del personal.' : 'Actualiza los datos de la cuenta del personal.'">
+                Crea la cuenta de acceso de un nuevo miembro del personal.
+            </p>
+        </div>
+    </div>
+
+    <div class="card usuarios-form-card">
+        <div class="card-body">
+            <form th:object="${usuarioForm}" method="post"
+                  th:action="${modo == 'crear'} ? @{/usuarios/guardar} : @{/usuarios/{id}/editar(id=${usuarioForm.idUsuario})}"
+                  class="usuarios-form">
+
+                <div class="usuarios-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="nombreCompleto">Nombre Completo *</label>
+                        <input type="text" id="nombreCompleto" class="form-input"
+                               th:field="*{nombreCompleto}" placeholder="Nombre y apellidos" required maxlength="150" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="correo">Email Institucional *</label>
+                        <input type="email" id="correo" class="form-input"
+                               th:field="*{correo}" placeholder="nombre.apellido@mediclinic.com" required maxlength="150" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="telefono">Teléfono *</label>
+                        <input type="text" id="telefono" class="form-input"
+                               th:field="*{telefono}" placeholder="7012-3456" required maxlength="20" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="rol">Rol *</label>
+                        <div class="usuarios-combo usuarios-combo--block" id="rol" data-combo>
+                            <button type="button" class="usuarios-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                                <span class="usuarios-combo-label" data-combo-label>Selecciona un rol</span>
+                                <span class="material-symbols-outlined usuarios-combo-caret">expand_more</span>
+                            </button>
+                            <ul class="usuarios-combo-lista" role="listbox" data-combo-lista hidden>
+                                <li th:each="rolOpt : ${roles}"
+                                    role="option"
+                                    class="usuarios-combo-opcion"
+                                    th:attr="data-combo-option=${rolOpt.name()}"
+                                    th:text="${etiquetasRol.get(rolOpt)}">Médico</li>
+                            </ul>
+                            <input type="hidden" th:field="*{rol}" data-combo-hidden />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="contrasena"
+                               th:text="${modo == 'crear'} ? 'Contraseña *' : 'Contraseña (dejar en blanco para no cambiarla)'">
+                            Contraseña *
+                        </label>
+                        <div class="input-wrapper">
+                            <input type="password" id="contrasena" name="contrasena"
+                                   class="form-input" minlength="8" maxlength="255"
+                                   th:required="${modo == 'crear'}"
+                                   th:placeholder="${modo == 'crear'} ? 'Mínimo 8 caracteres' : 'Nueva contraseña (opcional)'" />
+                            <button type="button" class="input-toggle" tabindex="-1"
+                                    onclick="togglePassword()" aria-label="Mostrar u ocultar contraseña">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="form-hint" th:if="${modo == 'editar'}">Deja el campo vacío para conservar la contraseña actual.</p>
+                    </div>
+                </div>
+
+                <div class="usuarios-form-actions">
+                    <a href="/usuarios" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-primary"
+                            th:text="${modo == 'crear'} ? 'Crear Usuario' : 'Guardar Cambios'">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var input = document.getElementById('contrasena');
+            if (input) {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            }
+        }
+
+        (function () {
+            'use strict';
+            document.querySelectorAll('[data-combo]').forEach(function (combo) {
+                var trigger = combo.querySelector('[data-combo-trigger]');
+                var lista = combo.querySelector('[data-combo-lista]');
+                var label = combo.querySelector('[data-combo-label]');
+                var hidden = combo.querySelector('[data-combo-hidden]');
+                var opciones = Array.prototype.slice.call(combo.querySelectorAll('[data-combo-option]'));
+                var form = combo.closest('form');
+
+                function abrir(abierto) {
+                    lista.hidden = !abierto;
+                    trigger.setAttribute('aria-expanded', String(abierto));
+                }
+
+                function sincronizar() {
+                    var seleccionada = false;
+                    opciones.forEach(function (o) {
+                        if (o.getAttribute('data-combo-option') === hidden.value) {
+                            o.classList.add('is-selected');
+                            label.textContent = o.textContent.trim();
+                            seleccionada = true;
+                        } else {
+                            o.classList.remove('is-selected');
+                        }
+                    });
+                    if (!seleccionada && opciones.length > 0) {
+                        opciones[0].classList.remove('is-selected');
+                    }
+                }
+
+                var formulario = combo.closest('form');
+                if (formulario) {
+                    formulario.addEventListener('submit', function (e) {
+                        if (hidden.value === '') {
+                            e.preventDefault();
+                            alert('Selecciona un rol.');
+                            trigger.focus();
+                        }
+                    });
+                }
+
+                trigger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    abrir(lista.hidden);
+                    if (!lista.hidden) {
+                        lista.querySelectorAll('.usuarios-combo-opcion').forEach(function (o) {
+                            if (o.classList.contains('is-selected')) {
+                                o.scrollIntoView({ block: 'nearest' });
+                            }
+                        });
+                    }
+                });
+
+                opciones.forEach(function (o) {
+                    o.addEventListener('click', function () {
+                        hidden.value = o.getAttribute('data-combo-option');
+                        sincronizar();
+                        abrir(false);
+                        trigger.focus();
+                    });
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!combo.contains(e.target)) {
+                        abrir(false);
+                    }
+                });
+
+                combo.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        abrir(false);
+                        trigger.focus();
+                    }
+                });
+
+                sincronizar();
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>

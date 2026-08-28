@@ -8,6 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -55,6 +56,13 @@ public class Usuario {
     @Column(name = "telefono", nullable = false, length = 20)
     private String telefono;
 
+    @Lob
+    @Column(name = "foto")
+    private String foto;
+
+    @Column(name = "activo", nullable = false)
+    private Boolean activo = true;
+
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Medico medico;
 
@@ -69,6 +77,26 @@ public class Usuario {
 
     public Boolean iniciarSesion() {
         return correo != null && !correo.isBlank() && contrasena != null && !contrasena.isBlank();
+    }
+
+    public void activar() {
+        this.activo = true;
+    }
+
+    public void desactivar() {
+        this.activo = false;
+    }
+
+    public String getIniciales() {
+        if (nombreCompleto == null || nombreCompleto.isBlank()) {
+            return "?";
+        }
+        String[] partes = nombreCompleto.trim().split("\\s+");
+        StringBuilder iniciales = new StringBuilder();
+        for (int i = 0; i < Math.min(2, partes.length); i++) {
+            iniciales.append(Character.toUpperCase(partes[i].charAt(0)));
+        }
+        return iniciales.toString();
     }
 
     public Integer getIdUsuario() {
@@ -117,6 +145,22 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     public Medico getMedico() {

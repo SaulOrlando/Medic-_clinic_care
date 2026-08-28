@@ -13,7 +13,9 @@ CREATE TABLE usuarios (
     contrasena VARCHAR(255) NOT NULL,
     rol VARCHAR(30) NOT NULL,
     nombre_completo VARCHAR(150) NOT NULL,
-    telefono VARCHAR(20)
+    telefono VARCHAR(20),
+    foto VARCHAR(MAX),
+    activo BIT NOT NULL DEFAULT 1
 );
 GO
 

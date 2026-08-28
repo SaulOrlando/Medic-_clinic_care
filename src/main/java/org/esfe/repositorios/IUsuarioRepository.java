@@ -18,4 +18,8 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
     boolean existsByCorreo(String correo);
 
     List<Usuario> findByRol(RolUsuario rol);
+
+    List<Usuario> findByActivo(Boolean activo);
+
+    List<Usuario> findByRolAndActivo(RolUsuario rol, Boolean activo);
 }
