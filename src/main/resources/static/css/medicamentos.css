@@ -1,0 +1,90 @@
+/* ============================================
+    MediClinic Care — Inventario de Medicamentos
+    ============================================ */
+
+.medicamentos-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.medicamentos-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.medicamentos-stat-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-ambient);
+    text-align: center;
+}
+
+.medicamentos-stat-card .material-symbols-outlined {
+    font-size: 28px;
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+}
+
+.medicamentos-stat-card .medicamentos-stat-value {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    display: block;
+}
+
+.medicamentos-stat-card .medicamentos-stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+.medicamentos-stat-card--warning .material-symbols-outlined {
+    color: var(--color-tertiary);
+}
+
+.medicamentos-stat-card--warning .medicamentos-stat-value {
+    color: var(--color-tertiary);
+}
+
+.medicamentos-stat-card--danger .material-symbols-outlined {
+    color: var(--color-error);
+}
+
+.medicamentos-stat-card--danger .medicamentos-stat-value {
+    color: var(--color-error);
+}
+
+.medicamentos-table-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+}
+
+.medicamentos-form-card {
+    max-width: 800px;
+}
+
+.medicamentos-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.medicamentos-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
