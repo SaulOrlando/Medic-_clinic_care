@@ -6,11 +6,11 @@ El sistema esta enfocado en simplificar y automatizar los procesos clave del dí
 
 ## Diagrama de clases
 
-![Diagrama de clase](./src/diagramas/classes.png)
+![Diagrama de clase](./src/diagramas/clases.png)
 
 ## Diagrama de tablas
 
-![Diagrama de clase](./src/diagramas/er%20diagram.png)
+![Diagrama de clase](./src/diagramas/diagramabasededatos.png)
 
 ## Ejecución
 
