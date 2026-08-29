@@ -253,8 +253,18 @@
 
 /* Sidebar Brand */
 .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
     padding: 0 var(--space-4);
     margin-bottom: var(--space-6);
+}
+
+.sidebar-brand-logo {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
 }
 
 .sidebar-brand-title {
