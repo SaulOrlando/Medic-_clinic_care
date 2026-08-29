@@ -21,6 +21,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/login").permitAll()
+                 .requestMatchers("/categorias-medicamentos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO", "ENCARGADO_INVENTARIO")
+                 .requestMatchers("/medicamentos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO", "ENCARGADO_INVENTARIO")
                 .requestMatchers("/usuarios", "/usuarios/**").hasRole("ADMINISTRADOR")
                 .anyRequest().authenticated()
             )
