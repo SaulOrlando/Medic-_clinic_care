@@ -16,7 +16,6 @@
 ## Roles del sistema
 
 Los roles existen en `RolUsuario`: `MEDICO`, `RECEPCIONISTA`, `ADMINISTRADOR` y `ENCARGADO_INVENTARIO` (rol dedicado a farmacia).
-
 ## Qué hace la página según cada rol
 
 ### ADMINISTRADOR (Iliana Melgar)
@@ -24,7 +23,6 @@ Ve **todo el sidebar**: Panel, Pacientes, Médicos, Citas, Consulta, Recetas, In
 
 ### MÉDICO (Saul Tobar, Camila Fuentes, Roberto Campos)
 Ve: Panel, Pacientes, Citas, Consulta, Recetas, Inventario, Categorías y Configuración. **No ve** Médicos, Usuarios ni la gestión de personal. En su Panel ve **su** resumen clínico: sus citas de hoy, sus pacientes de la semana, sus consultas pendientes y su agenda. Trabaja en Consulta Médica (registra signos, motivo, diagnóstico, notas) y genera Recetas. En Inventario/Categorías debería tener acceso **solo lectura** (para saber qué hay disponible) — ver nota en la sección de Inventario.
-
 ### RECEPCIONISTA (Fabiola Cortez)
 Ve: Panel, Pacientes, Médicos, Citas, Recetas (solo para imprimir), Inventario, Categorías y Configuración. Es el operador del día a día: agenda, programa/cancela/reagenda citas para cualquier médico, registra pacientes (solo datos de contacto/citas), consulta el directorio de médicos y despacha farmacia.
 
@@ -60,7 +58,6 @@ Ve: Panel, Inventario, Categorías y Configuración. Controla stock, registra en
 | **Categorías** | `/categorias-medicamentos` | ✅ | CRUD de categorías, estado Activa/En uso, protección de borrado con medicamentos asociados. |
 | **Usuarios** | `/usuarios` | ✅ | Listado con búsqueda, filtros y paginación; crear/editar, restablecer contraseña, activar/desactivar. Solo Admin. |
 | **Configuración** | `/configuracion` | ✅ | Perfil propio: cambiar nombre, teléfono y foto de perfil (JPG/PNG/WebP, máx. 3 MB). |
-
 ## Vistas pendientes (qué harán)
 
 | Vista | Ruta prevista | Qué hará |
@@ -87,7 +84,6 @@ Ve: Panel, Inventario, Categorías y Configuración. Controla stock, registra en
 
 **5. Inventario:**
 > La encargada (Guadalupe) registra un medicamento nuevo o una compra → `MedicamentoService` valida nombre único, categoría existente y fecha de vencimiento válida; `MovimientoInventarioService` suma a `stock_disponible` y crea un movimiento `ENTRADA`. Si un medicamento está por vencer o con stock bajo, la vista `/medicamentos` lo resalta con alertas.
-
 **6. Alta de personal:**
 > El admin (Iliana) crea un usuario con su rol → `UsuarioService.crearUsuario()` valida que el correo no exista y los datos obligatorios; queda disponible para login. Si es MEDICO, además se crea su registro en `medicos` para que tenga agenda propia.
 

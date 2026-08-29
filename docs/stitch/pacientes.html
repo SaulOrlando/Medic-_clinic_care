@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Pacientes - MediClinic Care</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#1976d2",
+                        "on-primary-fixed": "#001c3a",
+                        "tertiary-fixed": "#ffddba",
+                        "secondary-container": "#a0f399",
+                        "on-tertiary-container": "#fffdff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-secondary-container": "#217128",
+                        "primary": "#005dac",
+                        "secondary": "#1b6d24",
+                        "on-surface-variant": "#414752",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#cfe6f2",
+                        "surface-bright": "#f3faff",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "surface": "#f3faff",
+                        "primary-fixed": "#d4e3ff",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-container": "#fffdff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#1e333c",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-variant": "#cfe6f2",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#845100",
+                        "inverse-primary": "#a5c8ff",
+                        "tertiary-container": "#a66700",
+                        "outline": "#717783",
+                        "background": "#f3faff",
+                        "surface-container-high": "#d5ecf8",
+                        "surface-container-low": "#e6f6ff",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "on-background": "#071e27",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#c7dde9",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c1c6d4",
+                        "on-surface": "#071e27",
+                        "inverse-on-surface": "#dff4ff",
+                        "surface-container": "#dbf1fe",
+                        "on-primary-fixed-variant": "#004786",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#005faf",
+                        "error": "#ba1a1a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "layout-gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "layout-margin": "24px"
+                    },
+                    fontFamily: {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            font-size: 20px;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md m-0 p-0 overflow-hidden h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low border-r border-outline-variant fixed left-0 top-0 h-full w-[260px] flex flex-col py-md z-20">
+<div class="px-layout-gutter mb-xl">
+<div class="flex items-center gap-sm">
+<img alt="MediClinic Care Logo" class="w-8 h-8 rounded-DEFAULT object-cover" data-alt="A clean, minimalist abstract logo design suitable for a modern medical clinic or healthtech platform, utilizing primarily soft blues and deep navy tones. The style is strictly corporate, geometric, and conveys trust, precision, and clinical care. High resolution, stark white background, crisp vector-like edges." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB84N9x_9jFEJ1_kn0tSvpV_csZFgo134zICLa1fnGNuqAqidtJaofM6cq0wrwTdLKiE7bbqr8KiuyoD4D6IB99qbTziBX1U2dlXN0EW-xN0o4YATAxzqV9iFsKhNmiAa7qq0meVHmpFCO4BPkHrWqqrFB6Odqd8X_o9Wm7Ti51cYXy-H0zN6t4bHuSrvSU8Y6UL0whxJAu_ychNcUSUmV-NjyiUbT25sxFC3QLd8TzazuNthjFaZZF"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">MediClinic Care</h1>
+<p class="font-body-sm text-body-sm text-outline">Gestión Clínica</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-sm">
+<ul class="flex flex-col gap-xs">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Panel</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-primary border-l-4 border-primary font-bold bg-surface-container-high" href="#">
+<span class="material-symbols-outlined" data-weight="fill">person</span>
+<span class="font-label-md text-label-md">Pacientes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+<span class="font-label-md text-label-md">Médicos</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-md text-label-md">Citas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">monitor_heart</span>
+<span class="font-label-md text-label-md">Consultas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">Recetas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Inventario</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-md text-label-md">Categorías</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-sm pt-md border-t border-outline-variant mx-sm">
+<ul class="flex flex-col gap-xs">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Configuración</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Cerrar sesión</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[260px] flex flex-col h-screen overflow-hidden relative z-10">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 right-0 w-[calc(100%-260px)] h-16 flex items-center justify-between px-lg z-20">
+<div class="flex-1 flex items-center gap-md">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-full py-2 pl-10 pr-4 font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Buscar pacientes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="w-px h-8 bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low p-1 pr-3 rounded-full transition-colors">
+<img alt="User profile avatar" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="Professional headshot of a mature, confident female physician wearing a crisp white lab coat over a light blue collared shirt. She has a warm, reassuring smile. The background is a slightly blurred, modern, well-lit clinical office setting with cool, neutral tones and soft natural lighting coming from a window." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN-T103nsTzLZve331arvUoatRoBxlGAoY4xQGMUC0B1SU1QzsbPEMFX6mpe4xcQrHdh3CIBeloDgsWw1OVQeGavRdb4FXVt6pzrmEPi2G-3POSuyQuupoKZEhyNd8kitrsEb6rCwPmNohe5P1vpjkGkHP0IpEngSW6CJm5nAQbDv6Vz2WFtVxV6rWf8w9cvNgfoCyL26uB8Zp_J5E8rPXHt29_Bs0s8juFJRZ7gcNcNqEIhaonxmp"/>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Dra. Smith</span>
+<span class="font-body-sm text-body-sm text-outline text-[11px]">Recepcionista</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto mt-16 p-layout-margin bg-background">
+<!-- Breadcrumbs & Header -->
+<div class="mb-lg flex justify-between items-end">
+<div>
+<div class="flex items-center gap-xs text-outline font-body-sm text-body-sm mb-2">
+<span>MediClinic Care</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-medium">Pacientes</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Directorio de Pacientes</h2>
+</div>
+<button class="bg-primary text-on-primary px-lg py-2 rounded-DEFAULT font-label-md text-label-md flex items-center gap-2 hover:bg-primary-container transition-colors shadow-sm" id="addPatientBtn">
+<span class="material-symbols-outlined">add</span>
+                    Agregar Paciente
+                </button>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-3 px-md font-label-md text-label-md text-on-surface-variant font-semibold">Documento de Identidad</th>
+<th class="py-3 px-md font-label-md text-label-md text-on-surface-variant font-semibold">Nombre del Paciente</th>
+<th class="py-3 px-md font-label-md text-label-md text-on-surface-variant font-semibold">Fecha de Nacimiento</th>
+<th class="py-3 px-md font-label-md text-label-md text-on-surface-variant font-semibold">Género</th>
+<th class="py-3 px-md font-label-md text-label-md text-on-surface-variant font-semibold text-right">Teléfono</th>
+<th class="py-3 px-md w-12"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-md text-body-md">
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="py-3 px-md font-data-mono text-data-mono text-outline">ID-9827361</td>
+<td class="py-3 px-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">EJ</div>
+<span class="font-medium text-on-surface">Eleanor James</span>
+</div>
+</td>
+<td class="py-3 px-md text-on-surface-variant">1985-04-12</td>
+<td class="py-3 px-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-variant text-on-surface text-[11px] font-medium">Femenino</span>
+</td>
+<td class="py-3 px-md text-right text-on-surface-variant font-data-mono">(555) 019-2837</td>
+<td class="py-3 px-md text-right">
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="py-3 px-md font-data-mono text-data-mono text-outline">ID-4519283</td>
+<td class="py-3 px-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">MW</div>
+<span class="font-medium text-on-surface">Marcus Weaver</span>
+</div>
+</td>
+<td class="py-3 px-md text-on-surface-variant">1972-11-05</td>
+<td class="py-3 px-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-variant text-on-surface text-[11px] font-medium">Masculino</span>
+</td>
+<td class="py-3 px-md text-right text-on-surface-variant font-data-mono">(555) 827-1092</td>
+<td class="py-3 px-md text-right">
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="py-3 px-md font-data-mono text-data-mono text-outline">ID-1102938</td>
+<td class="py-3 px-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-primary font-label-md">SC</div>
+<span class="font-medium text-on-surface">Sophia Chen</span>
+</div>
+</td>
+<td class="py-3 px-md text-on-surface-variant">1990-08-22</td>
+<td class="py-3 px-md">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-variant text-on-surface text-[11px] font-medium">Femenino</span>
+</td>
+<td class="py-3 px-md text-right text-on-surface-variant font-data-mono">(555) 304-9812</td>
+<td class="py-3 px-md text-right">
+<button class="text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-container-low border-t border-outline-variant px-md py-3 flex items-center justify-between text-body-sm text-outline">
+<span>Mostrando 1 a 3 de 156 pacientes</span>
+<div class="flex gap-2">
+<button class="px-2 py-1 border border-outline-variant rounded text-outline hover:bg-surface-container-high transition-colors" disabled="">&lt;</button>
+<button class="px-2 py-1 border border-outline-variant rounded bg-primary text-on-primary">1</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-on-surface hover:bg-surface-container-high transition-colors">2</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-on-surface hover:bg-surface-container-high transition-colors">3</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-on-surface hover:bg-surface-container-high transition-colors">&gt;</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Side Panel Overlay -->
+<div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-30 hidden opacity-0 transition-opacity duration-300" id="sidePanelOverlay"></div>
+<!-- Add Patient Side Panel -->
+<div class="fixed top-0 right-0 h-full w-[480px] bg-surface-container-lowest shadow-[-4px_0_24px_rgba(0,0,0,0.05)] border-l border-outline-variant z-40 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" id="sidePanel">
+<div class="px-lg py-md border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-on-surface">Registrar Nuevo Paciente</h3>
+<button class="text-outline hover:text-on-surface transition-colors" id="closePanelBtn">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-lg">
+<!-- Progressor -->
+<div class="flex items-center gap-2 mb-lg">
+<div class="flex-1 h-1 bg-primary rounded-full"></div>
+<div class="flex-1 h-1 bg-surface-variant rounded-full"></div>
+<div class="flex-1 h-1 bg-surface-variant rounded-full"></div>
+<span class="font-label-md text-label-md text-outline ml-2">Paso 1 de 3</span>
+</div>
+<!-- Success Message (Hidden by default) -->
+<div class="hidden mb-lg bg-secondary-container/20 border border-secondary text-on-secondary-container px-md py-sm rounded-DEFAULT flex items-start gap-3" id="successMessage">
+<span class="material-symbols-outlined text-secondary mt-0.5">check_circle</span>
+<div>
+<h4 class="font-label-md text-label-md text-secondary font-bold">Registro Exitoso</h4>
+<p class="font-body-sm text-body-sm mt-1">Expediente generado: <span class="font-data-mono font-bold">#MC-2023-001</span></p>
+</div>
+</div>
+<form class="space-y-md" id="addPatientForm">
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Nombres *</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-body-sm focus:outline-none focus:border-primary focus:border-2 transition-all" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Apellidos *</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-body-sm focus:outline-none focus:border-primary focus:border-2 transition-all" required="" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-1 relative group">
+<label class="font-label-md text-label-md text-on-surface-variant">Documento de Identidad (DNI/Pasaporte) *</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-data-mono focus:outline-none focus:border-primary focus:border-2 transition-all group-focus-within:border-primary" id="docIdInput" required="" type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline-variant hidden" id="docIdWarningIcon">warning</span>
+</div>
+<!-- Warning hint -->
+<p class="hidden font-body-sm text-body-sm text-error mt-1 flex items-center gap-1" id="docIdWarningText">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                        Ya existe un paciente con este Documento de Identidad en el sistema.
+                    </p>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Fecha de Nacimiento *</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-body-sm focus:outline-none focus:border-primary focus:border-2 transition-all" required="" type="date"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Género *</label>
+<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-body-sm focus:outline-none focus:border-primary focus:border-2 transition-all appearance-none" required="">
+<option disabled="" selected="" value="">Seleccionar...</option>
+<option value="f">Femenino</option>
+<option value="m">Masculino</option>
+<option value="o">Otro</option>
+<option value="u">Prefiero no decirlo</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Teléfono Principal *</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-3 py-2 font-data-mono focus:outline-none focus:border-primary focus:border-2 transition-all" placeholder="(555) 000-0000" required="" type="tel"/>
+</div>
+</form>
+</div>
+<div class="p-lg border-t border-outline-variant bg-surface-container-lowest flex justify-end gap-md">
+<button class="px-lg py-2 rounded-DEFAULT font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors border border-transparent" id="cancelBtn">
+                Cancelar
+            </button>
+<button class="bg-primary text-on-primary px-lg py-2 rounded-DEFAULT font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm" id="saveBtn">
+                Guardar y Continuar
+            </button>
+</div>
+</div>
+<script>
+        // Simple UI interactions
+        const addBtn = document.getElementById('addPatientBtn');
+        const closeBtn = document.getElementById('closePanelBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const overlay = document.getElementById('sidePanelOverlay');
+        const panel = document.getElementById('sidePanel');
+        
+        function openPanel() {
+            overlay.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                overlay.classList.remove('opacity-0');
+                panel.classList.remove('translate-x-full');
+            }, 10);
+        }
+
+        function closePanel() {
+            panel.classList.add('translate-x-full');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                // Reset form state on close
+                document.getElementById('successMessage').classList.add('hidden');
+                document.getElementById('addPatientForm').classList.remove('hidden');
+            }, 300);
+        }
+
+        addBtn.addEventListener('click', openPanel);
+        closeBtn.addEventListener('click', closePanel);
+        cancelBtn.addEventListener('click', closePanel);
+        overlay.addEventListener('click', closePanel);
+
+        // Simulate duplicate ID check
+        const docInput = document.getElementById('docIdInput');
+        const warningIcon = document.getElementById('docIdWarningIcon');
+        const warningText = document.getElementById('docIdWarningText');
+
+        docInput.addEventListener('input', (e) => {
+            if(e.target.value === '12345') { // Magic number to trigger warning
+                docInput.classList.add('border-error', 'focus:border-error');
+                docInput.classList.remove('focus:border-primary');
+                warningIcon.classList.remove('hidden');
+                warningIcon.classList.add('text-error');
+                warningText.classList.remove('hidden');
+            } else {
+                docInput.classList.remove('border-error', 'focus:border-error');
+                docInput.classList.add('focus:border-primary');
+                warningIcon.classList.add('hidden');
+                warningText.classList.add('hidden');
+            }
+        });
+
+        // Simulate Save
+        const saveBtn = document.getElementById('saveBtn');
+        saveBtn.addEventListener('click', () => {
+            const form = document.getElementById('addPatientForm');
+            if(form.checkValidity()) {
+                form.classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+                saveBtn.textContent = 'Hecho';
+                saveBtn.onclick = closePanel;
+                cancelBtn.classList.add('hidden');
+            } else {
+                form.reportValidity();
+            }
+        });
+
+    </script>
+</body></html>

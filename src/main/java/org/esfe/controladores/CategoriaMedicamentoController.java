@@ -1,5 +1,24 @@
 package org.esfe.controladores;
 
+/*
+ * TODO (VISTA: Categorías de Medicamentos — referencia visual en docs/stitch/categorias.html)
+ * Este controlador ya es funcional. Alinear la plantilla `categorias-medicamentos.html` al diseño
+ * Stitch aprobado (el HTML `.html` es autónomo con Tailwind vía CDN — NO copiar tal cual, traducir
+ * al sistema Thymeleaf + CSS del proyecto). El diseño debe tener:
+ *  - Layout: breadcrumb "Inventario › Categorías", botón "Nueva Categoría",
+ *    barra de BÚSQUEDA + FILTROS + EXPORTAR sobre la tabla.
+ *  - Tabla (columnas): Nombre de Categoría | Descripción | Medicamentos Activos | Estado | Acciones.
+ *    "Medicamentos Activos" cuenta los medicamentos asociados a la categoría (0 si está vacía).
+ *    Estado: badge píldora "Activa" (sin medicamentos) / "En uso" (tiene medicamentos).
+ *  - Acciones por fila: editar (icono) y eliminar. El botón eliminar debe deshabilitarse
+ *    con tooltip "No se puede eliminar: contiene medicamentos activos" cuando la categoría
+ *    tenga medicamentos asociados (ya validado en CategoriaMedicamentoService.eliminarCategoria).
+ *  - Alta/edición: panel lateral deslizante (drawer 400px) con campos
+ *    Nombre de la Categoría * (único) + Descripción (opcional) + etiqueta visual opcional.
+ *  - Banner contextual inferior: política de eliminación (no se borra una categoría con medicamentos).
+ *  - Roles: Admin y Recepcionista gestionan; Médico solo lectura.
+ * Persistir/ajustar SIN romper el CRUD actual (listar, /nuevo, POST /, /{id}/editar, POST /{id}, /{id}/eliminar).
+ */
 import org.esfe.modelos.CategoriaMedicamento;
 import org.esfe.servicios.interfaces.ICategoriaMedicamentoService;
 import org.springframework.stereotype.Controller;
