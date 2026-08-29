@@ -120,3 +120,89 @@ src/main/java/org/esfe/
 - Run `./mvnw test` to ensure tests pass
 - Follow existing code conventions — no Lombok, manual getters/setters, `I` prefix on interfaces
 - When adding new entities, always update both the class diagram and ER diagram in `src/diagramas/`
+
+## Referencia de Diseño — Stitch (fuente de verdad visual)
+
+> **LEE ESTO ANTES DE IMPLEMENTAR CUALQUIER VISTA.** Los bocetos (UI) aprobados viven en un
+> proyecto **Stitch** al que **NO tendrás acceso al MCP**. Para no depender de él, las capturas y
+> el HTML de cada pantalla se descargaron y quedaron en **`docs/stitch/`**. Usa esos archivos para
+> replicar el diseño (estructura, campos, layout, colores, estados) en Thymeleaf con el sistema de
+> diseño CSS existente (`/css/design-system.css`, `/css/layout.css`…) y el fragmento base
+> `fragments/base.html`.
+
+**Proyecto Stitch:** `MediClinic Management System` (ID `3044856348708812253`).
+
+### Archivos de referencia
+
+| Vista | Ruta del controlador | Referencia Stitch (`docs/stitch/`) |
+|---|---|---|
+| Categorías de Medicamentos | `CategoriaMedicamentoController` (existe) | `categorias.html` / `categorias.png` |
+| Gestión de Pacientes | `PacienteController` (pendiente) | `pacientes.html` / `pacientes.png` |
+| Gestión de Médicos | `MedicoController` (pendiente) | `medicos.html` / `medicos.png` |
+| Consulta Médica | `ConsultaMedicaController` (pendiente) | `consulta.html` / `consulta.png` |
+| Receta Médica | `RecetaController` (pendiente) | `recetas.html` / `recetas.png` |
+| Inventario de Medicamentos | `MedicamentoController` (existe) | `inventario.html` / `inventario.png` |
+
+> Los `.html` son autónomos (Tailwind vía CDN) — **NO los copies tal cual**. Son la referencia
+> visual/estructural: traduce su markup a los componentes Thymeleaf + CSS del proyecto. Los `.png`
+> son la captura renderizada.
+
+### Design System (tokens a respetar)
+
+Los bocetos usan el diseño **"Clinical Precision"** ya reflejado en `design-system.css`:
+- **Colores:** Primary `#1976D2`, Secondary `#2E7D32` (verde "saludable"), Error `#D32F2F` (alertas críticas), Amber `#FFA000` (pendientes/aviso).
+- **Tipografía:** `Inter`, 14px base (`body-md`) con tabular figures para datos numéricos.
+- **Formas:** radios suaves ~4px; badges de estado con radio alto (pill).
+- **Layout:** sidebar fija 260px; contenido fluido; tablas a ancho completo con badges de estado.
+- **Badges de estado:** Programada = azul, Atendida = verde, Cancelada = gris, Reagendada = ámbar.
+
+---
+
+### Guía de implementación por vista
+
+#### 1. Categorías de Medicamentos (`/categorias-medicamentos`, Ya implementado)
+- **Stitch:** `docs/stitch/categorias.html`. Layout: breadcrumb "Inventario › Categorías", botón "Nueva Categoría", barra de **búsqueda + filtros + exportar**, tabla (Nombre, Descripción, Medicamentos Activos, Estado, Acciones), panel lateral deslizante para crear/editar, y un banner contextual explicando la política de eliminación.
+- **Documentado en TODO del controlador** `CategoriaMedicamentoController`. La implementación actual es funcional; alinear el HTML al Stitch (columns: "Medicamentos Activos" cuenta medicamentos por categoría, estado **Activa/En uso**).
+
+#### 2. Gestión de Pacientes (`/pacientes`, Pendiente)
+- **Stitch:** `docs/stitch/pacientes.html`. Vista "Directorio de Pacientes".
+- **Campos del formulario (panel lateral 480px, multi-paso):** Nombres, Apellidos, Documento de Identidad (con **validación de duplicado en vivo**), Fecha de Nacimiento, Género (select), Teléfono. El usuario requiere campo `usuarioGestor`/expediente.
+- **Tabla:** Documento de Identidad, Nombre (con avatar iniciales), Fecha de Nacimiento, Género (badge), Teléfono, columna acciones (menú). Con paginación "Mostrando X de Y".
+- **Roles:** Médico y Recepcionista (solo datos de contacto/citas), Admin (auditoría).
+- **Pendiente de crear:** `PacienteController` (+ template `pacientes.html`) con `@PreAuthorize`.
+- **Entidad:** `Paciente` (`codigoExpediente`, `nombres`, `apellidos`, `documentoIdentidad`, `fechaNacimiento`, `telefono`, `genero`) + `IPacienteService`.
+
+#### 3. Gestión de Médicos (`/medicos`, Pendiente)
+- **Stitch:** `docs/stitch/medicos.html`. Vista "Directorio de Médicos".
+- **Layout bento 12-col:** formulario de registro (col-span-4) + tabla del directorio activo (col-span-8).
+- **Formulario:** Nombre Completo, Especialidad (select), Número de Licencia (con check de unicidad), Teléfono, Correo. Botones Limpiar/Registrar.
+- **Tabla:** Médico (avatar + nombre + ID), Especialidad, Licencia/Contacto, Estado (**toggle de disponibilidad**), acciones. Paginación.
+- **Roles:** Admin y Recepcionista. (Los médicos no ven este módulo.)
+- **Pendiente de crear:** `MedicoController` (+ `medicos.html`) — al registrar un Médico se crea su `Usuario` (rol MEDICO) y su `Medico`.
+- **Entidad:** `Medico` (`usuario` 1:1, `especialidad`, `numeroLicencia`, `disponible`) + `IMedicoService`.
+
+#### 4. Consulta Médica (`/consultas`, Pendiente)
+- **Stitch:** `docs/stitch/consulta.html`. Formulario "Nota de Consulta" con **progresor SOAP** (Subjetivo → Objetivo → Plan).
+- **Panel paciente (izq):** foto, nombre, Fecha nacimiento, N° historia, **Signos Vitales** (PA, FC), **Alergias** (chips rojo), **Medicamentos Activos** (chips azul).
+- **Formulario (der):** Motivo de Consulta *, Síntomas e Historia *, Evaluación/Diagnóstico (con link "Añadir Código CIE-10"), Plan de Tratamiento. Botones "Guardar Borrador" y "Guardar y Emitir Receta".
+- **Roles:** Exclusivo Médico; Admin solo lectura histórica.
+- **Pendiente de crear:** `ConsultaMedicaController` (+ `consultas.html`). Al guardar, la cita pasa a `ATENDIDA` (ver flujo en `docs/explicacion-sistema.md`).
+- **Entidad:** `ConsultaMedica` (`cita` 1:1, `motivoConsulta`, `sintomatologia`, `diagnostico`, `fechaConsulta`) + `IConsultaMedicaService`.
+
+#### 5. Receta Médica (`/recetas`, Pendiente)
+- **Stitch:** `docs/stitch/recetas.html`. Vista imprimible tipo "prescription pad".
+- **Interacción:** barra de acciones con "Enviar por Correo" e "Imprimir Receta" (`@media print` oculta nav y no imprime elementos de UI).
+- **Contenido:** encabezado de clínica, datos del médico (nombre, especialidad, licencia), tarjeta de paciente (nombre, fecha nacimiento, género, MRN), listado de medicamentos (Medicamento, Dosis, Frecuencia, Duración, Notas), notas/instrucciones y firma del médico. ID de receta electrónica.
+- **Roles:** Exclusivo Médico (generar); Recepcionista solo lectura/impresión; Admin histórico.
+- **Pendiente de crear:** `RecetaController` (+ `recetas.html` + vista imprimible). La generación usa `RecetaDetalle` (`cantidad`, `indicaciones`, `estado` PRESCRITA/DISPENSADA) — al dispensar descuenta stock vía `Medicamento.actualizarStock()`.
+- **Entidad:** `RecetaDetalle` (`consulta` N:1, `medicamento` N:1, `cantidad`, `indicaciones`, `estado`) + `IRecetaDetalleService`.
+
+#### 6. Inventario de Medicamentos (`/medicamentos`, Ya implementado)
+- **Stitch:** `docs/stitch/inventario.html`. Vista "Inventario de Medicamentos".
+- **Layout:** tarjetas de métricas (Artículos Totales, Stock Bajo, Próximo a Vencer) + tabla principal (Nombre Comercial, Nombre Genérico, Categoría, Stock, Vencimiento, Estado) + panel lateral para registrar medicamento y gestionar categorías.
+- **Estado por fila:** vigente (check verde), próximo a vencer (badge ámbar), vencido/bloqueado (rojo, `line-through`), stock bajo (fondo resaltado).
+- **Roles:** Admin y Recepcionista gestionan; Médicos solo lectura.
+- **Documentado en TODO del controlador** `MedicamentoController`. Alinear el HTML al Stitch.
+
+### Referencia de negocio
+Detalle de los flujos y procesos de cada vista: **`docs/explicacion-sistema.md`**.

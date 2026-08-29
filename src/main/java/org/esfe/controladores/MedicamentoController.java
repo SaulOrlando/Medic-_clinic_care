@@ -1,5 +1,25 @@
 package org.esfe.controladores;
 
+/*
+ * TODO (VISTA: Inventario de Medicamentos — referencia visual en docs/stitch/inventario.html)
+ * Este controlador ya es funcional. Alinear la plantilla `medicamentos.html` al diseño Stitch
+ * aprobado (el HTML `.html` es autónomo con Tailwind vía CDN — traducir a Thymeleaf + CSS propio).
+ * El diseño debe tener:
+ *  - Bento grid 12-col: tabla principal (col-span-8) + panel lateral (col-span-4).
+ *  - Encabezado: breadcrumb "Inventario", título, botones "Filtrar" y "Nuevo Medicamento".
+ *  - Tarjetas de métricas (3): Artículos Totales (medication), Stock Bajo (warning/ámbar),
+ *    Próximo a Vencer (event_busy/rojo).
+ *  - Tabla "Stock Actual" (columnas): Nombre Comercial | Nombre Genérico | Categoría (badge)
+ *    | Stock (derecha, tabular) | Vencimiento | Estado.
+ *  - Estado por fila: vigente (check verde), próximo a vencer (badge ámbar "PRÓX. VENC."),
+ *    vencido/bloqueado (rojo, `line-through` + badge "BLOQUEADO"), stock bajo (fondo resaltado).
+ *    Usar Medicamento.validarCaducidad()/stockDisponible para calcular el estado.
+ *  - Panel lateral: formulario "Registrar Medicamento" (Nombre Comercial *, Nombre Genérico,
+ *    Categoría * select, Stock Inicial, Fecha de Vencimiento *) + sección "Categorías"
+ *    con alta rápida y cuenta de artículos (y aviso de que no se borran categorías con medicamentos).
+ *  - Roles: Admin y Recepcionista gestionan (crear/editar/eliminar); Médico SOLO lectura.
+ * Sin romper el CRUD actual (/ GET, /nuevo, /guardar, /{id}/editar GET+POST, /{id}/eliminar POST).
+ */
 import org.esfe.modelos.CategoriaMedicamento;
 import org.esfe.modelos.Medicamento;
 import org.esfe.servicios.interfaces.IMedicamentoService;

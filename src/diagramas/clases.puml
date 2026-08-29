@@ -6,7 +6,6 @@ enum RolUsuario {
   MEDICO
   RECEPCIONISTA
   ADMINISTRADOR
-  ENCARGADO_INVENTARIO
 }
 
 enum EstadoCita {
@@ -37,6 +36,7 @@ class Usuario {
   - String nombreCompleto
   - String telefono
   - String foto
+  - Boolean activo
   + obtenerTodos(): List<Usuario>
   + obtenerPorId(idUsuario: Integer): Optional<Usuario>
   + buscarPorCorreo(correo: String): Optional<Usuario>
