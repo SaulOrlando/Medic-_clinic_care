@@ -12,6 +12,7 @@ entity "usuarios" as usuario {
   * **nombre_completo** : VARCHAR(150)
   * **telefono** : VARCHAR(20)
   * **foto** : VARCHAR(MAX)
+  * **activo** : BIT
 }
 
 entity "medicos" as medico {
