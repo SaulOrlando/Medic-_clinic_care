@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+       th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="usuarios-alerts">
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="usuarios-header">
+        <div class="usuarios-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/medicamentos">Inventario</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item"
+                      th:text="${modo == 'crear'} ? 'Nuevo Medicamento' : 'Editar Medicamento'">Nuevo Medicamento</span>
+            </nav>
+            <h2 class="page-title"
+                th:text="${modo == 'crear'} ? 'Nuevo Medicamento' : 'Editar Medicamento'">Nuevo Medicamento</h2>
+            <p class="page-subtitle"
+               th:text="${modo == 'crear'} ? 'Registra un nuevo medicamento al inventario.' : 'Actualiza los datos del medicamento.'">
+                Registra un nuevo medicamento al inventario.
+            </p>
+        </div>
+    </div>
+
+    <div class="card medicamentos-form-card">
+        <div class="card-body">
+            <form th:object="${medicamento}" method="post"
+                  th:action="${modo == 'crear'} ? @{/medicamentos/guardar} : @{/medicamentos/{id}/editar(id=${medicamento.idMedicamento})}"
+                  class="medicamentos-form">
+
+                <div class="medicamentos-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="nombreComercial">Nombre Comercial *</label>
+                        <input type="text" id="nombreComercial" class="form-input"
+                               th:field="*{nombreComercial}" placeholder="Nombre comercial del medicamento" required maxlength="150" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="nombreGenerico">Nombre Genérico *</label>
+                        <input type="text" id="nombreGenerico" class="form-input"
+                               th:field="*{nombreGenerico}" placeholder="Nombre genérico" required maxlength="150" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="categoria">Categoría *</label>
+                        <select id="categoria" class="form-input" th:field="*{categoria}">
+                            <option value="">Seleccionar categoría</option>
+                            <option th:each="cat : ${categorias}"
+                                    th:value="${cat.idCategoria}"
+                                    th:text="${cat.nombre}">Categoría</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="presentacion">Presentación *</label>
+                        <input type="text" id="presentacion" class="form-input"
+                               th:field="*{presentacion}" placeholder="Ej: Tabletas, Cápsulas" required maxlength="50" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="unidadMedida">Unidad de Medida *</label>
+                        <input type="text" id="unidadMedida" class="form-input"
+                               th:field="*{unidadMedida}" placeholder="Ej: mg, ml, unidades" required maxlength="30" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="concentracion">Concentración *</label>
+                        <input type="text" id="concentracion" class="form-input"
+                               th:field="*{concentracion}" placeholder="Ej: 500mg" required maxlength="50" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="stockInicial">Stock Inicial *</label>
+                        <input type="number" id="stockInicial" class="form-input"
+                               th:field="*{stockInicial}" required min="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="stockDisponible">Stock Disponible</label>
+                        <input type="number" id="stockDisponible" class="form-input"
+                               th:field="*{stockDisponible}" min="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="fechaVencimiento">Fecha de Vencimiento *</label>
+                        <input type="date" id="fechaVencimiento" class="form-input"
+                               th:field="*{fechaVencimiento}" required />
+                    </div>
+                </div>
+
+                <div class="medicamentos-form-actions">
+                    <a href="/medicamentos" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-primary"
+                            th:text="${modo == 'crear'} ? 'Registrar Medicamento' : 'Guardar Cambios'">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+
+</html>
