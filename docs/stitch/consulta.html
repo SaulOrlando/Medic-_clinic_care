@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Formulario de Consulta Médica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#1976d2",
+                        "on-primary-fixed": "#001c3a",
+                        "tertiary-fixed": "#ffddba",
+                        "secondary-container": "#a0f399",
+                        "on-tertiary-container": "#fffdff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-secondary-container": "#217128",
+                        "primary": "#005dac",
+                        "secondary": "#1b6d24",
+                        "on-surface-variant": "#414752",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#cfe6f2",
+                        "surface-bright": "#f3faff",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "surface": "#f3faff",
+                        "primary-fixed": "#d4e3ff",
+                        "on-secondary-fixed": "#002204",
+                        "on-primary-container": "#fffdff",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#1e333c",
+                        "secondary-fixed-dim": "#88d982",
+                        "surface-variant": "#cfe6f2",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#845100",
+                        "inverse-primary": "#a5c8ff",
+                        "tertiary-container": "#a66700",
+                        "outline": "#717783",
+                        "background": "#f3faff",
+                        "surface-container-high": "#d5ecf8",
+                        "surface-container-low": "#e6f6ff",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed": "#a3f69c",
+                        "on-background": "#071e27",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#c7dde9",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c1c6d4",
+                        "on-surface": "#071e27",
+                        "inverse-on-surface": "#dff4ff",
+                        "surface-container": "#dbf1fe",
+                        "on-primary-fixed-variant": "#004786",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#005faf",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "layout-gutter": "16px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "2xl": "48px",
+                        "layout-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full w-[260px] bg-surface-container-low dark:bg-on-background border-r border-outline-variant flex-col py-md z-20">
+<!-- Brand Header -->
+<div class="px-layout-gutter mb-lg">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A clean, modern medical clinic logo featuring a stylized blue cross and subtle curved lines on a crisp white background. Professional healthcare branding." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_YUbHH_xa_5mktZbQNUynhNyw4GfAUKkJC6m1cVcDGeZZEWIDXm-HwWbnJlQ6jNidd9J6eu9jXv7v-6hwslWcuRH9zGu0Gzq0IXkdU_TTjtw5K8rpQ0vHuhcbVpq9uu-FkiQGj4VE654MFsk8Ui0gnQ75Ur_vkuRQnq9yrrjeP4QxwDpfJiVE3LxANHm2uJkpDFmABhMLCYz90b8uV28BLjDlLbkApml_8omDVSNLHTeyDTkiSqjJ"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed truncate">MediClinic Care</h1>
+<p class="font-label-md text-label-md text-on-surface-variant truncate">Gestión Clínica</p>
+</div>
+</div>
+</div>
+<!-- Primary Navigation -->
+<ul class="flex-1 overflow-y-auto px-sm space-y-xs">
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">dashboard</span>
+<span class="font-body-md text-body-md truncate">Panel de Control</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">person</span>
+<span class="font-body-md text-body-md truncate">Pacientes</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">medical_services</span>
+<span class="font-body-md text-body-md truncate">Médicos</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">calendar_month</span>
+<span class="font-body-md text-body-md truncate">Citas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-primary dark:text-primary-fixed border-l-4 border-primary dark:border-primary-fixed font-bold bg-surface-container-high dark:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">monitor_heart</span>
+<span class="font-body-md text-body-md truncate">Consulta</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">description</span>
+<span class="font-body-md text-body-md truncate">Recetas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">inventory_2</span>
+<span class="font-body-md text-body-md truncate">Inventario</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">category</span>
+<span class="font-body-md text-body-md truncate">Categorías</span>
+</a>
+</li>
+</ul>
+<!-- Footer Navigation -->
+<ul class="px-sm mt-auto space-y-xs border-t border-outline-variant pt-sm">
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">settings</span>
+<span class="font-body-md text-body-md truncate">Configuración</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm px-sm py-sm rounded text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-200 cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined shrink-0 text-[20px]">logout</span>
+<span class="font-body-md text-body-md truncate">Cerrar Sesión</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area Wrapper -->
+<div class="flex-1 flex flex-col md:ml-[260px] min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-full md:w-[calc(100%-260px)] h-16 bg-surface dark:bg-background border-b border-outline-variant flex items-center justify-between px-lg z-10">
+<!-- Mobile Brand (Hidden on md+) -->
+<div class="md:hidden flex items-center gap-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">MediClinic Care</span>
+</div>
+<!-- Search Area (on_left) -->
+<div class="hidden md:flex flex-1 max-w-md">
+<div class="relative w-full group focus-within:ring-2 focus-within:ring-primary rounded">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-sm bg-surface-container-highest border-none rounded text-body-md font-body-md text-on-surface placeholder-on-surface-variant focus:outline-none focus:ring-0" placeholder="Buscar pacientes, registros..." type="text"/>
+</div>
+</div>
+<!-- Actions Area -->
+<div class="flex items-center gap-md ml-auto">
+<div class="flex items-center gap-sm text-on-surface-variant dark:text-outline-variant">
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center hover:text-primary dark:hover:text-primary-fixed hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant hidden sm:block"></div>
+<div class="flex items-center gap-sm">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-label-md text-on-surface">Dr. Smith</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Recepcionista</p>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a female doctor in a white lab coat with a stethoscope around her neck, smiling warmly against a blurred clinical background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAF6xCS6agABNsmNn048GhVF60gLVGTptaOFpZCnKxsKkNvkr4r6t65e231-2Oj3eOSKuuLw2tC28q6oKsK5Lq6bgY_KEsT9LfhmToc-s0y0I2aZjX7USgRvmWEzHRFsKE5m4uNM_GSKzIjEHX847oF6re800X3vy8G1aZpc2ibMeBUwh_4g4ilbLzvAeD6NI34JZ9J4YEBET80EAYTw7uKrw037j5IA8kC3blV5SvTAg_eYww2Cq4s"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-16 p-layout-margin overflow-y-auto">
+<div class="max-w-5xl mx-auto space-y-layout-gutter">
+<!-- Breadcrumbs & Header -->
+<div class="flex flex-col gap-xs">
+<div class="flex items-center gap-xs font-body-sm text-body-sm text-on-surface-variant">
+<a class="hover:text-primary transition-colors" href="#">Citas</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Hoy</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface">Consulta</span>
+</div>
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-md mt-sm">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Nota de Consulta</h2>
+<!-- Status Indicator Context -->
+<div class="flex items-center gap-sm bg-surface-container-high px-md py-sm rounded-lg border border-outline-variant">
+<span class="font-label-md text-label-md text-on-surface-variant">Estado Actual:</span>
+<div class="flex items-center gap-xs bg-surface-bright px-sm py-xs rounded border border-primary text-primary">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-label-md text-label-md">En Progreso</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[16px]">arrow_forward</span>
+<div class="flex items-center gap-xs opacity-50 grayscale">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-label-md text-label-md text-secondary">Atendido</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-layout-gutter">
+<!-- Patient Summary Pane (Left Column) -->
+<div class="lg:col-span-4 space-y-layout-gutter">
+<div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant">
+<div class="flex items-start gap-md mb-md">
+<div class="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Portrait of an elderly gentleman with silver hair, wearing a casual light blue shirt, neutral soft lighting, looking relaxed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxX3s6xlVumWK3wgEzC8RQylp5pUWs1--oLihpvf2wN4z9gfogWdXopAHIDTOHg49CbdhQfYO28ZZny3YhGrprd9kfjs6aFTgQwlvMZP2BZc4LIxluO_LMpVVkZwNTIfPGc4P-MdCWKqvtXf1MnhkjYIoM-OxC_T31seQgIuf_BG-jr_TZwnMijneGAiKsGNhNjJPpplG1lPyAtUYKFCRZzQHlAGeJBK7EDSktYpY7DQkfxNkLO-VH"/>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Arthur Pendelton</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-xs">Fecha de Nacimiento: 12 Oct 1954 (69 años)</p>
+<p class="font-data-mono text-data-mono text-on-surface-variant">N° Historia: #992-441-A</p>
+</div>
+</div>
+<hr class="border-outline-variant mb-md"/>
+<div class="space-y-sm">
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-xs">Signos Vitales (Últimos)</span>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-high p-xs rounded border border-outline-variant">
+<span class="block font-label-md text-label-md text-on-surface-variant text-[10px]">PA</span>
+<span class="font-data-mono text-data-mono text-on-surface">128/82</span>
+</div>
+<div class="bg-surface-container-high p-xs rounded border border-outline-variant">
+<span class="block font-label-md text-label-md text-on-surface-variant text-[10px]">FC</span>
+<span class="font-data-mono text-data-mono text-on-surface">74 lpm</span>
+</div>
+</div>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-xs">Alergias</span>
+<div class="flex flex-wrap gap-xs">
+<span class="inline-flex items-center px-sm py-xs rounded bg-error-container text-on-error-container font-label-md text-label-md border border-[#ffb4ab]">Penicilina</span>
+<span class="inline-flex items-center px-sm py-xs rounded bg-surface-container-highest text-on-surface font-label-md text-label-md border border-outline-variant">Látex</span>
+</div>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-on-surface-variant mb-xs">Medicamentos Activos</span>
+<div class="flex flex-wrap gap-xs">
+<span class="inline-flex items-center px-sm py-xs rounded bg-primary-fixed text-on-primary-fixed font-label-md text-label-md border border-primary-fixed-dim">Lisinopril 10mg</span>
+<span class="inline-flex items-center px-sm py-xs rounded bg-primary-fixed text-on-primary-fixed font-label-md text-label-md border border-primary-fixed-dim">Metformina 500mg</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Clinical Form (Right Column) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden flex flex-col">
+<!-- Form Progressor -->
+<div class="bg-surface-container-low px-md py-sm border-b border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-[10px]">1</div>
+<span class="font-label-md text-label-md text-on-surface">Subjetivo</span>
+</div>
+<div class="h-px flex-1 bg-outline-variant mx-sm max-w-[40px]"></div>
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md text-[10px]">2</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Objetivo</span>
+</div>
+<div class="h-px flex-1 bg-outline-variant mx-sm max-w-[40px]"></div>
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant border border-outline-variant flex items-center justify-center font-label-md text-[10px]">3</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Plan</span>
+</div>
+</div>
+<!-- Form Fields -->
+<div class="p-md flex-1 space-y-lg">
+<!-- Reason -->
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface" for="reason">Motivo de Consulta / Razón Principal *</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded p-sm font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" id="reason" placeholder="ej. Tos persistente y fiebre leve" type="text" value="Seguimiento del manejo de la hipertensión"/>
+</div>
+<!-- Symptoms -->
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface" for="symptoms">Síntomas e Historia de la Enfermedad Actual</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded p-sm font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow resize-y" id="symptoms" placeholder="Describa síntomas, duración, gravedad..." rows="4">El paciente reporta mareos leves ocasionales al levantarse rápidamente durante las últimas dos semanas. Sin dolor en el pecho, palpitaciones ni falta de aire. Continúa tomando Lisinopril según lo recetado. Los registros de presión arterial en casa indican un promedio de 135/85.</textarea>
+</div>
+<hr class="border-outline-variant border-dashed"/>
+<!-- Diagnosis -->
+<div class="space-y-sm">
+<div class="flex items-center justify-between">
+<label class="block font-label-md text-label-md text-on-surface" for="diagnosis">Evaluación / Diagnóstico</label>
+<button class="text-primary hover:text-primary-fixed-dim font-label-md text-label-md flex items-center gap-xs" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span> Añadir Código CIE-10
+                                    </button>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-bright border border-outline-variant rounded p-sm pl-10 font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow" id="diagnosis" placeholder="Buscar o escribir diagnóstico..." type="text" value="Hipertensión esencial (primaria)"/>
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline-variant text-[20px]">stethoscope</span>
+</div>
+<div class="flex gap-xs mt-xs">
+<span class="inline-flex items-center gap-xs px-sm py-xs rounded bg-surface-container-high text-on-surface font-data-mono text-data-mono text-[12px] border border-outline-variant">
+                                        I10 <button class="material-symbols-outlined text-[14px] hover:text-error transition-colors">close</button>
+</span>
+</div>
+</div>
+<!-- Treatment/Prescription Notes -->
+<div class="space-y-sm">
+<label class="block font-label-md text-label-md text-on-surface" for="treatment">Plan de Tratamiento y Notas de Recetas</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded p-sm font-body-md text-body-md text-on-surface focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none transition-shadow resize-y" id="treatment" placeholder="Detalle el plan, los próximos pasos o los cambios de medicación..." rows="4">Continuar con la dosis actual de Lisinopril 10 mg diarios. 
+Se aconsejaron cambios posturales lentos para mitigar el mareo ortostático. 
+Se recomendó continuar con una dieta baja en sodio y caminatas diarias. 
+Seguimiento en 3 meses.</textarea>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-md border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+<button class="px-md py-sm rounded border border-outline-variant font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-highest transition-colors" type="button">
+                                Guardar Borrador
+                            </button>
+<button class="flex items-center gap-sm px-lg py-sm rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-on-primary-fixed-variant shadow-sm transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[18px]">prescriptions</span>
+                                Guardar y Emitir Receta
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -10,9 +10,9 @@ SET XACT_ABORT ON;
 --   saul@mediclinic.com      -> MEDICO
 --   fabiola@mediclinic.com  -> RECEPCIONISTA
 --   iliana@mediclinic.com   -> ADMINISTRADOR
---   guadalupe@mediclinic.com  -> ENCARGADO_INVENTARIO
 --   camila@mediclinic.com  -> MEDICO (extra)
 --   roberto@mediclinic.com  -> MEDICO (extra)
+--   guadalupe@mediclinic.com -> MEDICO (extra)
 -- =====================================================
 
 DECLARE @hoy         AS DATE     = CAST(GETDATE() AS DATE);
@@ -41,10 +41,6 @@ IF NOT EXISTS (SELECT 1 FROM usuarios WHERE correo = 'iliana@mediclinic.com')
     INSERT INTO usuarios (correo, contrasena, rol, nombre_completo, telefono) VALUES
     ('iliana@mediclinic.com', '12345678', 'ADMINISTRADOR', 'Iliana Melgar', '7711-1003');
 
-IF NOT EXISTS (SELECT 1 FROM usuarios WHERE correo = 'guadalupe@mediclinic.com')
-    INSERT INTO usuarios (correo, contrasena, rol, nombre_completo, telefono) VALUES
-    ('guadalupe@mediclinic.com', '12345678', 'ENCARGADO_INVENTARIO', 'Guadalupe Sion', '7711-1004');
-
 IF NOT EXISTS (SELECT 1 FROM usuarios WHERE correo = 'camila@mediclinic.com')
     INSERT INTO usuarios (correo, contrasena, rol, nombre_completo, telefono) VALUES
     ('camila@mediclinic.com', '12345678', 'MEDICO', 'Camila Fuentes', '7711-1005');
@@ -53,12 +49,16 @@ IF NOT EXISTS (SELECT 1 FROM usuarios WHERE correo = 'roberto@mediclinic.com')
     INSERT INTO usuarios (correo, contrasena, rol, nombre_completo, telefono) VALUES
     ('roberto@mediclinic.com', '12345678', 'MEDICO', 'Roberto Campos', '7711-1006');
 
+IF NOT EXISTS (SELECT 1 FROM usuarios WHERE correo = 'guadalupe@mediclinic.com')
+    INSERT INTO usuarios (correo, contrasena, rol, nombre_completo, telefono) VALUES
+    ('guadalupe@mediclinic.com', '12345678', 'MEDICO', 'Guadalupe Sion', '7711-1007');
+
 DECLARE @idSaul      INT = (SELECT id_usuario FROM usuarios WHERE correo = 'saul@mediclinic.com');
 DECLARE @idFabiola   INT = (SELECT id_usuario FROM usuarios WHERE correo = 'fabiola@mediclinic.com');
 DECLARE @idIliana    INT = (SELECT id_usuario FROM usuarios WHERE correo = 'iliana@mediclinic.com');
-DECLARE @idGuadalupe INT = (SELECT id_usuario FROM usuarios WHERE correo = 'guadalupe@mediclinic.com');
 DECLARE @idCamila    INT = (SELECT id_usuario FROM usuarios WHERE correo = 'camila@mediclinic.com');
 DECLARE @idRoberto   INT = (SELECT id_usuario FROM usuarios WHERE correo = 'roberto@mediclinic.com');
+DECLARE @idGuadalupe INT = (SELECT id_usuario FROM usuarios WHERE correo = 'guadalupe@mediclinic.com');
 
 -- ============ MEDICOS ============
 IF NOT EXISTS (SELECT 1 FROM medicos WHERE numero_licencia = 'LIC-MED-0001')
@@ -72,6 +72,10 @@ IF NOT EXISTS (SELECT 1 FROM medicos WHERE numero_licencia = 'LIC-MED-0002')
 IF NOT EXISTS (SELECT 1 FROM medicos WHERE numero_licencia = 'LIC-MED-0003')
     INSERT INTO medicos (id_usuario, especialidad, numero_licencia, disponible) VALUES
     (@idRoberto, 'Cardiologia', 'LIC-MED-0003', 1);
+
+IF NOT EXISTS (SELECT 1 FROM medicos WHERE numero_licencia = 'LIC-MED-0004')
+    INSERT INTO medicos (id_usuario, especialidad, numero_licencia, disponible) VALUES
+    (@idGuadalupe, 'Dermatologia', 'LIC-MED-0004', 1);
 
 DECLARE @medSaul   INT = (SELECT id_medico FROM medicos WHERE numero_licencia = 'LIC-MED-0001');
 DECLARE @medCamila INT = (SELECT id_medico FROM medicos WHERE numero_licencia = 'LIC-MED-0002');
@@ -324,23 +328,23 @@ DECLARE @medVitC INT = (SELECT id_medicamento FROM medicamentos WHERE nombre_com
 
 IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medPara AND motivo = 'Compra inicial')
     INSERT INTO movimientos_inventario (id_medicamento, id_usuario, tipo_movimiento, cantidad, fecha_movimiento, motivo) VALUES
-    (@medPara, @idGuadalupe, 'ENTRADA', 120, @hoyInicio, 'Compra inicial');
+    (@medPara, @idFabiola, 'ENTRADA', 120, @hoyInicio, 'Compra inicial');
 
 IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medIbu AND motivo = 'Compra inicial')
     INSERT INTO movimientos_inventario (id_medicamento, id_usuario, tipo_movimiento, cantidad, fecha_movimiento, motivo) VALUES
-    (@medIbu, @idGuadalupe, 'ENTRADA', 80, @hoyInicio, 'Compra inicial');
+    (@medIbu, @idFabiola, 'ENTRADA', 80, @hoyInicio, 'Compra inicial');
 
 IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medAmo AND motivo = 'Compra inicial')
     INSERT INTO movimientos_inventario (id_medicamento, id_usuario, tipo_movimiento, cantidad, fecha_movimiento, motivo) VALUES
-    (@medAmo, @idGuadalupe, 'ENTRADA', 60, @hoyInicio, 'Compra inicial');
+    (@medAmo, @idFabiola, 'ENTRADA', 60, @hoyInicio, 'Compra inicial');
 
 IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medLor AND motivo = 'Compra inicial')
     INSERT INTO movimientos_inventario (id_medicamento, id_usuario, tipo_movimiento, cantidad, fecha_movimiento, motivo) VALUES
-    (@medLor, @idGuadalupe, 'ENTRADA', 50, @hoyInicio, 'Compra inicial');
+    (@medLor, @idFabiola, 'ENTRADA', 50, @hoyInicio, 'Compra inicial');
 
 IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medVitC AND motivo = 'Compra inicial')
     INSERT INTO movimientos_inventario (id_medicamento, id_usuario, tipo_movimiento, cantidad, fecha_movimiento, motivo) VALUES
-    (@medVitC, @idGuadalupe, 'ENTRADA', 100, @hoyInicio, 'Compra inicial');
+    (@medVitC, @idFabiola, 'ENTRADA', 100, @hoyInicio, 'Compra inicial');
 
 -- ============ RECETAS DETALLES ============
 INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
