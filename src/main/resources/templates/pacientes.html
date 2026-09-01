@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="pacientes-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="pacientes-header">
+        <div class="pacientes-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item">MediClinic Care</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Pacientes</span>
+            </nav>
+            <h2 class="page-title">Directorio de Pacientes</h2>
+            <p class="page-subtitle">Consulta y gestiona el directorio central de pacientes, sus historias clínicas y datos de contacto.</p>
+        </div>
+        <a href="/pacientes/nuevo" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+            Agregar Paciente
+        </a>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="pacientes-table-card">
+
+        <!-- Toolbar (Search & Filters) -->
+        <form method="get" action="/pacientes" class="pacientes-toolbar" data-combo-auto>
+            <div class="pacientes-search">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" name="q" th:value="${q}" placeholder="Buscar pacientes..." aria-label="Buscar paciente" />
+            </div>
+
+            <div class="pacientes-filters">
+                <div class="pacientes-filter">
+                    <label class="pacientes-filter-label" for="filtroGenero">Género:</label>
+                    <div class="pacientes-combo" id="filtroGenero" data-combo>
+                        <button type="button" class="pacientes-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                            <span class="pacientes-combo-label" data-combo-label>Filtrar por género</span>
+                            <span class="material-symbols-outlined pacientes-combo-caret">expand_more</span>
+                        </button>
+                        <ul class="pacientes-combo-lista" role="listbox" data-combo-lista hidden>
+                            <li role="option" class="pacientes-combo-opcion" data-combo-option="todos">Todos los géneros</li>
+                            <li th:each="g : ${opcionesGenero}"
+                                role="option"
+                                class="pacientes-combo-opcion"
+                                th:attr="data-combo-option=${g.key}"
+                                th:text="${g.value}">Femenino</li>
+                        </ul>
+                        <input type="hidden" name="genero" data-combo-hidden th:value="${generoFiltro}" value="todos" />
+                    </div>
+                </div>
+                <button type="submit" class="pacientes-filter-btn" title="Aplicar filtros">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">filter_alt</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Table -->
+        <div class="pacientes-table-wrap">
+            <table class="pacientes-table">
+                <thead>
+                    <tr>
+                        <th>Documento de Identidad</th>
+                        <th>Nombre del Paciente</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Género</th>
+                        <th class="text-right">Teléfono</th>
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(pacientes)}">
+                        <td colspan="6">
+                            <div class="pacientes-empty">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">person_search</span>
+                                <p>No se encontraron pacientes con los filtros seleccionados.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="paciente : ${pacientes}" class="pacientes-row">
+                        <td class="pacientes-mono" th:text="${paciente.documentoIdentidad}">ID-9827361</td>
+                        <td>
+                            <div class="pacientes-user">
+                                <div class="pacientes-avatar"
+                                     th:text="|${#strings.substring(#strings.capitalize(paciente.nombres), 0, 1)}${#strings.substring(#strings.capitalize(paciente.apellidos), 0, 1)}|">EJ</div>
+                                <div>
+                                    <p class="pacientes-name" th:text="${paciente.nombres + ' ' + paciente.apellidos}">Eleanor James</p>
+                                    <p class="pacientes-id" th:text="'EXP: ' + ${paciente.codigoExpediente}">EXP: MC-2026-0001</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${#temporals.format(paciente.fechaNacimiento, 'dd/MM/yyyy')}">1985-04-12</td>
+                        <td>
+                            <span class="pacientes-genero" th:text="${paciente.genero}">Femenino</span>
+                        </td>
+                        <td class="pacientes-mono text-right" th:text="${paciente.telefono}">(555) 019-2837</td>
+                        <td>
+                            <div class="pacientes-acciones">
+                                <a th:href="@{/pacientes/{id}/editar(id=${paciente.idPaciente})}"
+                                   class="pacientes-accion" title="Editar">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                </a>
+                                <form th:action="@{/pacientes/{id}/eliminar(id=${paciente.idPaciente})}" method="post"
+                                      class="pacientes-accion-form"
+                                      th:data-confirm="'¿Desea eliminar al paciente ' + ${paciente.nombres} + ' ' + ${paciente.apellidos} + '?'">
+                                    <button type="submit" class="pacientes-accion pacientes-accion--peligro" title="Eliminar"
+                                            th:disabled="${#lists.size(paciente.citas) > 0}">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pacientes-pagination">
+            <span class="pacientes-pagination-info">
+                Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">8</span> de
+                <span th:text="${totalPacientes}">156</span> pacientes
+            </span>
+            <div class="pacientes-pagination-controls">
+                <a th:if="${paginaActual > 1}"
+                   th:href="@{/pacientes(q=${q}, genero=${generoFiltro}, pagina=${paginaActual - 1})}"
+                   class="pacientes-paginbtn" title="Anterior" aria-label="Página anterior">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </a>
+                <span th:if="${paginaActual <= 1}" class="pacientes-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </span>
+
+                <th:block th:if="${totalPaginas <= 7}">
+                    <a th:each="pagina : ${paginasVisibles}"
+                       th:href="@{/pacientes(q=${q}, genero=${generoFiltro}, pagina=${pagina})}"
+                       class="pacientes-paginbtn pacientes-paginbtn--numero"
+                       th:classappend="${pagina == paginaActual} ? 'pacientes-paginbtn--activo' : ''"
+                       th:text="${pagina}">1</a>
+                </th:block>
+                <span th:if="${totalPaginas > 7}" class="pacientes-paginbtn pacientes-paginbtn--numero"
+                      th:text="${paginaActual + ' / ' + totalPaginas}">1 / 20</span>
+
+                <a th:if="${paginaActual < totalPaginas}"
+                   th:href="@{/pacientes(q=${q}, genero=${generoFiltro}, pagina=${paginaActual + 1})}"
+                   class="pacientes-paginbtn" title="Siguiente" aria-label="Página siguiente">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </a>
+                <span th:if="${paginaActual >= totalPaginas}" class="pacientes-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+
+        (function () {
+            'use strict';
+            document.querySelectorAll('[data-combo]').forEach(function (combo) {
+                var trigger = combo.querySelector('[data-combo-trigger]');
+                var lista = combo.querySelector('[data-combo-lista]');
+                var label = combo.querySelector('[data-combo-label]');
+                var hidden = combo.querySelector('[data-combo-hidden]');
+                var opciones = Array.prototype.slice.call(combo.querySelectorAll('[data-combo-option]'));
+                var form = combo.closest('form');
+
+                function abrir(abierto) {
+                    lista.hidden = !abierto;
+                    trigger.setAttribute('aria-expanded', String(abierto));
+                }
+
+                function sincronizar() {
+                    var seleccionada = false;
+                    opciones.forEach(function (o) {
+                        if (o.getAttribute('data-combo-option') === hidden.value) {
+                            o.classList.add('is-selected');
+                            label.textContent = o.textContent.trim();
+                            seleccionada = true;
+                        } else {
+                            o.classList.remove('is-selected');
+                        }
+                    });
+                    if (!seleccionada && opciones.length > 0) {
+                        hidden.value = opciones[0].getAttribute('data-combo-option');
+                        opciones[0].classList.add('is-selected');
+                        label.textContent = opciones[0].textContent.trim();
+                    }
+                }
+
+                trigger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    abrir(lista.hidden);
+                    if (!lista.hidden) {
+                        lista.querySelectorAll('.pacientes-combo-opcion').forEach(function (o) {
+                            if (o.classList.contains('is-selected')) {
+                                o.scrollIntoView({ block: 'nearest' });
+                            }
+                        });
+                    }
+                });
+
+                opciones.forEach(function (o) {
+                    o.addEventListener('click', function () {
+                        hidden.value = o.getAttribute('data-combo-option');
+                        sincronizar();
+                        abrir(false);
+                        trigger.focus();
+                        if (form && form.hasAttribute('data-combo-auto')) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!combo.contains(e.target)) {
+                        abrir(false);
+                    }
+                });
+
+                combo.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        abrir(false);
+                        trigger.focus();
+                    }
+                });
+
+                sincronizar();
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>
