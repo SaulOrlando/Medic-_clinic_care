@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="recetas-header">
+        <div class="consultas-header-text">
+            <h2 class="page-title">Recetas Médicas</h2>
+            <p class="page-subtitle">Prescripciones generadas por consulta. Gestione, imprima y dispense medicamentos.</p>
+        </div>
+        <a th:if="${usuario?.rol?.name() == 'MEDICO'}" href="/recetas/nueva" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+            Nueva Receta
+        </a>
+    </div>
+
+    <!-- Groups by Consulta -->
+    <div th:if="${#maps.isEmpty(agrupadas)}" class="recetas-empty-card">
+        <div class="recetas-empty">
+            <span class="material-symbols-outlined" style="font-size: 32px;">description</span>
+            <p>No se encontraron recetas registradas.</p>
+        </div>
+    </div>
+
+    <div th:each="entry : ${agrupadas}"
+         th:with="consulta=${entry.key}, detalles=${entry.value}">
+
+        <div class="recetas-group">
+            <!-- Group Header -->
+            <div class="recetas-group-header">
+                <div class="recetas-group-patient">
+                    <div class="recetas-group-avatar"
+                         th:text="${consulta?.cita?.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
+                    <div>
+                        <p class="recetas-group-name"
+                           th:text="${consulta?.cita?.paciente?.nombres + ' ' + consulta?.cita?.paciente?.apellidos}">Paciente</p>
+                        <p class="recetas-group-meta"
+                           th:text="'Consulta #' + ${consulta?.idConsulta} + ' · ' + ${#temporals.format(consulta?.fechaConsulta, 'dd/MM/yyyy')}">
+                            Consulta #1 · 01/01/2025
+                        </p>
+                    </div>
+                </div>
+                <div class="recetas-group-actions">
+                    <a th:href="@{/recetas/consulta/{id}(id=${consulta?.idConsulta})}" class="btn btn-outline btn-sm">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span>
+                        Ver / Imprimir
+                    </a>
+                </div>
+            </div>
+
+            <!-- Medications table -->
+            <table class="recetas-table">
+                <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Cantidad</th>
+                        <th>Indicaciones</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="det : ${detalles}">
+                        <td>
+                            <span class="font-semibold"
+                                  th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
+                        </td>
+                        <td>
+                            <span class="text-right"
+                                  th:text="${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1</span>
+                        </td>
+                        <td>
+                            <span th:text="${#strings.abbreviate(det.indicaciones, 60)}">Indicaciones</span>
+                        </td>
+                        <td>
+                            <span class="recetas-badge recetas-badge--prescrita"
+                                  th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'recetas-badge--dispensada' : ''"
+                                  th:text="${det.estado.name() == 'PRESCRITA'} ? 'Prescrita' : 'Dispensada'">Prescrita</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</th:block>
+
+</html>
