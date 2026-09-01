@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="medicos-alerts">
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="medicos-header">
+        <div class="medicos-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/medicos">Médicos</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Editar Médico</span>
+            </nav>
+            <h2 class="page-title">Editar Médico</h2>
+            <p class="page-subtitle">Actualiza los datos del profesional de salud.</p>
+        </div>
+    </div>
+
+    <div class="card medicos-form-card">
+        <div class="card-body">
+            <form th:action="@{/medicos/{id}/editar(id=${medico.idMedico})}" method="post" class="medicos-form">
+
+                <div class="medicos-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="nombreCompleto">Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" class="form-input"
+                               th:value="${medico.usuario?.nombreCompleto}" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="correo">Correo Electrónico</label>
+                        <input type="email" id="correo" class="form-input"
+                               th:value="${medico.usuario?.correo}" disabled />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="especialidad">Especialidad *</label>
+                        <select id="especialidad" class="form-input" name="especialidad" required>
+                            <option th:each="esp : ${especialidades}"
+                                    th:value="${esp}"
+                                    th:text="${esp}"
+                                    th:selected="${medico.especialidad == esp}">Cardiología</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="numeroLicencia">Número de Licencia *</label>
+                        <input type="text" id="numeroLicencia" name="numeroLicencia" class="form-input is-licencia"
+                               th:value="${medico.numeroLicencia}"
+                               th:attr="data-medico-id=${medico.idMedico}"
+                               placeholder="MD-12345" required maxlength="50" />
+                        <p class="form-error is-licencia-error" style="display: none;">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">warning</span>
+                            Ya existe un médico con este número de licencia.
+                        </p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="telefono">Número de Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-input"
+                               th:value="${medico.usuario?.telefono}" placeholder="(555) 123-4567" required maxlength="20" />
+                    </div>
+                </div>
+
+                <div class="medicos-form-actions">
+                    <a href="/medicos" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            var licInput = document.getElementById('numeroLicencia');
+            var licError = document.querySelector('.is-licencia-error');
+
+            function ocultarError() {
+                if (licError) {
+                    licError.style.display = 'none';
+                }
+                if (licInput) {
+                    licInput.classList.remove('is-invalid');
+                }
+            }
+
+            function verificar() {
+                if (!licInput || !licError) {
+                    return;
+                }
+                var valor = licInput.value.trim();
+                if (valor === '') {
+                    ocultarError();
+                    return;
+                }
+                var id = licInput.getAttribute('data-medico-id') || '';
+                var url = '/medicos/existe-licencia?licencia=' + encodeURIComponent(valor) + '&id=' + encodeURIComponent(id);
+                fetch(url, { headers: { 'Accept': 'application/json' } })
+                    .then(function (r) { return r.json(); })
+                    .then(function (datos) {
+                        if (datos.duplicado) {
+                            licInput.classList.add('is-invalid');
+                            licError.style.display = 'flex';
+                        } else {
+                            ocultarError();
+                        }
+                    })
+                    .catch(function () { ocultarError(); });
+            }
+
+            if (licInput) {
+                licInput.addEventListener('input', verificar);
+                licInput.addEventListener('blur', verificar);
+            }
+        })();
+    </script>
+
+</th:block>
+
+</html>

@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .requestMatchers("/login").permitAll()
                  .requestMatchers("/categorias-medicamentos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO", "ENCARGADO_INVENTARIO")
                  .requestMatchers("/medicamentos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO", "ENCARGADO_INVENTARIO")
+                .requestMatchers("/medicos", "/medicos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA")
                 .requestMatchers("/usuarios", "/usuarios/**").hasRole("ADMINISTRADOR")
                 .anyRequest().authenticated()
             )

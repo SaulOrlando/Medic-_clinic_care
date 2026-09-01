@@ -1,0 +1,538 @@
+/* ============================================
+   MediClinic Care — Gestión de Médicos
+   Stitch Clinical Precision Theme
+   ============================================ */
+
+/* --- Alerts --- */
+.medicos-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+}
+
+.medicos-alerts:empty {
+    display: none;
+}
+
+/* --- Header --- */
+.medicos-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+}
+
+.medicos-header-text .page-title {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.01em;
+}
+
+.medicos-header-text .page-subtitle {
+    max-width: 46rem;
+    margin-top: var(--space-1);
+}
+
+/* --- Bento Layout (12-col) --- */
+.medicos-bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--space-4);
+    align-items: start;
+}
+
+.medicos-registro-card {
+    grid-column: span 12;
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    box-shadow: var(--shadow-ambient);
+    align-self: start;
+}
+
+.medicos-registro-titulo {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-4);
+    margin-bottom: var(--space-5);
+}
+
+.medicos-directorio-card {
+    grid-column: span 12;
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Registration form */
+.medicos-form .form-group {
+    margin-bottom: var(--space-4);
+}
+
+.medicos-form-dos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.medicos-licencia {
+    position: relative;
+}
+
+.medicos-licencia-icon {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: var(--color-secondary);
+}
+
+.medicos-form-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-2);
+}
+
+/* Directory card header / toolbar */
+.medicos-directorio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    padding: var(--space-4);
+    background-color: var(--color-surface-container-low);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.medicos-directorio-titulo {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.medicos-toolbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.medicos-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 200px;
+}
+
+.medicos-search .material-symbols-outlined {
+    font-size: 20px;
+    color: var(--color-text-secondary);
+}
+
+.medicos-search input {
+    height: 2.25rem;
+    padding: 0 var(--space-3);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    outline: none;
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast);
+}
+
+.medicos-search input:focus {
+    border-color: var(--color-primary);
+    border-width: 2px;
+}
+
+.medicos-search input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.medicos-filter-select {
+    height: 2.25rem;
+    padding: 0 var(--space-3);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-md);
+    outline: none;
+    font-family: var(--font-family);
+    font-size: var(--font-size-sm);
+    color: #ffffff;
+    cursor: pointer;
+    forced-color-adjust: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.medicos-filter-select option {
+    color: var(--color-text);
+    background-color: var(--color-primary-200);
+}
+
+/* --- Table --- */
+.medicos-table-wrap {
+    overflow-x: auto;
+}
+
+.medicos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.medicos-table th {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-align: left;
+    white-space: nowrap;
+    background-color: var(--color-surface-container-low);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.medicos-table td {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.medicos-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.medicos-table tbody tr {
+    transition: background-color var(--transition-fast);
+}
+
+.medicos-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* --- Medico cell --- */
+.medicos-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.medicos-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-container);
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+}
+
+.medicos-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.medicos-id {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+.medicos-especialidad {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.7rem;
+    font-size: 11px;
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-full);
+    color: var(--color-secondary);
+    background-color: var(--color-secondary-light);
+    white-space: nowrap;
+}
+
+.medicos-mono {
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.medicos-contacto {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+/* --- Availability toggle --- */
+.medicos-toggle-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.medicos-toggle {
+    position: relative;
+    width: 2.25rem;
+    height: 1.25rem;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.medicos-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1rem;
+    height: 1rem;
+    border-radius: var(--radius-full);
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform var(--transition-fast);
+}
+
+.medicos-toggle--on {
+    background-color: var(--color-secondary);
+}
+
+.medicos-toggle--on .medicos-toggle-thumb {
+    transform: translateX(1rem);
+}
+
+.medicos-toggle--off {
+    background-color: var(--color-surface-container-highest);
+}
+
+.medicos-toggle--off .medicos-toggle-thumb {
+    transform: translateX(0);
+}
+
+/* --- Row actions --- */
+.medicos-acciones {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-1);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.medicos-table tbody tr:hover .medicos-acciones {
+    opacity: 1;
+}
+
+.medicos-accion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.medicos-accion:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-container-low);
+    text-decoration: none;
+}
+
+.medicos-accion--peligro:hover {
+    color: var(--color-error);
+    background-color: var(--color-error-bg);
+}
+
+.medicos-accion:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.medicos-accion-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+/* --- Empty state --- */
+.medicos-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-10) var(--space-4);
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.medicos-empty p {
+    font-size: var(--font-size-sm);
+}
+
+/* --- Pagination --- */
+.medicos-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    padding: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-surface-container-lowest);
+    margin-top: auto;
+}
+
+.medicos-pagination-info {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.medicos-pagination-info span {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.medicos-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.medicos-paginbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 var(--space-1);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface-container-lowest);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.medicos-paginbtn:hover {
+    color: var(--color-primary);
+    background-color: var(--color-surface-container-low);
+    text-decoration: none;
+}
+
+.medicos-paginbtn[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.medicos-paginbtn--numero {
+    border-color: transparent;
+}
+
+.medicos-paginbtn--activo {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* --- Form (edit page) --- */
+.medicos-form-card {
+    max-width: 48rem;
+}
+
+.medicos-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+}
+
+.medicos-form-grid .form-group {
+    margin-bottom: var(--space-4);
+}
+
+.medicos-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+}
+
+.form-input.is-invalid {
+    border-color: var(--color-error);
+    border-width: 2px;
+}
+
+/* --- Responsive --- */
+@media (min-width: 1280px) {
+    .medicos-registro-card {
+        grid-column: span 4;
+    }
+
+    .medicos-directorio-card {
+        grid-column: span 8;
+    }
+}
+
+@media (max-width: 640px) {
+    .medicos-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .medicos-form-dos,
+    .medicos-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .medicos-acciones {
+        opacity: 1;
+    }
+}

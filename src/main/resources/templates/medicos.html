@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="medicos-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="medicos-header">
+        <div class="medicos-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item">Gestión Clínica</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Médicos</span>
+            </nav>
+            <h2 class="page-title">Directorio de Médicos</h2>
+            <p class="page-subtitle">Gestione profesionales activos y registros de especialistas.</p>
+        </div>
+    </div>
+
+    <div class="medicos-bento">
+
+        <!-- Registration Form Card -->
+        <div class="medicos-registro-card">
+            <h3 class="medicos-registro-titulo">Nuevo Registro</h3>
+            <form method="post" action="/medicos/guardar" class="medicos-form" id="medicoForm">
+                <div class="form-group">
+                    <label class="form-label" for="nombreCompleto">Nombre Completo *</label>
+                    <input type="text" id="nombreCompleto" name="nombreCompleto" class="form-input"
+                           placeholder="Dra. Juana Pérez" required maxlength="150" />
+                </div>
+
+                <div class="medicos-form-dos">
+                    <div class="form-group">
+                        <label class="form-label" for="especialidad">Especialidad *</label>
+                        <select id="especialidad" name="especialidad" class="form-input" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option th:each="esp : ${especialidades}" th:value="${esp}" th:text="${esp}">Cardiología</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="numeroLicencia">Número de Licencia *</label>
+                        <div class="medicos-licencia">
+                            <input type="text" id="numeroLicencia" name="numeroLicencia" class="form-input is-licencia"
+                                   placeholder="MD-12345" required maxlength="50" />
+                            <span class="material-symbols-outlined medicos-licencia-icon is-licencia-icon"
+                                  style="display: none;">check_circle</span>
+                        </div>
+                        <p class="form-hint is-licencia-ok" style="display: none; color: var(--color-secondary);">Licencia verificada.</p>
+                        <p class="form-error is-licencia-error" style="display: none;">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">warning</span>
+                            Ya existe un médico con este número de licencia.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="medicos-form-dos">
+                    <div class="form-group">
+                        <label class="form-label" for="telefono">Número de Teléfono *</label>
+                        <input type="tel" id="telefono" name="telefono" class="form-input"
+                               placeholder="(555) 123-4567" required maxlength="20" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="correo">Correo Electrónico *</label>
+                        <input type="email" id="correo" name="correo" class="form-input"
+                               placeholder="doctor@clinic.com" required maxlength="150" />
+                    </div>
+                </div>
+
+                <div class="medicos-form-acciones">
+                    <button type="button" class="btn btn-outline" id="btnLimpiar">Limpiar</button>
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Directory Table Card -->
+        <div class="medicos-directorio-card">
+            <div class="medicos-directorio-header">
+                <span class="medicos-directorio-titulo">Directorio Activo (<span th:text="${totalMedicos}">0</span>)</span>
+                <form method="get" action="/medicos" class="medicos-toolbar" data-combo-auto>
+                    <div class="medicos-search">
+                        <span class="material-symbols-outlined">search</span>
+                        <input type="text" name="q" th:value="${q}" placeholder="Buscar médicos..." aria-label="Buscar médico" />
+                    </div>
+                    <div class="medicos-filter">
+                        <select name="especialidad" class="medicos-filter-select" onchange="this.form.submit()">
+                            <option value="todas" th:selected="${#strings.isEmpty(especialidadFiltro)}">Todas las especialidades</option>
+                            <option th:each="esp : ${especialidades}"
+                                    th:value="${esp}"
+                                    th:text="${esp}"
+                                    th:selected="${especialidadFiltro == esp}">Cardiología</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+
+            <div class="medicos-table-wrap">
+                <table class="medicos-table">
+                    <thead>
+                        <tr>
+                            <th style="min-width: 250px;">Médico</th>
+                            <th>Especialidad</th>
+                            <th>Licencia / Contacto</th>
+                            <th class="text-center">Estado</th>
+                            <th class="text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(medicos)}">
+                            <td colspan="5">
+                                <div class="medicos-empty">
+                                    <span class="material-symbols-outlined" style="font-size: 32px;">medical_services_off</span>
+                                    <p>No se encontraron médicos registrados.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:each="medico : ${medicos}" class="medicos-row">
+                            <td>
+                                <div class="medicos-user">
+                                    <div class="medicos-avatar"
+                                         th:text="${medico.usuario != null ? medico.usuario.getIniciales() : '?'}">AH</div>
+                                    <div>
+                                        <p class="medicos-name" th:text="${medico.usuario != null ? medico.usuario.nombreCompleto : 'Médico'}">Dr. Alexander Hayes</p>
+                                        <p class="medicos-id" th:text="'ID: PHY-' + ${#numbers.formatInteger(medico.idMedico, 4)}">ID: PHY-0912</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="medicos-especialidad" th:text="${medico.especialidad}">Cardiología</span>
+                            </td>
+                            <td>
+                                <p class="medicos-mono" th:text="${medico.numeroLicencia}">MED-883921</p>
+                                <p class="medicos-contacto" th:text="${medico.usuario != null ? medico.usuario.correo : '—'}">ahayes@mediclinic.com</p>
+                            </td>
+                            <td class="text-center">
+                                <form th:action="@{/medicos/{id}/disponibilidad(id=${medico.idMedico})}" method="post" class="medicos-toggle-form">
+                                    <button type="submit" class="medicos-toggle"
+                                            th:classappend="${medico.disponible} ? 'medicos-toggle--on' : 'medicos-toggle--off'"
+                                            th:title="${medico.disponible} ? 'Disponible - clic para desactivar' : 'No disponible - clic para activar'"
+                                            th:aria-label="${medico.disponible} ? 'Marcar no disponible' : 'Marcar disponible'">
+                                        <span class="medicos-toggle-thumb"></span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <div class="medicos-acciones">
+                                    <a th:href="@{/medicos/{id}/editar(id=${medico.idMedico})}"
+                                       class="medicos-accion" title="Editar">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                    </a>
+                                    <form th:action="@{/medicos/{id}/eliminar(id=${medico.idMedico})}" method="post"
+                                          class="medicos-accion-form"
+                                          th:data-confirm="'¿Desea eliminar al médico ' + ${medico.usuario != null ? medico.usuario.nombreCompleto : 'registrado'} + '?'">
+                                        <button type="submit" class="medicos-accion medicos-accion--peligro" title="Eliminar"
+                                                th:disabled="${#lists.size(medico.citas) > 0}">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="medicos-pagination">
+                <span class="medicos-pagination-info">
+                    Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">7</span> de
+                    <span th:text="${totalMedicos}">142</span> entradas
+                </span>
+                <div class="medicos-pagination-controls">
+                    <a th:if="${paginaActual > 1}"
+                       th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual - 1})}"
+                       class="medicos-paginbtn" title="Anterior" aria-label="Página anterior">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                    </a>
+                    <span th:if="${paginaActual <= 1}" class="medicos-paginbtn" aria-disabled="true">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                    </span>
+
+                    <th:block th:if="${totalPaginas <= 7}">
+                        <a th:each="pagina : ${paginasVisibles}"
+                           th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${pagina})}"
+                           class="medicos-paginbtn medicos-paginbtn--numero"
+                           th:classappend="${pagina == paginaActual} ? 'medicos-paginbtn--activo' : ''"
+                           th:text="${pagina}">1</a>
+                    </th:block>
+                    <span th:if="${totalPaginas > 7}" class="medicos-paginbtn medicos-paginbtn--numero"
+                          th:text="${paginaActual + ' / ' + totalPaginas}">1 / 20</span>
+
+                    <a th:if="${paginaActual < totalPaginas}"
+                       th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual + 1})}"
+                       class="medicos-paginbtn" title="Siguiente" aria-label="Página siguiente">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                    </a>
+                    <span th:if="${paginaActual >= totalPaginas}" class="medicos-paginbtn" aria-disabled="true">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+
+        (function () {
+            'use strict';
+            var licInput = document.getElementById('numeroLicencia');
+            var licIcon = document.querySelector('.is-licencia-icon');
+            var licOk = document.querySelector('.is-licencia-ok');
+            var licError = document.querySelector('.is-licencia-error');
+
+            function ocultarError() {
+                if (licError) { licError.style.display = 'none'; }
+                if (licInput) { licInput.classList.remove('is-invalid'); }
+            }
+
+            function verificar() {
+                ocultarError();
+                if (licIcon) { licIcon.style.display = 'none'; }
+                if (licOk) { licOk.style.display = 'none'; }
+                if (!licInput || !licError) { return; }
+                var valor = licInput.value.trim();
+                if (valor === '') { return; }
+                var url = '/medicos/existe-licencia?licencia=' + encodeURIComponent(valor);
+                fetch(url, { headers: { 'Accept': 'application/json' } })
+                    .then(function (r) { return r.json(); })
+                    .then(function (datos) {
+                        if (datos.duplicado) {
+                            licInput.classList.add('is-invalid');
+                            licError.style.display = 'flex';
+                        } else {
+                            if (licIcon) { licIcon.style.display = 'block'; }
+                            if (licOk) { licOk.style.display = 'block'; }
+                        }
+                    })
+                    .catch(function () {});
+            }
+
+            if (licInput) {
+                licInput.addEventListener('input', verificar);
+                licInput.addEventListener('blur', verificar);
+            }
+
+            var btnLimpiar = document.getElementById('btnLimpiar');
+            if (btnLimpiar && licInput) {
+                btnLimpiar.addEventListener('click', function () {
+                    document.getElementById('medicoForm').reset();
+                    ocultarError();
+                    if (licIcon) { licIcon.style.display = 'none'; }
+                    if (licOk) { licOk.style.display = 'none'; }
+                });
+            }
+
+            var form = document.getElementById('medicoForm');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    if (licInput && licError && licError.style.display !== 'none') {
+                        e.preventDefault();
+                        alert('Corrige el número de licencia duplicado antes de registrar.');
+                        licInput.focus();
+                    }
+                });
+            }
+        })();
+    </script>
+
+</th:block>
+
+</html>
