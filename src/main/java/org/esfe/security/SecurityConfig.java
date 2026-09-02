@@ -25,6 +25,7 @@ public class SecurityConfig {
                  .requestMatchers("/medicamentos/**").hasAnyRole("ADMINISTRADOR", "RECEPCIONISTA", "MEDICO", "ENCARGADO_INVENTARIO")
                 .requestMatchers("/usuarios", "/usuarios/**").hasRole("ADMINISTRADOR")
                 .requestMatchers("/consultas/**").hasAnyRole("MEDICO", "ADMINISTRADOR")
+                .requestMatchers("/citas", "/citas/**").hasAnyRole("RECEPCIONISTA", "MEDICO", "ADMINISTRADOR")
                 .requestMatchers("/recetas", "/recetas/**").hasAnyRole("MEDICO", "RECEPCIONISTA", "ADMINISTRADOR")
                 .anyRequest().authenticated()
             )

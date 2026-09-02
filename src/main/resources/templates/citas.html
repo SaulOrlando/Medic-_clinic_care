@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="consultas-header">
+        <div class="consultas-header-text">
+            <h2 class="page-title">Agenda de Citas</h2>
+            <p class="page-subtitle">Gestión de citas médicas programadas, atendidas y canceladas.</p>
+        </div>
+        <a href="/citas/nueva" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+            Nueva Cita
+        </a>
+    </div>
+
+    <div class="consultas-table-card">
+        <div class="usuarios-table-wrap">
+            <table class="consultas-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Médico</th>
+                        <th>Fecha y Hora</th>
+                        <th>Duración</th>
+                        <th>Estado</th>
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(citas)}">
+                        <td colspan="7">
+                            <div class="consultas-empty">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">calendar_month</span>
+                                <p>No se encontraron citas registradas.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="cita : ${citas}" class="usuarios-row">
+                        <td class="usuarios-mono" th:text="${cita.idCita}">1</td>
+                        <td>
+                            <div class="consultas-user-cell">
+                                <div class="consultas-user-avatar"
+                                     th:text="${cita.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
+                                <div>
+                                    <p class="consultas-user-name"
+                                       th:text="${cita.paciente?.nombres + ' ' + cita.paciente?.apellidos}">Paciente</p>
+                                    <p class="consultas-user-id"
+                                       th:text="'Exp: ' + (cita.paciente?.codigoExpediente ?: '-')">Exp: ---</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span th:text="${cita.medico?.usuario?.nombreCompleto}">Dr. ...</span>
+                            <br/>
+                            <span class="consultas-user-id"
+                                  th:text="${cita.medico?.especialidad}">Especialidad</span>
+                        </td>
+                        <td class="consultas-date">
+                            <span th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy')}">01/01/2025</span>
+                            <br/>
+                            <span class="consultas-time"
+                                  th:text="${#temporals.format(cita.fechaHora, 'HH:mm')}">00:00</span>
+                        </td>
+                        <td>
+                            <span th:text="${cita.duracionMinutos + ' min'}">30 min</span>
+                        </td>
+                        <td>
+                            <span class="consultas-badge"
+                                  th:classappend="${cita.estado.name() == 'PROGRAMADA'} ? 'consultas-badge--programada' : (${cita.estado.name() == 'ATENDIDA'} ? 'consultas-badge--atendida' : (${cita.estado.name() == 'CANCELADA'} ? 'consultas-badge--cancelada' : 'consultas-badge--reagendada'))"
+                                  th:text="${cita.estado}">PROGRAMADA</span>
+                        </td>
+                        <td>
+                            <div class="consultas-acciones">
+                                <a th:if="${cita.estado.name() == 'PROGRAMADA' || cita.estado.name() == 'REAGENDADA'}"
+                                   th:href="@{/consultas/nueva(idCita=${cita.idCita})}"
+                                   class="consultas-accion" title="Iniciar Consulta">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">monitor_heart</span>
+                                </a>
+                                <form th:if="${cita.estado.name() == 'PROGRAMADA' || cita.estado.name() == 'REAGENDADA'}"
+                                      th:action="@{/citas/{id}/cancelar(id=${cita.idCita})}" method="post"
+                                      class="consultas-accion-form"
+                                      th:data-confirm="'¿Desea cancelar esta cita del paciente ' + cita.paciente?.nombres + '?'">
+                                    <button type="submit" class="consultas-accion consultas-accion--peligro" title="Cancelar Cita">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">cancel</span>
+                                    </button>
+                                </form>
+                                <form th:if="${cita.estado.name() != 'CANCELADA' && cita.estado.name() != 'ATENDIDA'}"
+                                      th:action="@{/citas/{id}/eliminar(id=${cita.idCita})}" method="post"
+                                      class="consultas-accion-form"
+                                      th:data-confirm="'¿Desea eliminar permanentemente esta cita?'">
+                                    <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>
