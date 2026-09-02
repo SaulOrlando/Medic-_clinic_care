@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="pacientes-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="pacientes-header">
+        <div class="pacientes-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item">Gestión Clínica</span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item">Médicos</span>
+            </nav>
+            <h2 class="page-title">Directorio de Médicos</h2>
+            <p class="page-subtitle">Gestione profesionales activos y registros de especialistas.</p>
+        </div>
+        <a href="/medicos/nuevo" class="btn btn-primary">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+            Registrar Médico
+        </a>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="pacientes-table-card">
+
+        <!-- Toolbar (Search & Filters) -->
+        <form method="get" action="/medicos" class="pacientes-toolbar" data-combo-auto>
+            <div class="pacientes-search">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" name="q" th:value="${q}" placeholder="Buscar médicos..." aria-label="Buscar médico" />
+            </div>
+
+            <div class="pacientes-filters">
+                <div class="pacientes-filter">
+                    <label class="pacientes-filter-label" for="filtroEspecialidad">Especialidad:</label>
+                    <div class="pacientes-combo" id="filtroEspecialidad" data-combo>
+                        <button type="button" class="pacientes-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                            <span class="pacientes-combo-label" data-combo-label>Filtrar por especialidad</span>
+                            <span class="material-symbols-outlined pacientes-combo-caret">expand_more</span>
+                        </button>
+                        <ul class="pacientes-combo-lista" role="listbox" data-combo-lista hidden>
+                            <li role="option" class="pacientes-combo-opcion" data-combo-option="todas">Todas las especialidades</li>
+                            <li th:each="esp : ${opcionesEspecialidad}"
+                                role="option"
+                                class="pacientes-combo-opcion"
+                                th:attr="data-combo-option=${esp.key}"
+                                th:text="${esp.value}">Especialidad</li>
+                        </ul>
+                        <input type="hidden" name="especialidad" data-combo-hidden th:value="${especialidadFiltro}" value="todas" />
+                    </div>
+                </div>
+                <button type="submit" class="pacientes-filter-btn" title="Aplicar filtros">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">filter_alt</span>
+                </button>
+            </div>
+        </form>
+
+        <!-- Table -->
+        <div class="pacientes-table-wrap">
+            <table class="pacientes-table">
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>Especialidad</th>
+                        <th>Licencia / Contacto</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(medicos)}">
+                        <td colspan="5">
+                            <div class="pacientes-empty">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">person_search</span>
+                                <p>No se encontraron médicos con los filtros seleccionados.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="medico : ${medicos}" class="pacientes-row">
+                        <td>
+                            <div class="pacientes-user">
+                                <div class="pacientes-avatar"
+                                     th:text="${medico.usuario.iniciales}">AH</div>
+                                <div>
+                                    <p class="pacientes-name" th:text="${medico.usuario.nombreCompleto}">Dr. Alexander Hayes</p>
+                                    <p class="pacientes-id" th:text="'ID: MED-' + ${medico.idMedico}">ID: MED-1</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${medico.especialidad}">Cardiología</td>
+                        <td>
+                            <div class="pacientes-mono" th:text="${medico.numeroLicencia}">MD-883921</div>
+                            <div class="text-xs text-muted" th:text="${medico.usuario.correo}" style="font-size:12px;color:var(--color-text-secondary);">email@clinic.com</div>
+                        </td>
+                        <td class="text-center">
+                            <label class="toggle-switch">
+                                <input type="checkbox"
+                                       th:checked="${medico.disponible}"
+                                       th:data-id="${medico.idMedico}"
+                                       onchange="toggleDisponibilidad(this)"/>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </td>
+                        <td>
+                            <div class="pacientes-acciones">
+                                <a th:href="@{/medicos/{id}/editar(id=${medico.idMedico})}"
+                                   class="pacientes-accion" title="Editar">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                </a>
+                                <form th:action="@{/medicos/{id}/eliminar(id=${medico.idMedico})}" method="post"
+                                      class="pacientes-accion-form"
+                                      th:data-confirm="'¿Desea eliminar al médico ' + ${medico.usuario.nombreCompleto} + '?'">
+                                    <button type="submit" class="pacientes-accion pacientes-accion--peligro" title="Eliminar">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pacientes-pagination">
+            <span class="pacientes-pagination-info">
+                Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">8</span> de
+                <span th:text="${totalMedicos}">0</span> médicos
+            </span>
+            <div class="pacientes-pagination-controls">
+                <a th:if="${paginaActual > 1}"
+                   th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual - 1})}"
+                   class="pacientes-paginbtn" title="Anterior" aria-label="Página anterior">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </a>
+                <span th:if="${paginaActual <= 1}" class="pacientes-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
+                </span>
+
+                <th:block th:if="${totalPaginas <= 7}">
+                    <a th:each="pagina : ${paginasVisibles}"
+                       th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${pagina})}"
+                       class="pacientes-paginbtn pacientes-paginbtn--numero"
+                       th:classappend="${pagina == paginaActual} ? 'pacientes-paginbtn--activo' : ''"
+                       th:text="${pagina}">1</a>
+                </th:block>
+                <span th:if="${totalPaginas > 7}" class="pacientes-paginbtn pacientes-paginbtn--numero"
+                      th:text="${paginaActual + ' / ' + totalPaginas}">1 / 20</span>
+
+                <a th:if="${paginaActual < totalPaginas}"
+                   th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual + 1})}"
+                   class="pacientes-paginbtn" title="Siguiente" aria-label="Página siguiente">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </a>
+                <span th:if="${paginaActual >= totalPaginas}" class="pacientes-paginbtn" aria-disabled="true">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: var(--color-border, #ccc);
+            border-radius: 24px;
+            transition: background 0.2s;
+        }
+        .toggle-slider::before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background: var(--color-success, #2E7D32);
+        }
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(20px);
+        }
+    </style>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+
+        function toggleDisponibilidad(checkbox) {
+            var id = checkbox.dataset.id;
+            var disponible = checkbox.checked;
+            fetch('/medicos/' + id + '/toggle-disponibilidad?disponible=' + disponible, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (!data.exito) {
+                    checkbox.checked = !disponible;
+                    alert(data.mensaje || 'Error al actualizar disponibilidad.');
+                }
+            })
+            .catch(function() {
+                checkbox.checked = !disponible;
+            });
+        }
+
+        (function () {
+            'use strict';
+            document.querySelectorAll('[data-combo]').forEach(function (combo) {
+                var trigger = combo.querySelector('[data-combo-trigger]');
+                var lista = combo.querySelector('[data-combo-lista]');
+                var label = combo.querySelector('[data-combo-label]');
+                var hidden = combo.querySelector('[data-combo-hidden]');
+                var opciones = Array.prototype.slice.call(combo.querySelectorAll('[data-combo-option]'));
+                var form = combo.closest('form');
+
+                function abrir(abierto) {
+                    lista.hidden = !abierto;
+                    trigger.setAttribute('aria-expanded', String(abierto));
+                }
+
+                function sincronizar() {
+                    var seleccionada = false;
+                    opciones.forEach(function (o) {
+                        if (o.getAttribute('data-combo-option') === hidden.value) {
+                            o.classList.add('is-selected');
+                            label.textContent = o.textContent.trim();
+                            seleccionada = true;
+                        } else {
+                            o.classList.remove('is-selected');
+                        }
+                    });
+                    if (!seleccionada && opciones.length > 0) {
+                        hidden.value = opciones[0].getAttribute('data-combo-option');
+                        opciones[0].classList.add('is-selected');
+                        label.textContent = opciones[0].textContent.trim();
+                    }
+                }
+
+                trigger.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    abrir(lista.hidden);
+                });
+
+                opciones.forEach(function (o) {
+                    o.addEventListener('click', function () {
+                        hidden.value = o.getAttribute('data-combo-option');
+                        sincronizar();
+                        abrir(false);
+                        trigger.focus();
+                        if (form && form.hasAttribute('data-combo-auto')) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                document.addEventListener('click', function (e) {
+                    if (!combo.contains(e.target)) {
+                        abrir(false);
+                    }
+                });
+
+                combo.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        abrir(false);
+                        trigger.focus();
+                    }
+                });
+
+                sincronizar();
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>
