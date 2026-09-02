@@ -1,0 +1,656 @@
+/* ============================================
+    MediClinic Care — Consulta Médica
+    ============================================ */
+
+/* --- Header --- */
+.consultas-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.consultas-header-text .page-title {
+    margin-bottom: var(--space-1);
+}
+
+/* --- Breadcrumb --- */
+.consultas-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+}
+
+.consultas-breadcrumb a {
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+}
+
+.consultas-breadcrumb a:hover {
+    color: var(--color-primary);
+}
+
+.consultas-breadcrumb .material-symbols-outlined {
+    font-size: 16px;
+}
+
+/* --- Status Indicator --- */
+.consultas-status-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--color-surface-container-high);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+}
+
+.consultas-status-active {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: var(--color-surface-container-lowest);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.consultas-status-active .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+}
+
+.consultas-status-arrow {
+    color: var(--color-text-muted);
+    font-size: 16px;
+}
+
+.consultas-status-inactive {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    opacity: 0.5;
+    color: var(--color-secondary);
+}
+
+.consultas-status-inactive .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+}
+
+/* --- Bento Grid --- */
+.consultas-bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+}
+
+@media (min-width: 1024px) {
+    .consultas-bento {
+        grid-template-columns: 4fr 8fr;
+    }
+}
+
+/* --- Patient Panel --- */
+.consultas-patient-panel {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-ambient);
+}
+
+.consultas-patient-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+}
+
+.consultas-patient-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-container-high);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.consultas-patient-avatar .material-symbols-outlined {
+    font-size: 32px;
+    color: var(--color-text-muted);
+}
+
+.consultas-patient-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+}
+
+.consultas-patient-detail {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+.consultas-patient-mono {
+    font-family: 'Inter', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+.consultas-patient-divider {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin-bottom: var(--space-5);
+}
+
+/* --- Vital Signs --- */
+.consultas-section-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: var(--space-2);
+}
+
+.consultas-vital-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+}
+
+.consultas-vital-card {
+    background-color: var(--color-surface-container-high);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.consultas-vital-label {
+    display: block;
+    font-size: 10px;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+}
+
+.consultas-vital-value {
+    font-family: 'Inter', monospace;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+/* --- Chips (Allergies / Medications) --- */
+.consultas-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+}
+
+.consultas-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border: 1px solid transparent;
+}
+
+.consultas-chip--allergy {
+    background-color: var(--color-error-bg);
+    color: #5c1010;
+    border-color: var(--color-error-border);
+}
+
+.consultas-chip--medication {
+    background-color: var(--color-primary-100);
+    color: var(--color-primary-800);
+    border-color: var(--color-primary-200);
+}
+
+.consultas-chip--empty {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-text-muted);
+    border-color: var(--color-border);
+    font-style: italic;
+}
+
+/* --- Form Card --- */
+.consultas-form-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- SOAP Progressor --- */
+.consultas-progressor {
+    display: flex;
+    align-items: center;
+    background-color: var(--color-surface-container-low);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    gap: var(--space-3);
+}
+
+.consultas-progressor-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.consultas-progressor-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+}
+
+.consultas-progressor-circle--active {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+
+.consultas-progressor-circle--inactive {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+}
+
+.consultas-progressor-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.consultas-progressor-label--active {
+    color: var(--color-text);
+}
+
+.consultas-progressor-label--inactive {
+    color: var(--color-text-secondary);
+}
+
+.consultas-progressor-line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-border);
+    max-width: 40px;
+}
+
+/* --- Form Fields --- */
+.consultas-form-body {
+    padding: var(--space-6);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.consultas-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.consultas-form-field label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+}
+
+.consultas-form-field textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    outline: none;
+    resize: vertical;
+    transition: border-color var(--transition-fast), border-width var(--transition-fast);
+    line-height: var(--line-height-relaxed);
+}
+
+.consultas-form-field textarea:focus {
+    border-width: 2px;
+    border-color: var(--color-primary);
+    padding: calc(var(--space-3) - 1px) calc(var(--space-4) - 1px);
+}
+
+.consultas-form-field textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.consultas-form-divider {
+    border: none;
+    border-top: 1px dashed var(--color-border);
+}
+
+/* --- Diagnosis Input with Icon --- */
+.consultas-diagnosis-wrapper {
+    position: relative;
+}
+
+.consultas-diagnosis-wrapper .material-symbols-outlined {
+    position: absolute;
+    left: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--color-text-muted);
+}
+
+.consultas-diagnosis-wrapper .form-input {
+    padding-left: var(--space-10);
+}
+
+/* --- CIE-10 Chips --- */
+.consultas-cie-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.consultas-cie-add {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-fast);
+}
+
+.consultas-cie-add:hover {
+    background-color: var(--color-primary-light);
+}
+
+.consultas-cie-add .material-symbols-outlined {
+    font-size: 16px;
+}
+
+.consultas-cie-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.consultas-cie-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-family: 'Inter', monospace;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    background-color: var(--color-surface-container-high);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
+.consultas-cie-chip-remove {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0;
+    transition: color var(--transition-fast);
+}
+
+.consultas-cie-chip-remove:hover {
+    color: var(--color-error);
+}
+
+.consultas-cie-chip-remove .material-symbols-outlined {
+    font-size: 14px;
+}
+
+/* --- Form Footer --- */
+.consultas-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-surface-container-low);
+}
+
+/* --- List View Table --- */
+.consultas-table-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+}
+
+.consultas-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.consultas-table thead th {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface-container-low);
+    white-space: nowrap;
+}
+
+.consultas-table tbody td {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.consultas-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.consultas-table tbody tr:hover {
+    background-color: var(--color-primary-50);
+}
+
+.consultas-table .text-right {
+    text-align: right;
+}
+
+/* --- Table User Cell --- */
+.consultas-user-cell {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.consultas-user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+}
+
+.consultas-user-name {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+.consultas-user-id {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* --- Table Actions --- */
+.consultas-acciones {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2);
+}
+
+.consultas-accion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    border: none;
+    background: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.consultas-accion:hover {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-primary);
+}
+
+.consultas-accion--peligro:hover {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.consultas-accion-form {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Empty State --- */
+.consultas-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12) var(--space-4);
+    color: var(--color-text-muted);
+    text-align: center;
+    gap: var(--space-3);
+}
+
+.consultas-empty p {
+    font-size: var(--font-size-sm);
+}
+
+/* --- Date/Time Formatting --- */
+.consultas-date {
+    white-space: nowrap;
+}
+
+.consultas-time {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+/* --- Badge for Cita Estado --- */
+.consultas-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.consultas-badge--atendida {
+    background-color: var(--color-success-bg);
+    color: var(--color-secondary);
+    border: 1px solid var(--color-success-border);
+}
+
+.consultas-badge--programada {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-200);
+}
+
+.consultas-badge--cancelada {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .consultas-form-footer {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+
+    .consultas-form-footer .btn {
+        width: 100%;
+    }
+
+    .consultas-progressor {
+        overflow-x: auto;
+    }
+
+    .consultas-status-bar {
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Header Section -->
+    <div class="consultas-header">
+        <div class="consultas-header-text">
+            <h2 class="page-title">Consulta Médica</h2>
+            <p class="page-subtitle">Historial de consultas médicas registradas en el sistema.</p>
+        </div>
+    </div>
+
+    <!-- Data Table Card -->
+    <div class="consultas-table-card">
+        <div class="usuarios-table-wrap">
+            <table class="consultas-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Médico</th>
+                        <th>Fecha</th>
+                        <th>Motivo</th>
+                        <th>Diagnóstico</th>
+                        <th>Estado Cita</th>
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(consultas)}">
+                        <td colspan="8">
+                            <div class="consultas-empty">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">monitor_heart</span>
+                                <p>No se encontraron consultas registradas.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="cons : ${consultas}" class="usuarios-row">
+                        <td class="usuarios-mono" th:text="${cons.idConsulta}">1</td>
+                        <td>
+                            <div class="consultas-user-cell">
+                                <div class="consultas-user-avatar"
+                                     th:text="${cons.cita?.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
+                                <div>
+                                    <p class="consultas-user-name"
+                                       th:text="${cons.cita?.paciente?.nombres + ' ' + cons.cita?.paciente?.apellidos}">Paciente</p>
+                                    <p class="consultas-user-id"
+                                       th:text="'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')">Exp: ---</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span th:text="${cons.cita?.medico?.usuario?.nombreCompleto}">Dr. ...</span>
+                        </td>
+                        <td class="consultas-date">
+                            <span th:text="${#temporals.format(cons.fechaConsulta, 'dd/MM/yyyy')}">01/01/2025</span>
+                            <br/>
+                            <span class="consultas-time"
+                                  th:text="${#temporals.format(cons.fechaConsulta, 'HH:mm')}">00:00</span>
+                        </td>
+                        <td>
+                            <span th:text="${#strings.abbreviate(cons.motivoConsulta, 50)}">Motivo</span>
+                        </td>
+                        <td>
+                            <span th:text="${#strings.abbreviate(cons.diagnostico, 50)}">Diagnóstico</span>
+                        </td>
+                        <td>
+                            <span class="consultas-badge consultas-badge--atendida"
+                                  th:text="'Atendida'">Atendida</span>
+                        </td>
+                        <td>
+                            <div class="consultas-acciones">
+                                <a th:href="@{/consultas/{id}/editar(id=${cons.idConsulta})}"
+                                   class="consultas-accion" title="Editar">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                </a>
+                                <form th:action="@{/consultas/{id}/eliminar(id=${cons.idConsulta})}" method="post"
+                                      class="consultas-accion-form"
+                                      th:data-confirm="'¿Desea eliminar esta consulta del paciente ' + cons.cita?.paciente?.nombres + '?'">
+                                    <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+    </script>
+
+</th:block>
+
+</html>

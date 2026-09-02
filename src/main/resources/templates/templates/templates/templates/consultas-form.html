@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Alerts -->
+    <div class="usuarios-alerts">
+        <div th:if="${exito}" class="alert alert-success animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
+            <span th:text="${exito}">Operación correcta.</span>
+        </div>
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <!-- Breadcrumb & Header -->
+    <div class="consultas-breadcrumb">
+        <a href="/citas">Citas</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="/consultas">Historial</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span th:text="${modo == 'crear'} ? 'Nueva Consulta' : 'Editar Consulta'">Consulta</span>
+    </div>
+
+    <div class="consultas-header">
+        <div class="consultas-header-text" style="flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <h2 class="page-title">Nota de Consulta</h2>
+                <!-- Status Indicator -->
+                <div class="consultas-status-bar">
+                    <span style="font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold); color: var(--color-text-secondary);">Estado Actual:</span>
+                    <div class="consultas-status-active">
+                        <div class="dot"></div>
+                        <span style="font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);">En Progreso</span>
+                    </div>
+                    <span class="material-symbols-outlined consultas-status-arrow">arrow_forward</span>
+                    <div class="consultas-status-inactive">
+                        <div class="dot"></div>
+                        <span style="font-size: var(--font-size-xs); font-weight: var(--font-weight-semibold);">Atendido</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bento Grid Layout -->
+    <form th:object="${consulta}" method="post"
+          th:action="${modo == 'crear'} ? @{/consultas/guardar} : @{/consultas/{id}/editar(id=${consulta.idConsulta})}"
+          class="consultas-bento">
+
+        <!-- Hidden: cita ID -->
+        <input type="hidden" th:field="*{cita.idCita}" />
+
+        <!-- Patient Summary Pane (Left Column) -->
+        <div class="consultas-patient-panel">
+            <div class="consultas-patient-header">
+                <div class="consultas-patient-avatar">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div>
+                    <h3 class="consultas-patient-name"
+                        th:text="${cita?.paciente?.nombres + ' ' + cita?.paciente?.apellidos}">Nombre Paciente</h3>
+                    <p class="consultas-patient-detail">
+                        Fecha de Nacimiento:
+                        <span th:text="${cita?.paciente?.fechaNacimiento != null} ? ${#temporals.format(cita.paciente.fechaNacimiento, 'dd MMM yyyy')} : 'N/A'">
+                            01 Ene 1980
+                        </span>
+                    </p>
+                    <p class="consultas-patient-mono"
+                       th:text="'N\u00B0 Historia: #' + (${cita?.paciente?.codigoExpediente} ?: '---')">
+                        N° Historia: #---</p>
+                </div>
+            </div>
+
+            <hr class="consultas-patient-divider"/>
+
+            <!-- Vital Signs -->
+            <div>
+                <span class="consultas-section-label">Signos Vitales (Últimos)</span>
+                <div class="consultas-vital-grid">
+                    <div class="consultas-vital-card">
+                        <span class="consultas-vital-label">PA</span>
+                        <span class="consultas-vital-value">---/---</span>
+                    </div>
+                    <div class="consultas-vital-card">
+                        <span class="consultas-vital-label">FC</span>
+                        <span class="consultas-vital-value">--- lpm</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allergies -->
+            <div>
+                <span class="consultas-section-label">Alergias</span>
+                <div class="consultas-chips">
+                    <span class="consultas-chip consultas-chip--empty">Sin registros</span>
+                </div>
+            </div>
+
+            <!-- Active Medications -->
+            <div>
+                <span class="consultas-section-label">Medicamentos Activos</span>
+                <div class="consultas-chips">
+                    <span class="consultas-chip consultas-chip--empty">Sin registros</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clinical Form (Right Column) -->
+        <div class="consultas-form-card">
+            <!-- SOAP Progressor -->
+            <div class="consultas-progressor">
+                <div class="consultas-progressor-step">
+                    <div class="consultas-progressor-circle consultas-progressor-circle--active">1</div>
+                    <span class="consultas-progressor-label consultas-progressor-label--active">Subjetivo</span>
+                </div>
+                <div class="consultas-progressor-line"></div>
+                <div class="consultas-progressor-step">
+                    <div class="consultas-progressor-circle consultas-progressor-circle--inactive">2</div>
+                    <span class="consultas-progressor-label consultas-progressor-label--inactive">Objetivo</span>
+                </div>
+                <div class="consultas-progressor-line"></div>
+                <div class="consultas-progressor-step">
+                    <div class="consultas-progressor-circle consultas-progressor-circle--inactive">3</div>
+                    <span class="consultas-progressor-label consultas-progressor-label--inactive">Plan</span>
+                </div>
+            </div>
+
+            <!-- Form Fields -->
+            <div class="consultas-form-body">
+                <!-- Motivo de Consulta -->
+                <div class="consultas-form-field">
+                    <label for="motivoConsulta">Motivo de Consulta / Razón Principal *</label>
+                    <input type="text" id="motivoConsulta" class="form-input"
+                           th:field="*{motivoConsulta}"
+                           placeholder="ej. Tos persistente y fiebre leve" required maxlength="1000" />
+                </div>
+
+                <!-- Sintomas -->
+                <div class="consultas-form-field">
+                    <label for="sintomatologia">Síntomas e Historia de la Enfermedad Actual</label>
+                    <textarea id="sintomatologia" rows="4"
+                              th:field="*{sintomatologia}"
+                              placeholder="Describa síntomas, duración, gravedad..."></textarea>
+                </div>
+
+                <hr class="consultas-form-divider"/>
+
+                <!-- Diagnostico -->
+                <div class="consultas-form-field">
+                    <div class="consultas-cie-header">
+                        <label for="diagnostico">Evaluación / Diagnóstico</label>
+                        <button type="button" class="consultas-cie-add" id="btnAddCie">
+                            <span class="material-symbols-outlined">add</span> Añadir Código CIE-10
+                        </button>
+                    </div>
+                    <div class="consultas-diagnosis-wrapper">
+                        <span class="material-symbols-outlined">stethoscope</span>
+                        <input type="text" id="diagnostico" class="form-input"
+                               th:field="*{diagnostico}"
+                               placeholder="Buscar o escribir diagnóstico..." />
+                    </div>
+                    <div class="consultas-cie-chips" id="cieChips">
+                        <!-- CIE-10 chips se agregan dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Plan de Tratamiento -->
+                <div class="consultas-form-field">
+                    <label for="planTratamiento">Plan de Tratamiento y Notas de Recetas</label>
+                    <textarea id="planTratamiento" rows="4"
+                              placeholder="Detalle el plan, los próximos pasos o los cambios de medicación..."></textarea>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="consultas-form-footer">
+                <a href="/consultas" class="btn btn-outline">
+                    Cancelar
+                </a>
+                <div style="display: flex; gap: var(--space-3);">
+                    <button type="submit" class="btn btn-outline">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
+                        Guardar Borrador
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btnGuardarReceta"
+                            th:formaction="${modo == 'crear'} ? @{/consultas/guardar} : @{/consultas/{id}/editar(id=${consulta.idConsulta})}">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">prescriptions</span>
+                        Guardar y Emitir Receta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+
+            var cieInput = document.getElementById('diagnostico');
+            var cieChips = document.getElementById('cieChips');
+            var btnAddCie = document.getElementById('btnAddCie');
+            var cieCodes = [];
+
+            function renderCieChips() {
+                cieChips.innerHTML = '';
+                cieCodes.forEach(function (code, index) {
+                    var chip = document.createElement('span');
+                    chip.className = 'consultas-cie-chip';
+                    chip.innerHTML = code +
+                        ' <button type="button" class="consultas-cie-chip-remove" data-index="' + index + '">' +
+                        '<span class="material-symbols-outlined">close</span></button>';
+                    cieChips.appendChild(chip);
+                });
+
+                cieChips.querySelectorAll('.consultas-cie-chip-remove').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        var idx = parseInt(this.getAttribute('data-index'));
+                        cieCodes.splice(idx, 1);
+                        renderCieChips();
+                    });
+                });
+            }
+
+            if (btnAddCie) {
+                btnAddCie.addEventListener('click', function () {
+                    var val = cieInput.value.trim();
+                    if (val && cieCodes.indexOf(val) === -1) {
+                        cieCodes.push(val);
+                        renderCieChips();
+                        cieInput.value = '';
+                        cieInput.focus();
+                    }
+                });
+            }
+
+            if (cieInput) {
+                cieInput.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        btnAddCie.click();
+                    }
+                });
+            }
+
+            var btnGuardarReceta = document.getElementById('btnGuardarReceta');
+            if (btnGuardarReceta) {
+                btnGuardarReceta.addEventListener('click', function () {
+                    this.setAttribute('formaction', this.getAttribute('formaction'));
+                });
+            }
+        })();
+    </script>
+
+</th:block>
+
+</html>
