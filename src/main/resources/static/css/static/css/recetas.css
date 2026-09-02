@@ -1,0 +1,505 @@
+/* ============================================
+    MediClinic Care — Recetas Médicas
+    ============================================ */
+
+/* --- Header --- */
+.recetas-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+/* --- List view / Group cards --- */
+.recetas-group {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+    margin-bottom: var(--space-6);
+}
+
+.recetas-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-surface-container-low);
+    border-bottom: 1px solid var(--color-border);
+    flex-wrap: wrap;
+}
+
+.recetas-group-patient {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.recetas-group-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    flex-shrink: 0;
+}
+
+.recetas-group-name {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+}
+
+.recetas-group-meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+}
+
+.recetas-group-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+/* --- Prescription table (list view) --- */
+.recetas-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recetas-table thead th {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+    background-color: var(--color-surface-container-lowest);
+}
+
+.recetas-table tbody td {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.recetas-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.recetas-table tbody tr:hover {
+    background-color: var(--color-primary-50);
+}
+
+.recetas-table .text-right {
+    text-align: right;
+}
+
+/* --- Badges --- */
+.recetas-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+}
+
+.recetas-badge--prescrita {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary-200);
+}
+
+.recetas-badge--dispensada {
+    background-color: var(--color-success-bg);
+    color: var(--color-secondary);
+    border: 1px solid var(--color-success-border);
+}
+
+/* --- Empty state --- */
+.recetas-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12) var(--space-4);
+    color: var(--color-text-muted);
+    text-align: center;
+    gap: var(--space-3);
+}
+
+.recetas-empty p {
+    font-size: var(--font-size-sm);
+}
+
+.recetas-empty-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+}
+
+/* --- Form (generation) --- */
+.recetas-form-card {
+    max-width: 800px;
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    padding: var(--space-6);
+}
+
+.recetas-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+}
+
+.recetas-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
+
+/* --- Printable prescription pad --- */
+.recetas-actions-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    background-color: var(--color-surface-container-low);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--space-6);
+    flex-wrap: wrap;
+}
+
+.recetas-actions-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.recetas-actions-buttons {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+}
+
+.prescription-pad {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-ambient);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.prescription-clinic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-bottom: 2px solid var(--color-border);
+    padding-bottom: var(--space-4);
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.prescription-clinic-name {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+}
+
+.prescription-clinic-address {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+.prescription-doctor {
+    text-align: right;
+}
+
+.prescription-doctor-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.prescription-doctor-detail {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.prescription-doctor-licence {
+    font-family: 'Inter', monospace;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-1);
+}
+
+/* --- Patient info card --- */
+.prescription-patient-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-4);
+    background-color: var(--color-surface-container-low);
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.prescription-patient-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: var(--space-1);
+}
+
+.prescription-patient-value {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+}
+
+.prescription-patient-value.mono {
+    font-family: 'Inter', monospace;
+}
+
+/* --- Rx symbol --- */
+.prescription-rx {
+    font-size: 2.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+/* --- Medications table --- */
+.prescription-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.prescription-table thead th {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.prescription-table tbody td {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+.prescription-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Footer / signature --- */
+.prescription-footer {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+}
+
+.prescription-notes {
+    flex: 1;
+    min-width: 200px;
+}
+
+.prescription-notes-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: var(--space-2);
+}
+
+.prescription-notes-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    line-height: var(--line-height-relaxed);
+}
+
+.prescription-signature {
+    text-align: center;
+    min-width: 200px;
+}
+
+.prescription-signature-line {
+    border-top: 1px solid var(--color-text-secondary);
+    padding-top: var(--space-1);
+    margin-bottom: var(--space-1);
+}
+
+.prescription-signature-name {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    font-family: cursive;
+}
+
+.prescription-signature-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.prescription-erx {
+    text-align: center;
+    margin-top: var(--space-4);
+}
+
+.prescription-erx-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-family: 'Inter', monospace;
+}
+
+/* --- Print styles --- */
+@media print {
+    body {
+        background-color: #ffffff !important;
+        overflow: visible !important;
+    }
+
+    .app-header,
+    .app-sidebar,
+    .sidebar-overlay {
+        display: none !important;
+    }
+
+    .app-main {
+        margin: 0 !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .main-content {
+        padding: 0 !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .prescription-pad {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .app-layout {
+        display: block !important;
+    }
+}
+
+/* --- Action buttons (shared with consultas) --- */
+.consultas-acciones {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.consultas-accion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    border: none;
+    background: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    text-decoration: none;
+}
+
+.consultas-accion:hover {
+    background-color: var(--color-surface-container-high);
+    color: var(--color-primary);
+}
+
+.consultas-accion--peligro:hover {
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+}
+
+.consultas-accion-form {
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+    .recetas-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .recetas-actions-bar,
+    .recetas-group-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .prescription-clinic-header {
+        flex-direction: column;
+    }
+
+    .prescription-doctor {
+        text-align: left;
+    }
+
+    .prescription-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

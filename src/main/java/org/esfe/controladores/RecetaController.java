@@ -1,44 +1,201 @@
 package org.esfe.controladores;
 
-/*
- * ==========================================================================================
- * TODO (VISTA: Receta Médica — PENDIENTE DE IMPLEMENTAR)
- * Referencia visual Stitch: docs/stitch/recetas.html  (captura: docs/stitch/recetas.png)
- * El HTML es autónomo (Tailwind vía CDN) — NO copiarlo tal cual; traducir al sistema
- * Thymeleaf + CSS del proyecto (fragments/base.html, design-system.css, layout.css).
- *
- * RUTA: /recetas         |   TEMPLATE: recetas.html     |   SERVICIO: IRecetaDetalleService
- * ENTIDAD: RecetaDetalle (consulta N:1, medicamento N:1, cantidad, indicaciones, estado:
- *          PRESCRITA / DISPENSADA).
- *
- * CÓMO DEBE FUNCIONAR (según Stitch):
- *  - Vista imprimible tipo "prescription pad" (ID de receta electrónica ERX-xxxx).
- *  - Barra de acciones (NO imprimible, .no-print): aviso "Esta receta está lista para ser
- *    impresa o compartida" + botones "Enviar por Correo" y "Imprimir Receta".
- *    La impresión usa `@media print` que oculta la sidebar/topbar y elimina bordes/sombras
- *    y los elementos de UI. (En el Stitch los botones llaman window.print()).
- *  - Contenido:
- *      * Encabezado de clínica: MediClinic Care + dirección/teléfono.
- *      * Datos del médico: nombre, especialidad, licencia (mono).
- *      * Tarjeta de paciente: NOMBRE, FECHA DE NACIMIENTO, GÉNERO, MRN (mono).
- *      * Símbolo "Rx".
- *      * Tabla de medicamentos (columnas): Medicamento | Dosis | Frecuencia | Duración | Notas.
- *      * Notas / Instrucciones (itálica) y FIRMA DEL MÉDICO.
- *      * Al pie: ID de Receta Electrónica.
- *  - GENERACIÓN: por consulta se agregan medicamentos con cantidad e indicaciones
- *    (estado PRESCRITA). Al DISPENSAR (farmacia/recepcionista) pasa a DISPENSADA y se
- *    descuenta stock vía Medicamento.actualizarStock() registrando un MovimientoInventario.
- *  - Roles (@PreAuthorize): Exclusivo MEDICO (generar); Recepcionista solo lectura/impresión;
- *    Admin histórico.
- *
- * PENDIENTE: crear este controlador con @Controller + @RequestMapping("/recetas") y las
- * rutas para listar/generar/imprimir, agregando @PreAuthorize.
- * ==========================================================================================
- */
+import org.esfe.modelos.ConsultaMedica;
+import org.esfe.modelos.Medicamento;
+import org.esfe.modelos.RecetaDetalle;
+import org.esfe.servicios.interfaces.IConsultaMedicaService;
+import org.esfe.servicios.interfaces.IMedicamentoService;
+import org.esfe.servicios.interfaces.IRecetaDetalleService;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/recetas")
+@PreAuthorize("hasAnyRole('MEDICO', 'RECEPCIONISTA', 'ADMINISTRADOR')")
 public class RecetaController {
 
-    // TODO: implementar (ver comentario de clase arriba).
-    // Este archivo es SOLO un ancla de documentación sin @Controller, para que el siguiente
-    // agente sepa exactamente dónde y cómo implementar la vista de Receta Médica.
+    private final IRecetaDetalleService recetaDetalleService;
+    private final IConsultaMedicaService consultaMedicaService;
+    private final IMedicamentoService medicamentoService;
 
+    public RecetaController(IRecetaDetalleService recetaDetalleService,
+                             IConsultaMedicaService consultaMedicaService,
+                             IMedicamentoService medicamentoService) {
+        this.recetaDetalleService = recetaDetalleService;
+        this.consultaMedicaService = consultaMedicaService;
+        this.medicamentoService = medicamentoService;
+    }
+
+    @GetMapping
+    public String listar(Model model) {
+        List<RecetaDetalle> recetas = recetaDetalleService.obtenerTodos();
+        Map<ConsultaMedica, List<RecetaDetalle>> agrupadas = agruparPorConsulta(recetas);
+        model.addAttribute("activePage", "recetas");
+        model.addAttribute("agrupadas", agrupadas);
+        model.addAttribute("totalRecetas", recetas.size());
+        return "recetas";
+    }
+
+    @GetMapping("/nueva")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String nueva(Model model) {
+        List<ConsultaMedica> consultas = consultaMedicaService.obtenerTodos();
+        List<Medicamento> medicamentos = medicamentoService.obtenerTodos();
+        model.addAttribute("activePage", "recetas");
+        model.addAttribute("receta", new RecetaDetalle());
+        model.addAttribute("consultas", consultas);
+        model.addAttribute("medicamentos", medicamentos);
+        model.addAttribute("modo", "crear");
+        return "recetas-form";
+    }
+
+    @PostMapping("/guardar")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String guardar(@ModelAttribute("receta") RecetaDetalle receta,
+                          @RequestParam(value = "idConsulta", required = false) Integer idConsulta,
+                          RedirectAttributes redirectAttributes) {
+        try {
+            if (idConsulta == null) {
+                throw new IllegalArgumentException("Debe seleccionar una consulta para la receta.");
+            }
+            ConsultaMedica consulta = consultaMedicaService.obtenerPorId(idConsulta)
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Consulta no encontrada con id: " + idConsulta));
+            receta.setConsulta(consulta);
+            recetaDetalleService.guardar(receta);
+            redirectAttributes.addFlashAttribute("exito",
+                    "Medicamento agregado a la receta de la consulta correctamente.");
+            return "redirect:/recetas/consulta/" + idConsulta;
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            return "redirect:/recetas/nueva";
+        }
+    }
+
+    @GetMapping("/consulta/{idConsulta}")
+    public String verPorConsulta(@PathVariable Integer idConsulta, Model model,
+                                  RedirectAttributes redirectAttributes) {
+        return consultaMedicaService.obtenerPorId(idConsulta)
+                .map(consulta -> {
+                    List<RecetaDetalle> detalles = recetaDetalleService.buscarPorConsulta(idConsulta);
+                    model.addAttribute("activePage", "recetas");
+                    model.addAttribute("consulta", consulta);
+                    model.addAttribute("recetas", detalles);
+                    model.addAttribute("totalDetalles", detalles.size());
+                    return "recetas-detalle";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addFlashAttribute("error", "Consulta no encontrada.");
+                    return "redirect:/recetas";
+                });
+    }
+
+    @GetMapping("/consulta/{idConsulta}/agregar")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String agregarMedicamento(@PathVariable Integer idConsulta, Model model,
+                                     RedirectAttributes redirectAttributes) {
+        return consultaMedicaService.obtenerPorId(idConsulta)
+                .map(consulta -> {
+                    model.addAttribute("activePage", "recetas");
+                    model.addAttribute("receta", new RecetaDetalle());
+                    model.addAttribute("consulta", consulta);
+                    model.addAttribute("medicamentos", medicamentoService.obtenerTodos());
+                    model.addAttribute("modo", "crear");
+                    return "recetas-form";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addFlashAttribute("error", "Consulta no encontrada.");
+                    return "redirect:/recetas";
+                });
+    }
+
+    @GetMapping("/{id}/editar")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String editar(@PathVariable Integer id, Model model,
+                          RedirectAttributes redirectAttributes) {
+        return recetaDetalleService.obtenerPorId(id)
+                .map(receta -> {
+                    model.addAttribute("activePage", "recetas");
+                    model.addAttribute("receta", receta);
+                    model.addAttribute("consulta", receta.getConsulta());
+                    model.addAttribute("medicamentos", medicamentoService.obtenerTodos());
+                    model.addAttribute("modo", "editar");
+                    return "recetas-form";
+                })
+                .orElseGet(() -> {
+                    redirectAttributes.addFlashAttribute("error", "Receta no encontrada.");
+                    return "redirect:/recetas";
+                });
+    }
+
+    @PostMapping("/{id}/editar")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String editarGuardar(@PathVariable Integer id,
+                                 @ModelAttribute("receta") RecetaDetalle receta,
+                                 RedirectAttributes redirectAttributes) {
+        try {
+            RecetaDetalle existente = recetaDetalleService.obtenerPorId(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Receta no encontrada."));
+            existente.setMedicamento(receta.getMedicamento());
+            existente.setCantidad(receta.getCantidad());
+            existente.setIndicaciones(receta.getIndicaciones());
+            recetaDetalleService.guardar(existente);
+            redirectAttributes.addFlashAttribute("exito", "Medicamento actualizado correctamente.");
+            return "redirect:/recetas/consulta/" + existente.getConsulta().getIdConsulta();
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            return "redirect:/recetas/" + id + "/editar";
+        }
+    }
+
+    @PostMapping("/{id}/dispensar")
+    @PreAuthorize("hasAnyRole('RECEPCIONISTA', 'ADMINISTRADOR')")
+    public String dispensar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            recetaDetalleService.dispensar(id);
+            redirectAttributes.addFlashAttribute("exito", "Receta dispensada. Stock actualizado.");
+        } catch (IllegalArgumentException | IllegalStateException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+        }
+        return "redirect:/recetas";
+    }
+
+    @PostMapping("/{id}/eliminar")
+    @PreAuthorize("hasRole('MEDICO')")
+    public String eliminar(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            RecetaDetalle receta = recetaDetalleService.obtenerPorId(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Receta no encontrada."));
+            Integer idConsulta = receta.getConsulta().getIdConsulta();
+            recetaDetalleService.eliminar(id);
+            redirectAttributes.addFlashAttribute("exito", "Medicamento eliminado de la receta.");
+            return "redirect:/recetas/consulta/" + idConsulta;
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("error", ex.getMessage());
+            return "redirect:/recetas";
+        }
+    }
+
+    private Map<ConsultaMedica, List<RecetaDetalle>> agruparPorConsulta(List<RecetaDetalle> recetas) {
+        Map<ConsultaMedica, List<RecetaDetalle>> resultado = new LinkedHashMap<>();
+        for (RecetaDetalle detalle : recetas) {
+            ConsultaMedica consulta = detalle.getConsulta();
+            resultado.computeIfAbsent(consulta, k -> new ArrayList<>()).add(detalle);
+        }
+        return resultado;
+    }
 }
