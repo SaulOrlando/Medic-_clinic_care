@@ -22,6 +22,7 @@ package org.esfe.controladores;
  */
 import org.esfe.modelos.CategoriaMedicamento;
 import org.esfe.modelos.Medicamento;
+import org.esfe.servicios.interfaces.ICategoriaMedicamentoService;
 import org.esfe.servicios.interfaces.IMedicamentoService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -39,13 +40,16 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/medicamentos")
-@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'MEDICO', 'ENCARGADO_INVENTARIO')")
+@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'MEDICO')")
 public class MedicamentoController {
 
     private final IMedicamentoService medicamentoService;
+    private final ICategoriaMedicamentoService categoriaMedicamentoService;
 
-    public MedicamentoController(IMedicamentoService medicamentoService) {
+    public MedicamentoController(IMedicamentoService medicamentoService,
+                                  ICategoriaMedicamentoService categoriaMedicamentoService) {
         this.medicamentoService = medicamentoService;
+        this.categoriaMedicamentoService = categoriaMedicamentoService;
     }
 
     @GetMapping
@@ -75,6 +79,7 @@ public class MedicamentoController {
                 .map(m -> m.getCategoria())
                 .distinct()
                 .collect(Collectors.toList()));
+        model.addAttribute("modo", "crear");
         return "medicamentos-form";
     }
 
@@ -82,6 +87,14 @@ public class MedicamentoController {
     public String guardar(@ModelAttribute("medicamento") Medicamento medicamento,
                            RedirectAttributes redirectAttributes) {
         try {
+            if (medicamento.getCategoriaId() != null) {
+                CategoriaMedicamento cat = categoriaMedicamentoService.obtenerPorId(medicamento.getCategoriaId())
+                        .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada."));
+                medicamento.setCategoria(cat);
+            }
+            if (medicamento.getStockDisponible() == null) {
+                medicamento.setStockDisponible(medicamento.getStockInicial() != null ? medicamento.getStockInicial() : 0);
+            }
             medicamentoService.crearMedicamento(medicamento);
             redirectAttributes.addFlashAttribute("exito", "Medicamento registrado correctamente.");
             return "redirect:/medicamentos";
@@ -101,6 +114,7 @@ public class MedicamentoController {
                             .map(m -> m.getCategoria())
                             .distinct()
                             .collect(Collectors.toList()));
+                    model.addAttribute("modo", "editar");
                     return "medicamentos-form";
                 })
                 .orElseGet(() -> {
@@ -115,6 +129,14 @@ public class MedicamentoController {
                                   RedirectAttributes redirectAttributes) {
         try {
             medicamento.setIdMedicamento(id);
+            if (medicamento.getCategoriaId() != null) {
+                CategoriaMedicamento cat = categoriaMedicamentoService.obtenerPorId(medicamento.getCategoriaId())
+                        .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada."));
+                medicamento.setCategoria(cat);
+            }
+            if (medicamento.getStockDisponible() == null) {
+                medicamento.setStockDisponible(medicamento.getStockInicial() != null ? medicamento.getStockInicial() : 0);
+            }
             medicamentoService.editarMedicamento(medicamento);
             redirectAttributes.addFlashAttribute("exito", "Medicamento actualizado correctamente.");
             return "redirect:/medicamentos";

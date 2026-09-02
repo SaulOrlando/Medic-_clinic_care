@@ -16,6 +16,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
+import jakarta.persistence.Transient;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +81,9 @@ public class Medicamento {
 
     @OneToMany(mappedBy = "medicamento")
     private List<MovimientoInventario> movimientosInventario = new ArrayList<>();
+
+    @Transient
+    private Integer categoriaId;
 
     public Boolean validarCaducidad() {
         return fechaVencimiento != null && fechaVencimiento.isAfter(LocalDate.now());
@@ -187,5 +192,13 @@ public class Medicamento {
 
     public void setMovimientosInventario(List<MovimientoInventario> movimientosInventario) {
         this.movimientosInventario = movimientosInventario;
+    }
+
+    public Integer getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
     }
   }

@@ -39,10 +39,18 @@
                     <option value="">Seleccione la consulta...</option>
                     <option th:each="c : ${consultas}"
                             th:value="${c.idConsulta}"
-                            th:text="'Consulta #' + ${c.idConsulta} + ' - ' + ${c.cita?.paciente?.nombres} + ' ' + ${c.cita?.paciente?.apellidos}">
+                            th:text="'Consulta #' + ${c.idConsulta} + ' · ' + ${c.cita?.paciente?.nombres} + ' ' + ${c.cita?.paciente?.apellidos} + ' · ' + ${#temporals.format(c.cita?.fechaHora, 'dd/MM/yyyy HH:mm')}">
                         Consulta
                     </option>
                 </select>
+            </div>
+
+            <!-- Empty consultas message -->
+            <div class="consultas-form-field" th:if="${modo == 'crear' and consulta == null and sinConsultas}">
+                <div class="alert alert-warning">
+                    <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">info</span>
+                    <span>No tiene consultas registradas. Registre una consulta médica en <a th:href="@{/consultas}">Consulta Médica</a> antes de generar una receta.</span>
+                </div>
             </div>
 
             <!-- Read-only consulta info when editing/adding to existing consulta -->
@@ -73,11 +81,32 @@
                 </select>
             </div>
 
-            <!-- Cantidad -->
+            <!-- Dosis -->
+            <div class="consultas-form-field">
+                <label for="dosis">Dosis</label>
+                <input type="text" id="dosis" class="form-input"
+                       th:field="*{dosis}" maxlength="255" placeholder="ej. 1 tableta" />
+            </div>
+
+            <!-- Cantidad (para stock) -->
             <div class="consultas-form-field">
                 <label for="cantidad">Cantidad *</label>
                 <input type="number" id="cantidad" class="form-input"
-                       th:field="*{cantidad}" min="1" step="1" placeholder="Cantidad a prescribir" required />
+                       th:field="*{cantidad}" min="1" step="1" placeholder="Unidades a dispensar" required />
+            </div>
+
+            <!-- Frecuencia -->
+            <div class="consultas-form-field">
+                <label for="frecuencia">Frecuencia</label>
+                <input type="text" id="frecuencia" class="form-input"
+                       th:field="*{frecuencia}" maxlength="255" placeholder="ej. Diariamente" />
+            </div>
+
+            <!-- Duración -->
+            <div class="consultas-form-field">
+                <label for="duracion">Duración</label>
+                <input type="text" id="duracion" class="form-input"
+                       th:field="*{duracion}" maxlength="255" placeholder="ej. 90 días" />
             </div>
 
             <!-- Indicaciones -->
@@ -85,7 +114,7 @@
                 <label for="indicaciones">Indicaciones / Notas *</label>
                 <textarea id="indicaciones" rows="3"
                           th:field="*{indicaciones}"
-                          placeholder="ej. 1 tableta diaria por la mañana, por 90 días" required></textarea>
+                          placeholder="ej. Tomar por la mañana, antes de los alimentos" required></textarea>
             </div>
         </div>
 

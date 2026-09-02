@@ -13,9 +13,11 @@ import java.util.Optional;
 @Repository
 public interface IMedicamentoRepository extends JpaRepository<Medicamento, Integer> {
 
-    List<Medicamento> findByCategoriaIdCategoria(Integer idCategoria);
+    @Query("SELECT m FROM Medicamento m WHERE m.categoria.idCategoria = :idCategoria")
+    List<Medicamento> findByCategoriaIdCategoria(@Param("idCategoria") Integer idCategoria);
 
-    boolean existsByCategoriaIdCategoria(Integer idCategoria);
+    @Query("SELECT CASE WHEN COUNT(m) > 0 THEN true ELSE false END FROM Medicamento m WHERE m.categoria.idCategoria = :idCategoria")
+    boolean existsByCategoriaIdCategoria(@Param("idCategoria") Integer idCategoria);
 
     List<Medicamento> findByNombreComercialContainingIgnoreCase(String nombreComercial);
 

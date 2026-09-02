@@ -46,7 +46,6 @@ public class GlobalModelAdvice {
             case "ROLE_ADMINISTRADOR" -> "Administrador";
             case "ROLE_MEDICO" -> "Médico";
             case "ROLE_RECEPCIONISTA" -> "Recepcionista";
-            case "ROLE_ENCARGADO_INVENTARIO" -> "Encargado de Inventario";
             default -> autoridad.replace("ROLE_", "");
         };
     }

@@ -641,75 +641,75 @@ IF NOT EXISTS (SELECT 1 FROM movimientos_inventario WHERE id_medicamento = @medA
 
 -- ============ RECETAS DETALLES ============
 -- Saul - infeccion respiratoria
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consMon1, @medPara, 10, 'Tomar 1 tableta cada 8 horas por 3 dias', 'DISPENSADA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consMon1, @medPara, 10, 'Tomar 1 tableta cada 8 horas', '1 tableta (500mg)', 'Cada 8 horas', '3 dias', 'DISPENSADA');
 
 -- Saul - gastritis
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consTue1, @medPara, 15, 'Tomar 1 tableta cada 8 horas si hay dolor', 'DISPENSADA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consTue1, @medPara, 15, 'Tomar 1 tableta cada 8 horas si hay dolor', '1 tableta (500mg)', 'Cada 8 horas', 'C/3 dias cuando haya dolor', 'DISPENSADA');
 
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consTue1, @medOmep, 14, 'Tomar 1 capsula en ayunas por 14 dias', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consTue1, @medOmep, 14, 'Tomar 1 capsula en ayunas', '1 capsula (20mg)', '1 vez al dia en ayunas', '14 dias', 'PRESCRITA');
 
 -- Saul - rinitis alergica
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed1, @medLor, 10, 'Tomar 1 tableta cada 24 horas por 5 dias', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed1, @medLor, 10, 'Tomar 1 tableta cada 24 horas', '1 tableta (10mg)', 'Cada 24 horas', '5 dias', 'PRESCRITA');
 
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed1, @medCeti, 10, 'Tomar 1 tableta cada 24 horas por 10 dias', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed1, @medCeti, 10, 'Tomar 1 tableta cada 24 horas', '1 tableta (10mg)', 'Cada 24 horas', '10 dias', 'PRESCRITA');
 
 -- Saul - diabetes
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consThu1, @medMetf, 30, 'Tomar 1 tableta de 850mg cada 12 horas con alimentos', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consThu1, @medMetf, 30, 'Tomar 1 tableta de 850mg cada 12 horas con alimentos', '1 tableta (850mg)', 'Cada 12 horas', '15 dias', 'PRESCRITA');
 
 -- Saul - faringitis
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consFri1, @medAmo, 15, 'Tomar 1 capsula de 500mg cada 8 horas por 5 dias', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consFri1, @medAmo, 15, 'Tomar 1 capsula de 500mg cada 8 horas', '1 capsula (500mg)', 'Cada 8 horas', '5 dias', 'PRESCRITA');
 
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consFri1, @medPara, 10, 'Tomar 1 tableta cada 6 horas si hay fiebre', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consFri1, @medPara, 10, 'Tomar 1 tableta cada 6 horas si hay fiebre', '1 tableta (500mg)', 'Cada 6 horas si hay fiebre', '3 dias', 'PRESCRITA');
 
 -- Saul - rinitis (dosis doble de antihistaminico)
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed1, @medPred, 7, 'Tomar 1 tableta de 5mg cada 24 horas por 5 dias, reducir dosis', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed1, @medPred, 7, 'Tomar 1 tableta de 5mg cada 24 horas, reducir dosis', '1 tableta (5mg)', 'Cada 24 horas', '5 dias (reducir gradualmente)', 'PRESCRITA');
 
 -- Roberto - arritmia
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consTue2, @medEnal, 30, 'Tomar 1 tableta de 10mg cada 12 horas', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consTue2, @medEnal, 30, 'Tomar 1 tableta de 10mg cada 12 horas', '1 tableta (10mg)', 'Cada 12 horas', '15 dias', 'PRESCRITA');
 
 -- Roberto - angina
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consThu2, @medEnal, 30, 'Tomar 1 tableta de 10mg cada 12 horas, seguimiento en 1 mes', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consThu2, @medEnal, 30, 'Tomar 1 tableta de 10mg cada 12 horas, seguimiento en 1 mes', '1 tableta (10mg)', 'Cada 12 horas', '30 dias', 'PRESCRITA');
 
 -- Guadalupe - dermatitis de contacto
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consMon3, @medBeta, 1, 'Aplicar capa fina en zona afectada 2 veces al dia por 7 dias', 'DISPENSADA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consMon3, @medBeta, 1, 'Aplicar capa fina en zona afectada 2 veces al dia', 'Capa fina', '2 veces al dia', '7 dias', 'DISPENSADA');
 
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consMon3, @medCeti, 7, 'Tomar 1 tableta cada 24 horas por 7 dias', 'DISPENSADA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consMon3, @medCeti, 7, 'Tomar 1 tableta cada 24 horas', '1 tableta (10mg)', 'Cada 24 horas', '7 dias', 'DISPENSADA');
 
 -- Guadalupe - acne quistico
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consTue3, @medIsot, 30, 'Tomar 1 capsula de 20mg con alimento graso, evitar embarazo', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consTue3, @medIsot, 30, 'Tomar 1 capsula de 20mg con alimento graso, evitar embarazo', '1 capsula (20mg)', '1 vez al dia con alimentos', '30 dias', 'PRESCRITA');
 
 -- Guadalupe - alopecia
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consTue4, @medMino, 1, 'Aplicar 1ml en cuero cabelludo 2 veces al dia por 3 meses', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consTue4, @medMino, 1, 'Aplicar 1ml en cuero cabelludo 2 veces al dia', '1 ml', '2 veces al dia', '3 meses', 'PRESCRITA');
 
 -- Guadalupe - onicomicosis
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed3, @medClot, 1, 'Aplicar en uñas afectadas 2 veces al dia por 6 semanas', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed3, @medClot, 1, 'Aplicar en uñas afectadas 2 veces al dia', 'Capa fina', '2 veces al dia', '6 semanas', 'PRESCRITA');
 
 -- Guadalupe - psoriasis
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed4, @medBeta, 1, 'Aplicar en placas de psoriasis 1 vez al dia por 14 dias', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed4, @medBeta, 1, 'Aplicar en placas de psoriasis 1 vez al dia', 'Capa fina', '1 vez al dia', '14 dias', 'PRESCRITA');
 
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consWed4, @medPred, 14, 'Tomar 1 tableta de 5mg cada 24 horas, reducir gradualmente', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consWed4, @medPred, 14, 'Tomar 1 tableta de 5mg cada 24 horas, reducir gradualmente', '1 tableta (5mg)', 'Cada 24 horas', '14 dias (reducir gradualmente)', 'PRESCRITA');
 
 -- Guadalupe - vitiligo
-INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, estado)
-    VALUES (@consThu3, @medBeta, 1, 'Aplicar crema en manchas despigmentadas 1 vez al dia', 'PRESCRITA');
+INSERT INTO recetas_detalles (id_consulta, id_medicamento, cantidad, indicaciones, dosis, frecuencia, duracion, estado)
+    VALUES (@consThu3, @medBeta, 1, 'Aplicar crema en manchas despigmentadas 1 vez al dia', 'Capa fina', '1 vez al dia', '30 dias', 'PRESCRITA');
 
 COMMIT TRANSACTION;
 

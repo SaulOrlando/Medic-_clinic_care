@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,6 +38,7 @@ public class HomeController {
         }
 
         model.addAttribute("activePage", "panel");
+        model.addAttribute("volumenEjes", volumenEjes(volumenMax));
         model.addAttribute("citasHoy", dashboardService.contarCitasHoy(usuario));
         model.addAttribute("pacientesRecientes", dashboardService.contarPacientesRecientes(usuario));
         model.addAttribute("reportesPendientes", dashboardService.contarInformesPendientes(usuario));
@@ -44,5 +46,14 @@ public class HomeController {
         model.addAttribute("volumenMax", volumenMax);
         model.addAttribute("proximasCitas", dashboardService.obtenerProximasCitas(usuario, 5));
         return "panel";
+    }
+
+    private List<Integer> volumenEjes(long volumenMax) {
+        List<Integer> ejes = new ArrayList<>(5);
+        for (int parte = 0; parte < 5; parte++) {
+            int base = (int) Math.round(volumenMax * (5 - parte) / 5.0);
+            ejes.add(base);
+        }
+        return ejes;
     }
 }

@@ -50,10 +50,13 @@
                             <a th:href="@{/categorias-medicamentos/{id}/editar(id=${cat.idCategoria})}" class="btn btn-secondary btn-sm">
                                 <span class="material-symbols-outlined" style="font-size:16px;">edit</span>
                             </a>
-                            <a th:href="@{/categorias-medicamentos/{id}/eliminar(id=${cat.idCategoria})}" class="btn btn-danger btn-sm"
-                               onclick="return confirm('¿Está seguro de eliminar esta categoría?');">
-                                <span class="material-symbols-outlined" style="font-size:16px;">delete</span>
-                            </a>
+                            <form th:action="@{/categorias-medicamentos/{id}/eliminar(id=${cat.idCategoria})}" method="post"
+                                  class="inline"
+                                  th:data-confirm="'¿Está seguro de eliminar la categoría ' + cat.nombre + '?'">
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <span class="material-symbols-outlined" style="font-size:16px;">delete</span>
+                                </button>
+                            </form>
                         </div>
                     </td>
                 </tr>
@@ -65,6 +68,19 @@
             </tbody>
         </table>
     </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+            document.querySelectorAll('form[data-confirm]').forEach(function (form) {
+                form.addEventListener('submit', function (e) {
+                    if (!window.confirm(form.dataset.confirm)) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        })();
+    </script>
 
 </th:block>
 

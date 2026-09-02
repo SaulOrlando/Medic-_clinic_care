@@ -2,7 +2,10 @@ package org.esfe.repositorios;
 
 import org.esfe.modelos.Cita;
 import org.esfe.modelos.enums.EstadoCita;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -17,8 +20,10 @@ public interface ICitaRepository extends JpaRepository<Cita, Integer> {
 
     List<Cita> findByUsuarioGestorIdUsuario(Integer idUsuario);
 
+    @EntityGraph(attributePaths = {"paciente", "medico", "medico.usuario", "consultaMedica"})
     List<Cita> findByEstado(EstadoCita estado);
 
+    @EntityGraph(attributePaths = {"paciente", "medico", "medico.usuario", "consultaMedica"})
     List<Cita> findByMedicoIdMedicoAndEstado(Integer idMedico, EstadoCita estado);
 
     List<Cita> findByPacienteIdPacienteAndEstado(Integer idPaciente, EstadoCita estado);

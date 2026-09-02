@@ -102,15 +102,17 @@
                 <thead>
                     <tr>
                         <th>Medicamento</th>
-                        <th>Cantidad</th>
-                        <th>Indicaciones</th>
+                        <th>Dosis</th>
+                        <th>Frecuencia</th>
+                        <th>Duración</th>
+                        <th>Notas</th>
                         <th class="no-print">Estado</th>
                         <th class="no-print" style="text-align:right;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:if="${#lists.isEmpty(recetas)}">
-                        <td colspan="5" style="text-align:center;color:var(--color-text-muted);">
+                        <td colspan="7" style="text-align:center;color:var(--color-text-muted);">
                             Esta consulta aún no tiene medicamentos prescritos.
                         </td>
                     </tr>
@@ -120,7 +122,13 @@
                                   th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
                         </td>
                         <td>
-                            <span th:text="${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1 tableta</span>
+                            <span th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1 tableta</span>
+                        </td>
+                        <td>
+                            <span th:text="${det.frecuencia} ?: '—'">Diariamente</span>
+                        </td>
+                        <td>
+                            <span th:text="${det.duracion} ?: '—'">90 días</span>
                         </td>
                         <td>
                             <span th:text="${det.indicaciones}">Tomar por la mañana</span>
@@ -177,7 +185,7 @@
         <!-- ERX ID -->
         <div class="prescription-erx no-print">
             <p class="prescription-erx-text"
-               th:text="'ID de Receta Electrónica: ERX-2023-' + ${consulta?.idConsulta}">ID de Receta Electrónica: ERX-20231026-998A</p>
+               th:text="'ID de Receta Electrónica: ERX-' + ${#temporals.year(#temporals.createNow())} + '-' + ${consulta?.idConsulta}">ID de Receta Electrónica: ERX-20231026-998A</p>
         </div>
     </div>
 

@@ -1,0 +1,6506 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------------< org.esfe:MediclinicApp >-----------------------
+[INFO] Building  0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.0:run (default-cli) > test-compile @ MediclinicApp >>>
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ MediclinicApp ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] Copying 35 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ MediclinicApp ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ MediclinicApp ---
+[INFO] Copying 1 resource from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ MediclinicApp ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.1.0:run (default-cli) < test-compile @ MediclinicApp <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.0:run (default-cli) @ MediclinicApp ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-09-02T08:37:47.864-06:00  INFO 6840 --- [MediclinicApp] [           main] org.esfe.MediclinicAppApplication        : Starting MediclinicAppApplication using Java 25.0.4 with PID 6840 (C:\Users\Level\IdeaProjects\Mediclinic3App\MediclinicApp\target\classes started by Level in C:\Users\Level\IdeaProjects\Mediclinic3App\MediclinicApp)
+2026-09-02T08:37:47.868-06:00  INFO 6840 --- [MediclinicApp] [           main] org.esfe.MediclinicAppApplication        : The following 1 profile is active: "local"
+2026-09-02T08:37:48.928-06:00  INFO 6840 --- [MediclinicApp] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-02T08:37:49.047-06:00  INFO 6840 --- [MediclinicApp] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 10 JPA repository interfaces.
+2026-09-02T08:37:49.790-06:00  INFO 6840 --- [MediclinicApp] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8081 (http)
+2026-09-02T08:37:49.809-06:00  INFO 6840 --- [MediclinicApp] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-09-02T08:37:49.809-06:00  INFO 6840 --- [MediclinicApp] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-09-02T08:37:49.886-06:00  INFO 6840 --- [MediclinicApp] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1941 ms
+2026-09-02T08:37:50.206-06:00  INFO 6840 --- [MediclinicApp] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-09-02T08:37:50.289-06:00  INFO 6840 --- [MediclinicApp] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-09-02T08:37:50.830-06:00  INFO 6840 --- [MediclinicApp] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-09-02T08:37:50.872-06:00  INFO 6840 --- [MediclinicApp] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-09-02T08:37:51.653-06:00  INFO 6840 --- [MediclinicApp] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection ConnectionID:1 ClientConnectionId: fddb3d94-bda5-445e-9252-aff20d91eab4
+2026-09-02T08:37:51.655-06:00  INFO 6840 --- [MediclinicApp] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-09-02T08:37:51.756-06:00  WARN 6840 --- [MediclinicApp] [           main] org.hibernate.orm.deprecation            : HHH90000025: SQLServerDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-09-02T08:37:51.788-06:00  INFO 6840 --- [MediclinicApp] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:sqlserver://localhost:1433;concatNullYieldsNull=ON;quotedIdentifier=ON;connectRetryInterval=10;connectRetryCount=1;maxResultBuffer=-1;sendTemporalDataTypesAsStringForBulkCopy=true;delayLoadingLobs=true;useFmtOnly=false;vectorTypeSupport=v1;cacheBulkCopyMetadata=false;bulkCopyForBatchInsertAllowEncryptedValueModifications=false;bulkCopyForBatchInsertTableLock=false;bulkCopyForBatchInsertKeepNulls=false;bulkCopyForBatchInsertKeepIdentity=false;bulkCopyForBatchInsertFireTriggers=false;bulkCopyForBatchInsertCheckConstraints=false;bulkCopyForBatchInsertBatchSize=0;useBulkCopyForBatchInsert=false;cancelQueryTimeout=-1;sslProtocol=TLS;calcBigDecimalPrecision=false;useDefaultJaasConfig=false;jaasConfigurationName=SQLJDBCDriver;statementPoolingCacheSize=0;serverPreparedStatementDiscardThreshold=10;enablePrepareOnFirstPreparedStatementCall=false;fips=false;socketTimeout=0;authentication=NotSpecified;authenticationScheme=nativeAuthentication;xopenStates=false;datetimeParameterType=datetime2;sendTimeAsDatetime=true;replication=false;trustStoreType=JKS;trustServerCertificate=true;TransparentNetworkIPResolution=true;iPAddressPreference=IPv4First;serverNameAsACE=false;sendStringParametersAsUnicode=true;selectMethod=direct;responseBuffering=adaptive;queryTimeout=-1;packetSize=8000;multiSubnetFailover=false;loginTimeout=30;lockTimeout=-1;lastUpdateCount=true;useDefaultGSSCredential=false;prepareMethod=prepexec;encrypt=true;disableStatementPooling=true;databaseName=SistemaClinico;columnEncryptionSetting=Disabled;applicationName=Microsoft JDBC Driver for SQL Server;applicationIntent=readwrite;]
+	Database driver: Microsoft JDBC Driver 13.4 for SQL Server
+	Database dialect: SQLServerDialect
+	Database version: 17.0
+	Default catalog/schema: SistemaClinico/dbo
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 128
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-09-02T08:37:53.940-06:00  INFO 6840 --- [MediclinicApp] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: 
+    alter table usuarios 
+       alter column foto varchar(max)
+2026-09-02T08:37:55.866-06:00  INFO 6840 --- [MediclinicApp] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-09-02T08:37:55.978-06:00  INFO 6840 --- [MediclinicApp] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-09-02T08:37:57.405-06:00  WARN 6840 --- [MediclinicApp] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-09-02T08:37:57.523-06:00  INFO 6840 --- [MediclinicApp] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-09-02T08:37:58.394-06:00  INFO 6840 --- [MediclinicApp] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8081 (http) with context path '/'
+2026-09-02T08:37:58.401-06:00  INFO 6840 --- [MediclinicApp] [           main] org.esfe.MediclinicAppApplication        : Started MediclinicAppApplication in 11.42 seconds (process running for 12.095)
+2026-09-02T08:38:56.754-06:00  INFO 6840 --- [MediclinicApp] [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-09-02T08:38:56.754-06:00  INFO 6840 --- [MediclinicApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-09-02T08:38:56.756-06:00  INFO 6840 --- [MediclinicApp] [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono,
+        c1_0.id_paciente,
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono,
+        c1_0.id_usuario_gestor,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    join
+        citas c1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    join
+        medicos m1_0 
+            on m1_0.id_medico=c1_0.id_medico 
+    join
+        usuarios u1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    join
+        pacientes p1_0 
+            on p1_0.id_paciente=c1_0.id_paciente 
+    order by
+        cm1_0.fecha_consulta desc
+2026-09-02T09:03:54.916-06:00 ERROR 6840 --- [MediclinicApp] [nio-8081-exec-3] org.thymeleaf.TemplateEngine             : [THYMELEAF][http-nio-8081-exec-3] Exception processing template "consultas": Could not parse as expression: "'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')" (template: "consultas" - line 62, col 40)
+
+org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: "'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')" (template: "consultas" - line 62, col 40)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:131) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:62) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:44) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.EngineEventUtils.parseAttributeExpression(EngineEventUtils.java:220) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.EngineEventUtils.computeAttributeExpression(EngineEventUtils.java:207) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:125) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:290) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:368) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:222) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.CloseElementTag.beHandled(CloseElementTag.java:139) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1587) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1587) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.TemplateModel.process(TemplateModel.java:136) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:661) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1103) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1077) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.spring6.view.ThymeleafView.renderFragment(ThymeleafView.java:374) ~[thymeleaf-spring6-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.spring6.view.ThymeleafView.render(ThymeleafView.java:193) ~[thymeleaf-spring6-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1305) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1042) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.22.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.22.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:376) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:245) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:239) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:118) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1801) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+2026-09-02T09:03:54.921-06:00 ERROR 6840 --- [MediclinicApp] [nio-8081-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: "'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')" (template: "consultas" - line 62, col 40)] with root cause
+
+org.thymeleaf.exceptions.TemplateProcessingException: Could not parse as expression: "'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')" (template: "consultas" - line 62, col 40)
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:131) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:62) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.expression.StandardExpressionParser.parseExpression(StandardExpressionParser.java:44) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.EngineEventUtils.parseAttributeExpression(EngineEventUtils.java:220) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.EngineEventUtils.computeAttributeExpression(EngineEventUtils.java:207) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.standard.processor.AbstractStandardExpressionAttributeTagProcessor.doProcess(AbstractStandardExpressionAttributeTagProcessor.java:125) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.processor.element.AbstractAttributeTagProcessor.doProcess(AbstractAttributeTagProcessor.java:74) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.processor.element.AbstractElementTagProcessor.process(AbstractElementTagProcessor.java:95) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.util.ProcessorConfigurationUtils$ElementTagProcessorWrapper.process(ProcessorConfigurationUtils.java:633) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1314) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:290) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.processIterationModel(IteratedGatheringModelProcessable.java:368) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.IteratedGatheringModelProcessable.process(IteratedGatheringModelProcessable.java:222) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleCloseElement(ProcessorTemplateHandler.java:1640) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.CloseElementTag.beHandled(CloseElementTag.java:139) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1587) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.Model.process(Model.java:282) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.ProcessorTemplateHandler.handleOpenElement(ProcessorTemplateHandler.java:1587) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.OpenElementTag.beHandled(OpenElementTag.java:205) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.TemplateModel.process(TemplateModel.java:136) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.engine.TemplateManager.parseAndProcess(TemplateManager.java:661) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1103) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.TemplateEngine.process(TemplateEngine.java:1077) ~[thymeleaf-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.spring6.view.ThymeleafView.renderFragment(ThymeleafView.java:374) ~[thymeleaf-spring6-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.thymeleaf.spring6.view.ThymeleafView.render(ThymeleafView.java:193) ~[thymeleaf-spring6-3.1.5.RELEASE.jar:3.1.5.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.render(DispatcherServlet.java:1305) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1042) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:980) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.22.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.8.jar:7.0.8]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.22.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:128) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$2(FilterChainProxy.java:235) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:376) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:101) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:181) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:245) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:239) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:110) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:96) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.csrf.CsrfFilter.doFilterInternal(CsrfFilter.java:118) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:385) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:237) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:195) ~[spring-security-web-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.ServletRequestPathFilter.doFilter(ServletRequestPathFilter.java:52) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebSecurityConfiguration.java:317) ~[spring-security-config-7.1.0.jar:7.1.0]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:355) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:272) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.8.jar:7.0.8]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:107) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:492) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1272) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1801) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:946) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:480) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:57) ~[tomcat-embed-core-11.0.22.jar:11.0.22]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        rd1_0.id_receta_detalle,
+        rd1_0.cantidad,
+        rd1_0.id_consulta,
+        rd1_0.estado,
+        rd1_0.indicaciones,
+        rd1_0.id_medicamento 
+    from
+        recetas_detalles rd1_0
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        rd1_0.id_receta_detalle,
+        rd1_0.cantidad,
+        rd1_0.id_consulta,
+        rd1_0.estado,
+        rd1_0.indicaciones,
+        rd1_0.id_medicamento 
+    from
+        recetas_detalles rd1_0
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medicamento,
+        m1_0.id_categoria,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_medicamento=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_consulta=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_cita=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        cm1_0.id_categoria,
+        cm1_0.descripcion,
+        cm1_0.nombre 
+    from
+        categorias_medicamentos cm1_0
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        cm1_0.id_categoria,
+        cm1_0.descripcion,
+        cm1_0.nombre 
+    from
+        categorias_medicamentos cm1_0
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        m1_0.id_categoria,
+        m1_0.id_medicamento,
+        m1_0.concentracion,
+        m1_0.fecha_vencimiento,
+        m1_0.nombre_comercial,
+        m1_0.nombre_generico,
+        m1_0.presentacion,
+        m1_0.stock_disponible,
+        m1_0.stock_inicial,
+        m1_0.unidad_medida 
+    from
+        medicamentos m1_0 
+    where
+        m1_0.id_categoria=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        c1_0.id_paciente,
+        c1_0.id_cita,
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    left join
+        consultas_medicas cm1_0 
+            on c1_0.id_cita=cm1_0.id_cita 
+    where
+        c1_0.id_paciente=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    left join
+        medicos m1_0 
+            on u1_0.id_usuario=m1_0.id_usuario 
+    where
+        u1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        u1_0.id_usuario,
+        u1_0.activo,
+        u1_0.contrasena,
+        u1_0.correo,
+        u1_0.foto,
+        u1_0.nombre_completo,
+        u1_0.rol,
+        u1_0.telefono 
+    from
+        usuarios u1_0 
+    where
+        u1_0.correo=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_usuario=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        c1_0.id_cita,
+        c1_0.duracion_minutos,
+        c1_0.estado,
+        c1_0.fecha_hora,
+        c1_0.id_medico,
+        c1_0.id_paciente,
+        c1_0.id_usuario_gestor 
+    from
+        citas c1_0 
+    where
+        c1_0.fecha_hora between ? and ?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        cm1_0.id_consulta,
+        cm1_0.id_cita,
+        cm1_0.diagnostico,
+        cm1_0.fecha_consulta,
+        cm1_0.motivo_consulta,
+        cm1_0.sintomatologia 
+    from
+        consultas_medicas cm1_0 
+    where
+        cm1_0.id_cita=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        m1_0.id_medico,
+        m1_0.disponible,
+        m1_0.especialidad,
+        m1_0.numero_licencia,
+        m1_0.id_usuario 
+    from
+        medicos m1_0 
+    where
+        m1_0.id_medico=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?
+Hibernate: 
+    select
+        p1_0.id_paciente,
+        p1_0.apellidos,
+        p1_0.codigo_expediente,
+        p1_0.documento_identidad,
+        p1_0.fecha_nacimiento,
+        p1_0.genero,
+        p1_0.nombres,
+        p1_0.telefono 
+    from
+        pacientes p1_0 
+    where
+        p1_0.id_paciente=?

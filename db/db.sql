@@ -183,6 +183,9 @@ CREATE TABLE recetas_detalles (
     id_medicamento INT NOT NULL,
     cantidad INT NOT NULL,
     indicaciones NVARCHAR(MAX),
+    dosis NVARCHAR(255),
+    frecuencia NVARCHAR(255),
+    duracion NVARCHAR(255),
     estado VARCHAR(20) NOT NULL,
 
     CONSTRAINT FK_recetas_consulta

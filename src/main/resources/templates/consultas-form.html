@@ -53,6 +53,8 @@
 
         <!-- Hidden: cita ID -->
         <input type="hidden" th:field="*{cita.idCita}" />
+        <!-- Hidden: emitir receta tras guardar -->
+        <input type="hidden" name="emitirReceta" id="emitirReceta" value="false" />
 
         <!-- Patient Summary Pane (Left Column) -->
         <div class="consultas-patient-panel">
@@ -76,21 +78,6 @@
             </div>
 
             <hr class="consultas-patient-divider"/>
-
-            <!-- Vital Signs -->
-            <div>
-                <span class="consultas-section-label">Signos Vitales (Últimos)</span>
-                <div class="consultas-vital-grid">
-                    <div class="consultas-vital-card">
-                        <span class="consultas-vital-label">PA</span>
-                        <span class="consultas-vital-value">---/---</span>
-                    </div>
-                    <div class="consultas-vital-card">
-                        <span class="consultas-vital-label">FC</span>
-                        <span class="consultas-vital-value">--- lpm</span>
-                    </div>
-                </div>
-            </div>
 
             <!-- Allergies -->
             <div>
@@ -182,7 +169,7 @@
                     Cancelar
                 </a>
                 <div style="display: flex; gap: var(--space-3);">
-                    <button type="submit" class="btn btn-outline">
+                    <button type="submit" class="btn btn-outline" id="btnGuardarBorrador">
                         <span class="material-symbols-outlined" style="font-size: 18px;">save</span>
                         Guardar Borrador
                     </button>
@@ -246,10 +233,17 @@
                 });
             }
 
+            var emitirReceta = document.getElementById('emitirReceta');
+            var btnGuardarBorrador = document.getElementById('btnGuardarBorrador');
             var btnGuardarReceta = document.getElementById('btnGuardarReceta');
-            if (btnGuardarReceta) {
+            if (btnGuardarBorrador && emitirReceta) {
+                btnGuardarBorrador.addEventListener('click', function () {
+                    emitirReceta.value = 'false';
+                });
+            }
+            if (btnGuardarReceta && emitirReceta) {
                 btnGuardarReceta.addEventListener('click', function () {
-                    this.setAttribute('formaction', this.getAttribute('formaction'));
+                    emitirReceta.value = 'true';
                 });
             }
         })();

@@ -48,8 +48,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="categoria">Categoría *</label>
-                        <select id="categoria" class="form-input" th:field="*{categoria}">
+                        <label class="form-label" for="categoriaId">Categoría *</label>
+                        <select id="categoriaId" class="form-input" th:field="*{categoriaId}" required>
                             <option value="">Seleccionar categoría</option>
                             <option th:each="cat : ${categorias}"
                                     th:value="${cat.idCategoria}"

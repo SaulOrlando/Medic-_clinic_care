@@ -32,6 +32,10 @@ Spring Boot medical clinic management system for scheduling appointments, managi
 
 > **IMPORTANTE:** Al implementar cualquier funcionalidad, verificar la tabla de permisos por rol antes de crear controladores, vistas o endpoints. Los endpoints sensibles deben validarse con `@PreAuthorize` o equivalente.
 
+### Regla absoluta — Fuente de verdad
+
+**`docs/GHistorias de usuarios.xml` es la unica fuente de verdad para roles, permisos y funcionalidades.** Ninguna funcionalidad, ruta, controlador o rol puede agregarse sin respaldo en las historias de usuario del JIRA XML. Si el JIRA no lo define, no existe. Cualquier desviacion de este archivo debe resolverse modificando el codigo para alinearse al JIRA, nunca al reves.
+
 ## Setup Commands
 
 ```bash

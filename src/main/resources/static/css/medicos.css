@@ -1,0 +1,195 @@
+/* ============================================
+    MediClinic Care — Gestión de Médicos
+    ============================================ */
+
+/* La vista /medicos es de solo lectura (READ). El alta de médicos
+   se realiza desde /usuarios seleccionando el rol "Médico". */
+
+.medicos-bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-4);
+}
+
+.medicos-table-col {
+    grid-column: span 12;
+}
+
+.medicos-table-card {
+    background-color: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-ambient);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.medicos-table-toolbar {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface-container-low);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.medicos-table-toolbar-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.medicos-table-wrap {
+    overflow-x: auto;
+}
+
+.medicos-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.medicos-table th {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface-container-low);
+    white-space: nowrap;
+}
+
+.medicos-table td {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.medicos-table tbody tr:hover {
+    background-color: var(--color-surface-container-low);
+}
+
+.medicos-user {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.medicos-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--color-primary-container, var(--color-primary));
+    color: var(--color-on-primary, #fff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-xs);
+    flex-shrink: 0;
+}
+
+.medicos-avatar--img {
+    object-fit: cover;
+    background-color: var(--color-surface-container);
+}
+
+.medicos-name {
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    margin: 0;
+}
+
+.medicos-id {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.medicos-mono {
+    font-family: 'Inter', monospace;
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+}
+
+.medicos-email {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+}
+
+/* Read-only status badge */
+.medicos-estado-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.medicos-estado-badge--activo {
+    background-color: rgba(46, 125, 50, 0.12);
+    color: var(--color-success, #2E7D32);
+}
+
+.medicos-estado-badge--inactivo {
+    background-color: var(--color-surface-container);
+    color: var(--color-text-secondary);
+}
+
+.medicos-empty {
+    text-align: center;
+    padding: var(--space-8);
+    color: var(--color-text-secondary);
+}
+
+.medicos-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-3) var(--space-4);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.medicos-pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.medicos-paginbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    transition: background-color 0.15s;
+}
+
+.medicos-paginbtn:hover {
+    background-color: var(--color-surface-container-low);
+}
+
+.medicos-paginbtn--activo {
+    background-color: var(--color-primary);
+    color: var(--color-on-primary, #fff);
+    border-color: var(--color-primary);
+}
+
+.medicos-paginbtn--activo:hover {
+    background-color: var(--color-primary-dark, var(--color-primary));
+}

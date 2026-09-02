@@ -27,7 +27,7 @@ public class ConsultaMedicaService implements IConsultaMedicaService {
     @Override
     @Transactional(readOnly = true)
     public List<ConsultaMedica> obtenerTodos() {
-        return consultaMedicaRepository.findAll();
+        return consultaMedicaRepository.findAllWithDetails();
     }
 
     @Override
@@ -52,6 +52,24 @@ public class ConsultaMedicaService implements IConsultaMedicaService {
     @Transactional(readOnly = true)
     public List<ConsultaMedica> buscarPorPaciente(Integer idPaciente) {
         return consultaMedicaRepository.findByPaciente(idPaciente);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultaMedica> buscarPorMedicoYBusqueda(Integer idMedico, String busqueda) {
+        if (busqueda == null || busqueda.isBlank()) {
+            return consultaMedicaRepository.findByMedico(idMedico);
+        }
+        return consultaMedicaRepository.buscarPorMedicoYBusqueda(idMedico, busqueda.trim());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ConsultaMedica> buscarPorBusqueda(String busqueda) {
+        if (busqueda == null || busqueda.isBlank()) {
+            return consultaMedicaRepository.findAllWithDetails();
+        }
+        return consultaMedicaRepository.buscarPorBusqueda(busqueda.trim());
     }
 
     @Override

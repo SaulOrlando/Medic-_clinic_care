@@ -8,99 +8,178 @@
     <div class="usuarios-alerts">
         <div th:if="${exito}" class="alert alert-success animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
-            <span th:text="${exito}">Operación correcta.</span>
+            <span th:text="${exito}">Operacion correcta.</span>
         </div>
         <div th:if="${error}" class="alert alert-error animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
-            <span th:text="${error}">Ocurrió un error.</span>
+            <span th:text="${error}">Ocurrio un error.</span>
         </div>
     </div>
 
-    <!-- Header Section -->
-    <div class="consultas-header">
-        <div class="consultas-header-text">
-            <h2 class="page-title">Consulta Médica</h2>
-            <p class="page-subtitle">Historial de consultas médicas registradas en el sistema.</p>
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb animate-fade-in">
+        <span class="breadcrumb-item"><a href="/panel">Inicio</a></span>
+        <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
+        <span class="breadcrumb-item">Consultas</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header animate-fade-in">
+        <div>
+            <h1 class="page-title">Historial de Consultas</h1>
+            <p class="page-subtitle">Consulta medica registradas en el sistema.</p>
+        </div>
+        <button th:if="${usuario?.rol?.name() == 'MEDICO'}"
+                type="button" class="btn btn-primary" id="btnNuevaConsulta">
+            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+            Nueva Consulta
+        </button>
+    </div>
+
+    <!-- Pending citas selector (for new consulta) -->
+    <div class="consultas-nueva-card consultas-hidden animate-slide-down" id="nuevaConsultaCard"
+         th:if="${usuario?.rol?.name() == 'MEDICO'}">
+        <div class="consultas-nueva-header">
+            <div>
+                <h3 class="consultas-nueva-title">Iniciar Nueva Consulta</h3>
+                <p class="consultas-nueva-subtitle">Seleccione una cita pendiente para registrar la consulta.</p>
+            </div>
+            <button type="button" class="consultas-btn-close" id="btnCerrarNueva" aria-label="Cerrar">
+                <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+            </button>
+        </div>
+
+        <th:block th:if="${#lists.isEmpty(citasPendientes)}">
+            <div class="consultas-empty" style="padding: 24px;">
+                <span class="material-symbols-outlined" style="font-size: 32px;">event_busy</span>
+                <p>No hay citas pendientes para iniciar una consulta.</p>
+            </div>
+        </th:block>
+
+        <div class="consultas-nueva-lista" th:if="${not #lists.isEmpty(citasPendientes)}">
+            <a th:each="cita : ${citasPendientes}"
+               th:href="@{/consultas/nueva(idCita=${cita.idCita})}"
+               class="consultas-nueva-item">
+                <div class="consultas-nueva-item-avatar"
+                     th:text="${cita.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
+                <div class="consultas-nueva-item-info">
+                    <p class="consultas-nueva-item-name"
+                       th:text="${cita.paciente?.nombres + ' ' + cita.paciente?.apellidos}">Paciente</p>
+                    <p class="consultas-nueva-item-meta"
+                       th:text="'Exp: ' + (${cita.paciente?.codigoExpediente ?: '-'})">Exp: ---</p>
+                </div>
+                <div class="consultas-nueva-item-derecha">
+                    <span class="consultas-nueva-item-fecha"
+                          th:text="${#temporals.format(cita.fechaHora, 'dd/MM/yyyy HH:mm')}">01/01/2025 09:00</span>
+                    <span class="consultas-nueva-item-medico"
+                          th:text="${cita.medico?.usuario?.nombreCompleto ?: 'Medico'}">Medico</span>
+                </div>
+                <span class="consultas-nueva-item-arrow">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </span>
+            </a>
         </div>
     </div>
 
-    <!-- Data Table Card -->
-    <div class="consultas-table-card">
-        <div class="usuarios-table-wrap">
-            <table class="consultas-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Paciente</th>
-                        <th>Médico</th>
-                        <th>Fecha</th>
-                        <th>Motivo</th>
-                        <th>Diagnóstico</th>
-                        <th>Estado Cita</th>
-                        <th class="text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${#lists.isEmpty(consultas)}">
-                        <td colspan="8">
-                            <div class="consultas-empty">
-                                <span class="material-symbols-outlined" style="font-size: 32px;">monitor_heart</span>
-                                <p>No se encontraron consultas registradas.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="cons : ${consultas}" class="usuarios-row">
-                        <td class="usuarios-mono" th:text="${cons.idConsulta}">1</td>
-                        <td>
-                            <div class="consultas-user-cell">
-                                <div class="consultas-user-avatar"
-                                     th:text="${cons.cita?.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
-                                <div>
-                                    <p class="consultas-user-name"
-                                       th:text="${cons.cita?.paciente?.nombres + ' ' + cons.cita?.paciente?.apellidos}">Paciente</p>
-                                    <p class="consultas-user-id"
-                                       th:text="'Exp: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')">Exp: ---</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <span th:text="${cons.cita?.medico?.usuario?.nombreCompleto}">Dr. ...</span>
-                        </td>
-                        <td class="consultas-date">
-                            <span th:text="${#temporals.format(cons.fechaConsulta, 'dd/MM/yyyy')}">01/01/2025</span>
-                            <br/>
-                            <span class="consultas-time"
-                                  th:text="${#temporals.format(cons.fechaConsulta, 'HH:mm')}">00:00</span>
-                        </td>
-                        <td>
-                            <span th:text="${#strings.abbreviate(cons.motivoConsulta, 50)}">Motivo</span>
-                        </td>
-                        <td>
-                            <span th:text="${#strings.abbreviate(cons.diagnostico, 50)}">Diagnóstico</span>
-                        </td>
-                        <td>
-                            <span class="consultas-badge consultas-badge--atendida"
-                                  th:text="'Atendida'">Atendida</span>
-                        </td>
-                        <td>
-                            <div class="consultas-acciones">
-                                <a th:href="@{/consultas/{id}/editar(id=${cons.idConsulta})}"
-                                   class="consultas-accion" title="Editar">
-                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                                </a>
-                                <form th:action="@{/consultas/{id}/eliminar(id=${cons.idConsulta})}" method="post"
-                                      class="consultas-accion-form"
-                                      th:data-confirm="'¿Desea eliminar esta consulta del paciente ' + cons.cita?.paciente?.nombres + '?'">
-                                    <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- Filter Bar -->
+    <form class="consultas-filter-bar animate-fade-in" method="get" th:action="@{/consultas}">
+        <div class="consultas-filter-search">
+            <span class="material-symbols-outlined consultas-filter-icon">person_search</span>
+            <input type="text" name="busqueda" class="form-input consultas-filter-input"
+                   placeholder="Buscar por nombre o ID del paciente"
+                   th:value="${busqueda}"/>
         </div>
+        <button type="submit" class="btn btn-primary btn-sm">
+            <span class="material-symbols-outlined" style="font-size: 18px;">search</span>
+            Buscar
+        </button>
+        <a th:if="${busqueda != null and !busqueda.isEmpty()}"
+           th:href="@{/consultas}" class="btn btn-outline btn-sm">
+            <span class="material-symbols-outlined" style="font-size: 18px;">clear_all</span>
+            Limpiar
+        </a>
+    </form>
+
+    <!-- Data Table -->
+    <div class="data-table-wrapper animate-fade-in">
+        <table class="data-table consultas-table">
+            <thead>
+                <tr>
+                    <th>FECHA Y HORA</th>
+                    <th>PACIENTE</th>
+                    <th>MOTIVO / DIAGNOSTICO</th>
+                    <th>MEDICO TRATANTE</th>
+                    <th>ESTADO</th>
+                    <th class="text-right">ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.isEmpty(consultas)}">
+                    <td colspan="6">
+                        <div class="consultas-empty">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">monitor_heart</span>
+                            <p>No se encontraron consultas registradas.</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr th:each="cons : ${consultas}" class="consultas-row">
+                    <td>
+                        <div class="consultas-date-cell">
+                            <span class="consultas-date-value"
+                                  th:text="${#temporals.format(cons.fechaConsulta, 'dd MMM yyyy')}">01 Ene 2025</span>
+                            <span class="consultas-date-time"
+                                  th:text="${#temporals.format(cons.fechaConsulta, 'hh:mm a')}">09:00 AM</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="consultas-user-cell">
+                            <div class="consultas-user-avatar"
+                                 th:text="${cons.cita?.paciente?.nombres?.substring(0,1) ?: '?'}">P</div>
+                            <div>
+                                <p class="consultas-user-name"
+                                   th:text="${cons.cita?.paciente?.nombres + ' ' + cons.cita?.paciente?.apellidos}">Paciente</p>
+                                <p class="consultas-user-id"
+                                   th:text="'ID: ' + (cons.cita?.paciente?.codigoExpediente ?: '-')">ID: ---</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="consultas-motivo-cell"
+                           th:text="${#strings.abbreviate(cons.motivoConsulta ?: '(Sin motivo)', 60)}">Motivo</p>
+                    </td>
+                    <td>
+                        <span class="consultas-medico-name"
+                              th:text="${cons.cita?.medico?.usuario?.nombreCompleto}">Dr. ...</span>
+                    </td>
+                    <td>
+                        <span class="consultas-badge consultas-badge--atendida">
+                            <span class="consultas-badge-dot consultas-badge-dot--success"></span>
+                            Completada
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <div class="consultas-acciones">
+                            <a th:href="@{/consultas/{id}(id=${cons.idConsulta})}"
+                               class="consultas-accion" title="Ver detalles">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">visibility</span>
+                            </a>
+                            <a th:if="${usuario?.rol?.name() == 'MEDICO'}"
+                               th:href="@{/consultas/{id}/editar(id=${cons.idConsulta})}"
+                               class="consultas-accion" title="Editar">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="consultas-summary animate-fade-in" th:if="${not #lists.isEmpty(consultas)}">
+        <span class="text-muted text-sm">
+            Mostrando <span th:text="${totalConsultas}">0</span> consulta(s)
+        </span>
     </div>
 
     <script th:inline="javascript">
@@ -113,6 +192,21 @@
                     }
                 });
             });
+
+            var btnNueva = document.getElementById('btnNuevaConsulta');
+            var cardNueva = document.getElementById('nuevaConsultaCard');
+            var btnCerrar = document.getElementById('btnCerrarNueva');
+
+            if (btnNueva && cardNueva) {
+                btnNueva.addEventListener('click', function () {
+                    cardNueva.classList.toggle('consultas-hidden');
+                });
+            }
+            if (btnCerrar && cardNueva) {
+                btnCerrar.addEventListener('click', function () {
+                    cardNueva.classList.add('consultas-hidden');
+                });
+            }
         })();
     </script>
 

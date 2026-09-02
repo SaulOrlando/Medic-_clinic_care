@@ -65,19 +65,11 @@
                     th:text="${usuario?.rol?.name() == 'MEDICO'} ? 'Volumen Semanal de Mis Consultas' : 'Volumen Semanal de Consultas'">
                     Volumen Semanal de Consultas
                 </h3>
-                <a href="#" class="panel-chart-link">
-                    Ver Informe Completo
-                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
-                </a>
             </div>
             <div class="panel-chart-area">
                 <div class="panel-chart-plot">
                     <div class="panel-chart-yaxis">
-                        <span th:text="${volumenMax}">20</span>
-                        <span>15</span>
-                        <span>10</span>
-                        <span>5</span>
-                        <span>0</span>
+                        <span th:each="eje : ${volumenEjes}" th:text="${eje}">0</span>
                     </div>
                     <div class="panel-chart-bars">
                         <div class="panel-chart-bar"
@@ -102,16 +94,13 @@
         <div class="panel-upcoming-card">
             <div class="panel-upcoming-header">
                 <h3 class="panel-upcoming-title" th:text="${usuario?.rol?.name() == 'MEDICO'} ? 'Mi Agenda Próxima' : 'Agenda Próxima'">Próximos</h3>
-                <button class="panel-upcoming-more" aria-label="Más opciones">
-                    <span class="material-symbols-outlined">more_horiz</span>
-                </button>
             </div>
             <div class="panel-upcoming-list">
                 <th:block th:if="${not #lists.isEmpty(proximasCitas)}">
                     <div class="panel-appointment-item" th:each="cita : ${proximasCitas}">
                         <div class="panel-appointment-info">
                             <div class="flex flex-col">
-                                <span class="panel-appointment-time" th:text="${#temporals.format(cita.fechaHora, 'hh:mm a')}">09:00 AM</span>
+                                <span class="panel-appointment-time" th:text="${#temporals.format(cita.fechaHora, 'dd MMM, hh:mm a')}">02 Sep, 09:00 AM</span>
                                 <span class="panel-appointment-name" th:text="${cita.paciente.nombres + ' ' + cita.paciente.apellidos}">Sarah Jenkins</span>
                             </div>
                             <span class="panel-appointment-badge"

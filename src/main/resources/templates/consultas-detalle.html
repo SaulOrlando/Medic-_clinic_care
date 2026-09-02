@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <!-- Breadcrumb -->
+    <div class="consultas-breadcrumb">
+        <a href="/citas">Citas</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a href="/consultas">Historial</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span>Detalle de Consulta</span>
+    </div>
+
+    <div class="consultas-header">
+        <div class="consultas-header-text">
+            <h2 class="page-title">Detalle de Consulta</h2>
+            <p class="page-subtitle" th:text="'Consulta #' + ${consulta.idConsulta} + ' · ' + ${#temporals.format(consulta.fechaConsulta, 'dd/MM/yyyy HH:mm')}">
+                Consulta #1 · 01/01/2025 09:00
+            </p>
+        </div>
+        <div style="display: flex; gap: var(--space-3); flex-wrap: wrap;">
+            <a href="/consultas" class="btn btn-outline">
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                Volver
+            </a>
+            <a th:href="@{/consultas/{id}/editar(id=${consulta.idConsulta})}" class="btn btn-primary">
+                <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                Editar
+            </a>
+        </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="consultas-bento">
+
+        <!-- Patient / Cita Summary -->
+        <div class="consultas-patient-panel">
+            <div class="consultas-patient-header">
+                <div class="consultas-patient-avatar">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div>
+                    <h3 class="consultas-patient-name"
+                        th:text="${cita?.paciente?.nombres + ' ' + cita?.paciente?.apellidos}">Nombre Paciente</h3>
+                    <p class="consultas-patient-mono"
+                       th:text="'N\u00B0 Historia: #' + (${cita?.paciente?.codigoExpediente} ?: '---')">
+                        N° Historia: #---</p>
+                </div>
+            </div>
+
+            <hr class="consultas-patient-divider"/>
+
+            <div class="consultas-detalle-row">
+                <span class="consultas-section-label">Médico</span>
+                <p class="consultas-detalle-value"
+                   th:text="${cita?.medico?.usuario?.nombreCompleto} ?: '—'">Dr. Ejemplo</p>
+            </div>
+            <div class="consultas-detalle-row">
+                <span class="consultas-section-label">Especialidad</span>
+                <p class="consultas-detalle-value" th:text="${cita?.medico?.especialidad} ?: '—'">Medicina General</p>
+            </div>
+            <div class="consultas-detalle-row">
+                <span class="consultas-section-label">Fecha de la Cita</span>
+                <p class="consultas-detalle-value"
+                   th:text="${#temporals.format(cita?.fechaHora, 'dd/MM/yyyy HH:mm')}">01/01/2025 09:00</p>
+            </div>
+            <div class="consultas-detalle-row">
+                <span class="consultas-section-label">Estado de la Cita</span>
+                <span class="consultas-badge consultas-badge--atendida">Atendida</span>
+            </div>
+
+            <hr class="consultas-patient-divider"/>
+
+            <div>
+                <span class="consultas-section-label">Alergias</span>
+                <div class="consultas-chips">
+                    <span class="consultas-chip consultas-chip--empty">Sin registros</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Clinical details -->
+        <div class="consultas-form-card consultas-detalle-card">
+            <div class="consultas-detalle-block">
+                <span class="consultas-detalle-label">Motivo de Consulta / Razón Principal</span>
+                <p class="consultas-detalle-text" th:text="${consulta.motivoConsulta} ?: '—'">Motivo</p>
+            </div>
+
+            <div class="consultas-detalle-block">
+                <span class="consultas-detalle-label">Síntomas e Historia de la Enfermedad Actual</span>
+                <p class="consultas-detalle-text" th:text="${consulta.sintomatologia} ?: '—'">Síntomas</p>
+            </div>
+
+            <div class="consultas-detalle-block">
+                <span class="consultas-detalle-label">Evaluación / Diagnóstico</span>
+                <p class="consultas-detalle-text" th:text="${consulta.diagnostico} ?: '—'">Diagnóstico</p>
+            </div>
+
+            <hr class="consultas-form-divider"/>
+
+            <div class="consultas-detalle-block">
+                <span class="consultas-section-label">Medicamentos Recetados</span>
+                <div th:if="${#lists.isEmpty(recetas)}" class="consultas-chips">
+                    <span class="consultas-chip consultas-chip--empty">Sin medicamentos recetados</span>
+                </div>
+                <div th:if="${not #lists.isEmpty(recetas)}" style="overflow-x: auto;">
+                    <table class="consultas-table" style="border: 1px solid var(--color-border); border-radius: var(--radius-lg); min-width: 500px;">
+                        <thead>
+                            <tr>
+                                <th>Medicamento</th>
+                                <th>Dosis</th>
+                                <th>Frecuencia</th>
+                                <th>Duración</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="det : ${recetas}">
+                                <td th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</td>
+                                <td th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1</td>
+                                <td th:text="${det.frecuencia} ?: '—'">Diariamente</td>
+                                <td th:text="${det.duracion} ?: '—'">90 días</td>
+                                <td>
+                                    <span class="consultas-badge"
+                                          th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'consultas-badge--atendida' : 'consultas-badge--programada'"
+                                          th:text="${det.estado.name() == 'DISPENSADA'} ? 'Dispensada' : 'Prescrita'">Prescrita</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>
+
+</html>

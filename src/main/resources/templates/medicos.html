@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="pacientes-header">
         <div class="pacientes-header-text">
             <nav class="breadcrumb">
@@ -27,185 +27,135 @@
             <h2 class="page-title">Directorio de Médicos</h2>
             <p class="page-subtitle">Gestione profesionales activos y registros de especialistas.</p>
         </div>
-        <a href="/medicos/nuevo" class="btn btn-primary">
-            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
-            Registrar Médico
-        </a>
     </div>
 
-    <!-- Data Table Card -->
-    <div class="pacientes-table-card">
+    <!-- Data Table (solo lectura) -->
+    <div class="medicos-table-col">
+        <div class="medicos-table-card">
 
-        <!-- Toolbar (Search & Filters) -->
-        <form method="get" action="/medicos" class="pacientes-toolbar" data-combo-auto>
-            <div class="pacientes-search">
-                <span class="material-symbols-outlined">search</span>
-                <input type="text" name="q" th:value="${q}" placeholder="Buscar médicos..." aria-label="Buscar médico" />
-            </div>
-
-            <div class="pacientes-filters">
-                <div class="pacientes-filter">
-                    <label class="pacientes-filter-label" for="filtroEspecialidad">Especialidad:</label>
-                    <div class="pacientes-combo" id="filtroEspecialidad" data-combo>
-                        <button type="button" class="pacientes-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
-                            <span class="pacientes-combo-label" data-combo-label>Filtrar por especialidad</span>
-                            <span class="material-symbols-outlined pacientes-combo-caret">expand_more</span>
-                        </button>
-                        <ul class="pacientes-combo-lista" role="listbox" data-combo-lista hidden>
-                            <li role="option" class="pacientes-combo-opcion" data-combo-option="todas">Todas las especialidades</li>
-                            <li th:each="esp : ${opcionesEspecialidad}"
-                                role="option"
-                                class="pacientes-combo-opcion"
-                                th:attr="data-combo-option=${esp.key}"
-                                th:text="${esp.value}">Especialidad</li>
-                        </ul>
-                        <input type="hidden" name="especialidad" data-combo-hidden th:value="${especialidadFiltro}" value="todas" />
-                    </div>
-                </div>
-                <button type="submit" class="pacientes-filter-btn" title="Aplicar filtros">
-                    <span class="material-symbols-outlined" style="font-size: 20px;">filter_alt</span>
-                </button>
-            </div>
-        </form>
-
-        <!-- Table -->
-        <div class="pacientes-table-wrap">
-            <table class="pacientes-table">
-                <thead>
-                    <tr>
-                        <th>Médico</th>
-                        <th>Especialidad</th>
-                        <th>Licencia / Contacto</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${#lists.isEmpty(medicos)}">
-                        <td colspan="5">
-                            <div class="pacientes-empty">
-                                <span class="material-symbols-outlined" style="font-size: 32px;">person_search</span>
-                                <p>No se encontraron médicos con los filtros seleccionados.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="medico : ${medicos}" class="pacientes-row">
-                        <td>
-                            <div class="pacientes-user">
-                                <div class="pacientes-avatar"
-                                     th:text="${medico.usuario.iniciales}">AH</div>
-                                <div>
-                                    <p class="pacientes-name" th:text="${medico.usuario.nombreCompleto}">Dr. Alexander Hayes</p>
-                                    <p class="pacientes-id" th:text="'ID: MED-' + ${medico.idMedico}">ID: MED-1</p>
+                <!-- Toolbar -->
+                <form method="get" action="/medicos" class="medicos-table-toolbar" data-combo-auto>
+                    <span class="medicos-table-toolbar-title" th:text="'Directorio Activo (' + ${totalMedicos} + ')'">Directorio Activo</span>
+                    <div class="flex items-center" style="gap: var(--space-2);">
+                        <div class="pacientes-search" style="max-width: 200px;">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">search</span>
+                            <input type="text" name="q" th:value="${q}" placeholder="Buscar..." aria-label="Buscar médico" style="font-size: 13px; padding: 4px 8px 4px 28px;" />
+                        </div>
+                        <div class="pacientes-filters" style="flex-wrap: nowrap;">
+                            <div class="pacientes-filter">
+                                <div class="pacientes-combo" data-combo style="min-width: 140px;">
+                                    <button type="button" class="pacientes-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false" style="font-size: 13px; padding: 4px 8px;">
+                                        <span class="pacientes-combo-label" data-combo-label style="font-size: 12px;">Especialidad</span>
+                                        <span class="material-symbols-outlined pacientes-combo-caret" style="font-size: 16px;">expand_more</span>
+                                    </button>
+                                    <ul class="pacientes-combo-lista" role="listbox" data-combo-lista hidden>
+                                        <li role="option" class="pacientes-combo-opcion" data-combo-option="todas">Todas</li>
+                                        <li th:each="esp : ${opcionesEspecialidad}"
+                                            role="option"
+                                            class="pacientes-combo-opcion"
+                                            th:attr="data-combo-option=${esp.key}"
+                                            th:text="${esp.value}">Especialidad</li>
+                                    </ul>
+                                    <input type="hidden" name="especialidad" data-combo-hidden th:value="${especialidadFiltro}" value="todas" />
                                 </div>
                             </div>
-                        </td>
-                        <td th:text="${medico.especialidad}">Cardiología</td>
-                        <td>
-                            <div class="pacientes-mono" th:text="${medico.numeroLicencia}">MD-883921</div>
-                            <div class="text-xs text-muted" th:text="${medico.usuario.correo}" style="font-size:12px;color:var(--color-text-secondary);">email@clinic.com</div>
-                        </td>
-                        <td class="text-center">
-                            <label class="toggle-switch">
-                                <input type="checkbox"
-                                       th:checked="${medico.disponible}"
-                                       th:data-id="${medico.idMedico}"
-                                       onchange="toggleDisponibilidad(this)"/>
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <div class="pacientes-acciones">
-                                <a th:href="@{/medicos/{id}/editar(id=${medico.idMedico})}"
-                                   class="pacientes-accion" title="Editar">
-                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                                </a>
-                                <form th:action="@{/medicos/{id}/eliminar(id=${medico.idMedico})}" method="post"
-                                      class="pacientes-accion-form"
-                                      th:data-confirm="'¿Desea eliminar al médico ' + ${medico.usuario.nombreCompleto} + '?'">
-                                    <button type="submit" class="pacientes-accion pacientes-accion--peligro" title="Eliminar">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+                            <button type="submit" class="pacientes-filter-btn" title="Filtrar" style="padding: 4px 8px;">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">filter_alt</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
 
-        <!-- Pagination -->
-        <div class="pacientes-pagination">
-            <span class="pacientes-pagination-info">
-                Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">8</span> de
-                <span th:text="${totalMedicos}">0</span> médicos
-            </span>
-            <div class="pacientes-pagination-controls">
-                <a th:if="${paginaActual > 1}"
-                   th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual - 1})}"
-                   class="pacientes-paginbtn" title="Anterior" aria-label="Página anterior">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
-                </a>
-                <span th:if="${paginaActual <= 1}" class="pacientes-paginbtn" aria-disabled="true">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_left</span>
-                </span>
+                <!-- Table -->
+                <div class="medicos-table-wrap">
+                    <table class="medicos-table">
+                        <thead>
+                            <tr>
+                                <th style="min-width: 220px;">Médico</th>
+                                <th>Especialidad</th>
+                                <th>Licencia / Contacto</th>
+                                <th class="text-center">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:if="${#lists.isEmpty(medicos)}">
+                                <td colspan="4">
+                                    <div class="medicos-empty">
+                                        <span class="material-symbols-outlined" style="font-size: 32px;">person_search</span>
+                                        <p>No se encontraron médicos con los filtros seleccionados.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:each="medico : ${medicos}">
+                                <td>
+                                    <div class="medicos-user">
+                                        <img th:if="${medico.usuario.foto}" th:src="${medico.usuario.foto}"
+                                             alt="Foto de perfil" class="medicos-avatar medicos-avatar--img" />
+                                        <div th:unless="${medico.usuario.foto}" class="medicos-avatar"
+                                             th:text="${medico.usuario.iniciales}">AH</div>
+                                        <div>
+                                            <p class="medicos-name" th:text="${medico.usuario.nombreCompleto}">Dr. Alexander Hayes</p>
+                                            <p class="medicos-id" th:text="'ID: MED-' + ${medico.idMedico}">ID: MED-1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td th:text="${medico.especialidad}">Cardiología</td>
+                                <td>
+                                    <div class="medicos-mono" th:text="${medico.numeroLicencia}">MD-883921</div>
+                                    <div class="medicos-email" th:text="${medico.usuario.correo}">email@clinic.com</div>
+                                </td>
+                                <td class="text-center">
+                                    <span class="medicos-estado-badge"
+                                          th:classappend="${medico.disponible} ? 'medicos-estado-badge--activo' : 'medicos-estado-badge--inactivo'"
+                                          th:text="${medico.disponible} ? 'Disponible' : 'No disponible'">
+                                        Disponible
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <th:block th:if="${totalPaginas <= 7}">
-                    <a th:each="pagina : ${paginasVisibles}"
-                       th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${pagina})}"
-                       class="pacientes-paginbtn pacientes-paginbtn--numero"
-                       th:classappend="${pagina == paginaActual} ? 'pacientes-paginbtn--activo' : ''"
-                       th:text="${pagina}">1</a>
-                </th:block>
-                <span th:if="${totalPaginas > 7}" class="pacientes-paginbtn pacientes-paginbtn--numero"
-                      th:text="${paginaActual + ' / ' + totalPaginas}">1 / 20</span>
+                <!-- Pagination -->
+                <div class="medicos-pagination">
+                    <span>
+                        Mostrando <span th:text="${desde}">1</span>-<span th:text="${hasta}">8</span> de
+                        <span th:text="${totalMedicos}">0</span> médicos
+                    </span>
+                    <div class="medicos-pagination-controls">
+                        <a th:if="${paginaActual > 1}"
+                           th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual - 1})}"
+                           class="medicos-paginbtn" title="Anterior">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_left</span>
+                        </a>
+                        <span th:if="${paginaActual <= 1}" class="medicos-paginbtn" aria-disabled="true">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_left</span>
+                        </span>
 
-                <a th:if="${paginaActual < totalPaginas}"
-                   th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual + 1})}"
-                   class="pacientes-paginbtn" title="Siguiente" aria-label="Página siguiente">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
-                </a>
-                <span th:if="${paginaActual >= totalPaginas}" class="pacientes-paginbtn" aria-disabled="true">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">chevron_right</span>
-                </span>
+                        <th:block th:if="${totalPaginas <= 7}">
+                            <a th:each="pagina : ${paginasVisibles}"
+                               th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${pagina})}"
+                               class="medicos-paginbtn medicos-paginbtn--numero"
+                               th:classappend="${pagina == paginaActual} ? 'medicos-paginbtn--activo' : ''"
+                               th:text="${pagina}">1</a>
+                        </th:block>
+                        <span th:if="${totalPaginas > 7}" class="medicos-paginbtn medicos-paginbtn--numero"
+                              th:text="${paginaActual + ' / ' + totalPaginas}">1 / 20</span>
+
+                        <a th:if="${paginaActual < totalPaginas}"
+                           th:href="@{/medicos(q=${q}, especialidad=${especialidadFiltro}, pagina=${paginaActual + 1})}"
+                           class="medicos-paginbtn" title="Siguiente">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
+                        </a>
+                        <span th:if="${paginaActual >= totalPaginas}" class="medicos-paginbtn" aria-disabled="true">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <style>
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 24px;
-            cursor: pointer;
-        }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute;
-            inset: 0;
-            background: var(--color-border, #ccc);
-            border-radius: 24px;
-            transition: background 0.2s;
-        }
-        .toggle-slider::before {
-            content: "";
-            position: absolute;
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: transform 0.2s;
-        }
-        .toggle-switch input:checked + .toggle-slider {
-            background: var(--color-success, #2E7D32);
-        }
-        .toggle-switch input:checked + .toggle-slider::before {
-            transform: translateX(20px);
-        }
-    </style>
+    </div>
 
     <script th:inline="javascript">
         (function () {
@@ -218,25 +168,6 @@
                 });
             });
         })();
-
-        function toggleDisponibilidad(checkbox) {
-            var id = checkbox.dataset.id;
-            var disponible = checkbox.checked;
-            fetch('/medicos/' + id + '/toggle-disponibilidad?disponible=' + disponible, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (!data.exito) {
-                    checkbox.checked = !disponible;
-                    alert(data.mensaje || 'Error al actualizar disponibilidad.');
-                }
-            })
-            .catch(function() {
-                checkbox.checked = !disponible;
-            });
-        }
 
         (function () {
             'use strict';

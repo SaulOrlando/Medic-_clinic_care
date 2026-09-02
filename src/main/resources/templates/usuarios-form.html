@@ -71,6 +71,34 @@
                         </div>
                     </div>
 
+                    <div class="form-group" id="medicoFields" style="display: none;">
+                        <div class="usuarios-medico-block">
+                            <div>
+                                <label class="form-label" for="especialidad">Especialidad *</label>
+                                <div class="usuarios-combo usuarios-combo--block" id="especialidadCombo" data-combo>
+                                    <button type="button" class="usuarios-combo-trigger" data-combo-trigger aria-haspopup="listbox" aria-expanded="false">
+                                        <span class="usuarios-combo-label" data-combo-label>Selecciona una especialidad</span>
+                                        <span class="material-symbols-outlined usuarios-combo-caret">expand_more</span>
+                                    </button>
+                                    <ul class="usuarios-combo-lista" role="listbox" data-combo-lista hidden>
+                                        <li th:each="esp : ${opcionesEspecialidad}"
+                                            role="option"
+                                            class="usuarios-combo-opcion"
+                                            th:attr="data-combo-option=${esp.key}"
+                                            th:text="${esp.value}">Medicina General</li>
+                                    </ul>
+                                    <input type="hidden" id="especialidadHidden" name="especialidad" data-combo-hidden th:value="${especialidad}" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label" for="numeroLicenciaInput">Número de Licencia *</label>
+                                <input type="text" id="numeroLicenciaInput" name="numeroLicencia" class="form-input"
+                                       th:value="${numeroLicencia}" placeholder="MD-12345" maxlength="50" />
+                            </div>
+                        </div>
+                        <p class="form-hint">Para un usuario Médico la especialidad es obligatoria.</p>
+                    </div>
+
                     <div class="form-group">
                         <label class="form-label" for="contrasena"
                                th:text="${modo == 'crear'} ? 'Contraseña *' : 'Contraseña (dejar en blanco para no cambiarla)'">
@@ -142,7 +170,7 @@
                 }
 
                 var formulario = combo.closest('form');
-                if (formulario) {
+                if (formulario && hidden.name === 'rol') {
                     formulario.addEventListener('submit', function (e) {
                         if (hidden.value === '') {
                             e.preventDefault();
@@ -170,6 +198,9 @@
                         sincronizar();
                         abrir(false);
                         trigger.focus();
+                        if (hidden.name === 'rol' && typeof window.toggleMedicoFields === 'function') {
+                            window.toggleMedicoFields();
+                        }
                     });
                 });
 
@@ -188,6 +219,52 @@
 
                 sincronizar();
             });
+        })();
+
+        (function () {
+            'use strict';
+            var form = document.querySelector('.usuarios-form');
+            if (!form) return;
+
+            var medicoFields = document.getElementById('medicoFields');
+            var especialidadHidden = document.getElementById('especialidadHidden');
+            var numeroLicencia = document.getElementById('numeroLicenciaInput');
+
+            function esMedico() {
+                var rolHidden = document.querySelector('[data-combo] input[data-combo-hidden][name="rol"]');
+                return !!rolHidden && rolHidden.value === 'MEDICO';
+            }
+
+            window.toggleMedicoFields = function () {
+                if (!medicoFields) return;
+                var mostrar = esMedico();
+                medicoFields.style.display = mostrar ? '' : 'none';
+                if (!mostrar && especialidadHidden) {
+                    especialidadHidden.value = '';
+                }
+            };
+
+            form.addEventListener('submit', function (e) {
+                if (esMedico()) {
+                    var esp = especialidadHidden ? especialidadHidden.value : '';
+                    var lic = numeroLicencia ? numeroLicencia.value.trim() : '';
+                    if (!esp) {
+                        e.preventDefault();
+                        alert('Debe seleccionar una especialidad para crear un usuario médico.');
+                        var comboEsp = document.getElementById('especialidadCombo');
+                        if (comboEsp) comboEsp.querySelector('[data-combo-trigger]').focus();
+                        return;
+                    }
+                    if (!lic) {
+                        e.preventDefault();
+                        alert('El número de licencia es obligatorio para un usuario médico.');
+                        if (numeroLicencia) numeroLicencia.focus();
+                        return;
+                    }
+                }
+            });
+
+            window.toggleMedicoFields();
         })();
     </script>
 

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="categorias-alerts">
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="categorias-header">
+        <div>
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/categorias-medicamentos">Inventario</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item"
+                      th:text="${modo == 'crear'} ? 'Nueva Categoría' : 'Editar Categoría'">Nueva Categoría</span>
+            </nav>
+            <h2 class="page-title"
+                th:text="${modo == 'crear'} ? 'Nueva Categoría' : 'Editar Categoría'">Nueva Categoría</h2>
+            <p class="page-subtitle"
+               th:text="${modo == 'crear'} ? 'Registra una nueva categoría para el inventario farmacéutico.' : 'Actualiza los datos de la categoría.'">
+                Registra una nueva categoría.
+            </p>
+        </div>
+    </div>
+
+    <div class="card categorias-form-card">
+        <div class="card-body">
+            <form th:object="${categoria}" method="post"
+                  th:action="${modo == 'crear'} ? @{/categorias-medicamentos} : @{/categorias-medicamentos/{id}(id=${categoria.idCategoria})}"
+                  class="categorias-form">
+
+                <div class="categorias-form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label" for="nombre">Nombre de la Categoría *</label>
+                        <input type="text" id="nombre" class="form-input"
+                               th:field="*{nombre}" placeholder="Ej: Antibióticos, Analgésicos..." required maxlength="100" />
+                        <small class="form-hint" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error</small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label" for="descripcion">Descripción</label>
+                        <textarea id="descripcion" class="form-input" rows="3"
+                                  th:field="*{descripcion}" placeholder="Descripción opcional de la categoría..." maxlength="1000"></textarea>
+                        <small class="form-hint" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error</small>
+                    </div>
+                </div>
+
+                <div class="categorias-form-actions">
+                    <a th:href="@{/categorias-medicamentos}" class="btn btn-outline">Cancelar</a>
+                    <button type="submit" class="btn btn-primary"
+                            th:text="${modo == 'crear'} ? 'Crear Categoría' : 'Guardar Cambios'">Crear Categoría</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</th:block>
+
+</html>

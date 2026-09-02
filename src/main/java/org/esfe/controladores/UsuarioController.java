@@ -1,7 +1,9 @@
 package org.esfe.controladores;
 
+import org.esfe.modelos.Medico;
 import org.esfe.modelos.Usuario;
 import org.esfe.modelos.enums.RolUsuario;
+import org.esfe.servicios.interfaces.IMedicoService;
 import org.esfe.servicios.interfaces.IUsuarioService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,9 +30,11 @@ public class UsuarioController {
     private static final int TAMANO_PAGINA = 8;
 
     private final IUsuarioService usuarioService;
+    private final IMedicoService medicoService;
 
-    public UsuarioController(IUsuarioService usuarioService) {
+    public UsuarioController(IUsuarioService usuarioService, IMedicoService medicoService) {
         this.usuarioService = usuarioService;
+        this.medicoService = medicoService;
     }
 
     @GetMapping
@@ -78,16 +82,26 @@ public class UsuarioController {
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute("usuarioForm") Usuario usuario,
+                          @RequestParam(name = "especialidad", required = false) String especialidad,
+                          @RequestParam(name = "numeroLicencia", required = false) String numeroLicencia,
                           Model model,
                           RedirectAttributes redirectAttributes) {
         try {
             usuario.setActivo(true);
-            usuarioService.crearUsuario(usuario);
+            if (RolUsuario.MEDICO.equals(usuario.getRol())) {
+                validarDatosMedico(especialidad, numeroLicencia);
+            }
+            Usuario guardado = usuarioService.crearUsuario(usuario);
+            if (RolUsuario.MEDICO.equals(guardado.getRol())) {
+                crearRegistroMedico(guardado, especialidad, numeroLicencia);
+            }
             redirectAttributes.addFlashAttribute("exito", "Usuario creado correctamente.");
             return "redirect:/usuarios";
         } catch (IllegalArgumentException | IllegalStateException ex) {
             model.addAttribute("error", ex.getMessage());
             cargarFormulario("crear", usuario, model);
+            model.addAttribute("especialidad", especialidad == null ? "" : especialidad);
+            model.addAttribute("numeroLicencia", numeroLicencia == null ? "" : numeroLicencia);
             return "usuarios-form";
         }
     }
@@ -108,6 +122,8 @@ public class UsuarioController {
     @PostMapping("/{id}/editar")
     public String editarGuardar(@PathVariable Integer id,
                                 @ModelAttribute("usuarioForm") Usuario usuario,
+                                @RequestParam(name = "especialidad", required = false) String especialidad,
+                                @RequestParam(name = "numeroLicencia", required = false) String numeroLicencia,
                                 @AuthenticationPrincipal UserDetails usuarioActual,
                                 Model model,
                                 RedirectAttributes redirectAttributes) {
@@ -127,12 +143,24 @@ public class UsuarioController {
                 usuario.setRol(existente.getRol());
             }
 
-            usuarioService.editarUsuario(usuario);
+            boolean esMedico = RolUsuario.MEDICO.equals(usuario.getRol());
+            if (esMedico) {
+                validarDatosMedico(especialidad, numeroLicencia);
+            }
+
+            Usuario saved = usuarioService.editarUsuario(usuario);
+
+            if (esMedico) {
+                actualizarRegistroMedico(saved, especialidad, numeroLicencia);
+            }
+
             redirectAttributes.addFlashAttribute("exito", "Usuario actualizado correctamente.");
             return "redirect:/usuarios";
         } catch (IllegalArgumentException | IllegalStateException ex) {
             model.addAttribute("error", ex.getMessage());
             cargarFormulario("editar", usuario, model);
+            model.addAttribute("especialidad", especialidad == null ? "" : especialidad);
+            model.addAttribute("numeroLicencia", numeroLicencia == null ? "" : numeroLicencia);
             return "usuarios-form";
         }
     }
@@ -234,7 +262,20 @@ public class UsuarioController {
         model.addAttribute("usuarioForm", usuario);
         model.addAttribute("roles", RolUsuario.values());
         model.addAttribute("etiquetasRol", etiquetasRol());
+        model.addAttribute("opcionesEspecialidad", opcionesEspecialidad());
         model.addAttribute("modo", modo);
+
+        String especialidad = "";
+        String numeroLicencia = "";
+        if (usuario != null && usuario.getIdUsuario() != null) {
+            Medico medico = medicoService.buscarPorUsuario(usuario.getIdUsuario()).orElse(null);
+            if (medico != null) {
+                especialidad = medico.getEspecialidad() == null ? "" : medico.getEspecialidad();
+                numeroLicencia = medico.getNumeroLicencia() == null ? "" : medico.getNumeroLicencia();
+            }
+        }
+        model.addAttribute("especialidad", especialidad);
+        model.addAttribute("numeroLicencia", numeroLicencia);
     }
 
     private Map<RolUsuario, String> etiquetasRol() {
@@ -242,7 +283,56 @@ public class UsuarioController {
         etiquetas.put(RolUsuario.ADMINISTRADOR, "Administrador");
         etiquetas.put(RolUsuario.MEDICO, "Médico");
         etiquetas.put(RolUsuario.RECEPCIONISTA, "Recepcionista");
-        etiquetas.put(RolUsuario.ENCARGADO_INVENTARIO, "Encargado de Inventario");
         return etiquetas;
+    }
+
+    private void validarDatosMedico(String especialidad, String numeroLicencia) {
+        if (especialidad == null || especialidad.isBlank()) {
+            throw new IllegalArgumentException("Debe seleccionar una especialidad para crear un usuario médico.");
+        }
+        if (numeroLicencia == null || numeroLicencia.isBlank()) {
+            throw new IllegalArgumentException("El número de licencia es obligatorio para un usuario médico.");
+        }
+    }
+
+    private void crearRegistroMedico(Usuario usuario, String especialidad, String numeroLicencia) {
+        Medico medico = new Medico();
+        medico.setUsuario(usuario);
+        medico.setEspecialidad(especialidad.trim());
+        medico.setNumeroLicencia(numeroLicencia.trim());
+        medico.setDisponible(true);
+        medicoService.crearMedico(medico);
+    }
+
+    private void actualizarRegistroMedico(Usuario usuario, String especialidad, String numeroLicencia) {
+        Medico existente = medicoService.buscarPorUsuario(usuario.getIdUsuario()).orElse(null);
+        if (existente == null) {
+            crearRegistroMedico(usuario, especialidad, numeroLicencia);
+            return;
+        }
+        existente.setEspecialidad(especialidad.trim());
+        existente.setNumeroLicencia(numeroLicencia.trim());
+        medicoService.editarMedico(existente);
+    }
+
+    private Map<String, String> opcionesEspecialidad() {
+        Map<String, String> opciones = new LinkedHashMap<>();
+        opciones.put("Cardiología", "Cardiología");
+        opciones.put("Dermatología", "Dermatología");
+        opciones.put("Endocrinología", "Endocrinología");
+        opciones.put("Gastroenterología", "Gastroenterología");
+        opciones.put("Geriatría", "Geriatría");
+        opciones.put("Ginecología", "Ginecología");
+        opciones.put("Medicina General", "Medicina General");
+        opciones.put("Nefrología", "Nefrología");
+        opciones.put("Neumología", "Neumología");
+        opciones.put("Neurología", "Neurología");
+        opciones.put("Oftalmología", "Oftalmología");
+        opciones.put("Oncología", "Oncología");
+        opciones.put("Ortopedia", "Ortopedia");
+        opciones.put("Pediatría", "Pediatría");
+        opciones.put("Psiquiatría", "Psiquiatría");
+        opciones.put("Urología", "Urología");
+        return opciones;
     }
 }

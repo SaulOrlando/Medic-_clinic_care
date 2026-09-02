@@ -2,9 +2,12 @@ package org.esfe.controladores;
 
 import org.esfe.modelos.ConsultaMedica;
 import org.esfe.modelos.Medicamento;
+import org.esfe.modelos.Medico;
 import org.esfe.modelos.RecetaDetalle;
+import org.esfe.modelos.Usuario;
 import org.esfe.servicios.interfaces.IConsultaMedicaService;
 import org.esfe.servicios.interfaces.IMedicamentoService;
+import org.esfe.servicios.interfaces.IMedicoService;
 import org.esfe.servicios.interfaces.IRecetaDetalleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,13 +34,16 @@ public class RecetaController {
     private final IRecetaDetalleService recetaDetalleService;
     private final IConsultaMedicaService consultaMedicaService;
     private final IMedicamentoService medicamentoService;
+    private final IMedicoService medicoService;
 
     public RecetaController(IRecetaDetalleService recetaDetalleService,
                              IConsultaMedicaService consultaMedicaService,
-                             IMedicamentoService medicamentoService) {
+                             IMedicamentoService medicamentoService,
+                             IMedicoService medicoService) {
         this.recetaDetalleService = recetaDetalleService;
         this.consultaMedicaService = consultaMedicaService;
         this.medicamentoService = medicamentoService;
+        this.medicoService = medicoService;
     }
 
     @GetMapping
@@ -52,15 +58,25 @@ public class RecetaController {
 
     @GetMapping("/nueva")
     @PreAuthorize("hasRole('MEDICO')")
-    public String nueva(Model model) {
-        List<ConsultaMedica> consultas = consultaMedicaService.obtenerTodos();
+    public String nueva(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        List<ConsultaMedica> consultas = consultasDelMedico(usuario);
         List<Medicamento> medicamentos = medicamentoService.obtenerTodos();
         model.addAttribute("activePage", "recetas");
         model.addAttribute("receta", new RecetaDetalle());
         model.addAttribute("consultas", consultas);
         model.addAttribute("medicamentos", medicamentos);
         model.addAttribute("modo", "crear");
+        model.addAttribute("sinConsultas", consultas.isEmpty());
         return "recetas-form";
+    }
+
+    private List<ConsultaMedica> consultasDelMedico(Usuario usuario) {
+        if (usuario == null) {
+            return new ArrayList<>();
+        }
+        return medicoService.buscarPorUsuario(usuario.getIdUsuario())
+                .map(medico -> consultaMedicaService.buscarPorMedico(medico.getIdMedico()))
+                .orElseGet(ArrayList::new);
     }
 
     @PostMapping("/guardar")

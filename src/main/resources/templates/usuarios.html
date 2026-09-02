@@ -106,7 +106,10 @@
                         class="usuarios-row">
                         <td>
                             <div class="usuarios-user">
-                                <div class="usuarios-avatar"
+                                <img th:if="${usuario.foto}" th:src="${usuario.foto}"
+                                     alt="Foto de perfil" class="usuarios-avatar usuarios-avatar--img"
+                                     th:classappend="${!usuario.activo} ? 'usuarios-avatar--inactive' : ''" />
+                                <div th:unless="${usuario.foto}" class="usuarios-avatar"
                                      th:classappend="${!usuario.activo} ? 'usuarios-avatar--inactive' : ''"
                                      th:text="${usuario.iniciales}">SM</div>
                                 <div>

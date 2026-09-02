@@ -46,6 +46,18 @@ public class RecetaDetalle {
     @Column(name = "indicaciones", nullable = false, columnDefinition = "TEXT")
     private String indicaciones;
 
+    @Size(max = 255)
+    @Column(name = "dosis", length = 255)
+    private String dosis;
+
+    @Size(max = 255)
+    @Column(name = "frecuencia", length = 255)
+    private String frecuencia;
+
+    @Size(max = 255)
+    @Column(name = "duracion", length = 255)
+    private String duracion;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false, length = 20)
@@ -89,6 +101,30 @@ public class RecetaDetalle {
 
     public void setIndicaciones(String indicaciones) {
         this.indicaciones = indicaciones;
+    }
+
+    public String getDosis() {
+        return dosis;
+    }
+
+    public void setDosis(String dosis) {
+        this.dosis = dosis;
+    }
+
+    public String getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(String frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+
+    public String getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
     }
 
     public EstadoReceta getEstado() {
