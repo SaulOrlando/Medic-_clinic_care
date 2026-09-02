@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::content})}">
+
+<th:block th:fragment="content">
+
+    <div class="pacientes-alerts">
+        <div th:if="${error}" class="alert alert-error animate-fade-in">
+            <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
+            <span th:text="${error}">Ocurrió un error.</span>
+        </div>
+    </div>
+
+    <div class="pacientes-header">
+        <div class="pacientes-header-text">
+            <nav class="breadcrumb">
+                <span class="breadcrumb-item"><a href="/pacientes">Pacientes</a></span>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-item"
+                      th:text="${modo == 'crear'} ? 'Nuevo Paciente' : 'Editar Paciente'">Nuevo Paciente</span>
+            </nav>
+            <h2 class="page-title"
+                th:text="${modo == 'crear'} ? 'Registrar Nuevo Paciente' : 'Editar Paciente'">Registrar Nuevo Paciente</h2>
+            <p class="page-subtitle"
+               th:text="${modo == 'crear'} ? 'Ingresa los datos del paciente en tres pasos. El número de expediente se genera automáticamente al guardar.' : 'Actualiza los datos del paciente. El número de expediente se conserva.'">
+                Ingresa los datos del paciente en tres pasos.
+            </p>
+        </div>
+    </div>
+
+    <div class="card pacientes-form-card">
+        <div class="card-body">
+
+            <!-- Progressor -->
+            <div class="pacientes-progress">
+                <div class="pacientes-progress-bar">
+                    <div class="pacientes-progress-segment" data-step-indicator="1"></div>
+                    <div class="pacientes-progress-segment" data-step-indicator="2"></div>
+                    <div class="pacientes-progress-segment" data-step-indicator="3"></div>
+                </div>
+                <span class="pacientes-progress-label" data-step-label>Paso 1 de 3</span>
+            </div>
+
+            <form th:object="${pacienteForm}" method="post" id="pacienteForm"
+                  th:action="${modo == 'crear'} ? @{/pacientes/guardar} : @{/pacientes/{id}/editar(id=${pacienteForm.idPaciente})}"
+                  class="pacientes-form">
+
+                <!-- Paso 1: Identidad -->
+                <section class="pacientes-step" data-paso="1">
+                    <div class="pacientes-form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="nombres">Nombres *</label>
+                            <input type="text" id="nombres" class="form-input" th:field="*{nombres}"
+                                   placeholder="Nombres del paciente" required maxlength="100" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="apellidos">Apellidos *</label>
+                            <input type="text" id="apellidos" class="form-input" th:field="*{apellidos}"
+                                   placeholder="Apellidos del paciente" required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="documentoIdentidad">Documento de Identidad (DNI/Pasaporte) *</label>
+                        <input type="text" id="documentoIdentidad" class="form-input is-documento" th:field="*{documentoIdentidad}"
+                               th:attr="data-paciente-id=${pacienteForm.idPaciente}"
+                               placeholder="Ej. 01234567-8" required maxlength="30" />
+                        <p class="form-error is-documento-error" style="display: none;">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">warning</span>
+                            Ya existe un paciente con este Documento de Identidad en el sistema.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Paso 2: Datos de contacto -->
+                <section class="pacientes-step" data-paso="2" hidden>
+                    <div class="pacientes-form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="fechaNacimiento">Fecha de Nacimiento *</label>
+                            <input type="date" id="fechaNacimiento" class="form-input" th:field="*{fechaNacimiento}" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="genero">Género *</label>
+                            <select id="genero" class="form-input" th:field="*{genero}" required>
+                                <option value="">Seleccionar...</option>
+                                <option th:each="g : ${opcionesGenero}" th:value="${g.key}" th:text="${g.value}">Femenino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="telefono">Teléfono Principal *</label>
+                        <input type="tel" id="telefono" class="form-input" th:field="*{telefono}"
+                               placeholder="(555) 000-0000" required maxlength="20" />
+                    </div>
+                </section>
+
+                <!-- Paso 3: Confirmación -->
+                <section class="pacientes-step" data-paso="3" hidden>
+                    <div class="pacientes-resumen">
+                        <h3 class="pacientes-resumen-titulo">Revisa la información antes de guardar</h3>
+                        <dl class="pacientes-resumen-lista">
+                            <div class="pacientes-resumen-item">
+                                <dt>Nombre del Paciente</dt>
+                                <dd><span data-resumen="nombre"></span></dd>
+                            </div>
+                            <div class="pacientes-resumen-item">
+                                <dt>Documento de Identidad</dt>
+                                <dd class="pacientes-mono"><span data-resumen="documento"></span></dd>
+                            </div>
+                            <div class="pacientes-resumen-item">
+                                <dt>Fecha de Nacimiento</dt>
+                                <dd><span data-resumen="fecha"></span></dd>
+                            </div>
+                            <div class="pacientes-resumen-item">
+                                <dt>Género</dt>
+                                <dd><span data-resumen="genero"></span></dd>
+                            </div>
+                            <div class="pacientes-resumen-item">
+                                <dt>Teléfono</dt>
+                                <dd class="pacientes-mono"><span data-resumen="telefono"></span></dd>
+                            </div>
+                            <div class="pacientes-resumen-item">
+                                <dt>Número de Expediente</dt>
+                                <dd th:if="${modo == 'crear'}" class="text-muted">Se generará automáticamente al guardar</dd>
+                                <dd th:unless="${modo == 'crear'}" class="pacientes-mono" th:text="${pacienteForm.codigoExpediente}">MC-2026-0001</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </section>
+
+                <div class="pacientes-form-actions">
+                    <a href="/pacientes" class="btn btn-outline">Cancelar</a>
+                    <button type="button" class="btn btn-outline" id="btnAnterior" hidden>Anterior</button>
+                    <button type="button" class="btn btn-primary" id="btnSiguiente">Siguiente</button>
+                    <button type="submit" class="btn btn-primary" id="btnGuardar" hidden
+                            th:text="${modo == 'crear'} ? 'Guardar Paciente' : 'Guardar Cambios'">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+
+            var pasos = Array.prototype.slice.call(document.querySelectorAll('[data-paso]'));
+            var indicadores = Array.prototype.slice.call(document.querySelectorAll('[data-step-indicator]'));
+            var etiquetaPaso = document.querySelector('[data-step-label]');
+            var btnAnterior = document.getElementById('btnAnterior');
+            var btnSiguiente = document.getElementById('btnSiguiente');
+            var btnGuardar = document.getElementById('btnGuardar');
+            var pasoActual = 1;
+            var totalPasos = pasos.length;
+
+            function textoResumen(origen, destino) {
+                var fuente = document.querySelector('[data-resumen="' + origen + '"]');
+                var elemento = document.querySelector('[data-resumen="' + destino + '"]');
+                var campo = document.getElementById(origen);
+                if (elemento && campo) {
+                    elemento.textContent = campo.value ? String(campo.value) : '—';
+                }
+            }
+
+            function actualizarResumen() {
+                textoResumen('nombres', 'nombre');
+                var apellido = document.getElementById('apellidos');
+                var nombreResumen = document.querySelector('[data-resumen="nombre"]');
+                if (apellido && nombreResumen) {
+                    nombreResumen.textContent += ' ' + (apellido.value ? apellido.value : '');
+                }
+                textoResumen('documentoIdentidad', 'documento');
+                textoResumen('fechaNacimiento', 'fecha');
+                var generoCampo = document.getElementById('genero');
+                var generoResumen = document.querySelector('[data-resumen="genero"]');
+                if (generoCampo && generoResumen) {
+                    generoResumen.textContent = generoCampo.options.length > 0
+                        ? (generoCampo.options[generoCampo.selectedIndex] ? generoCampo.options[generoCampo.selectedIndex].text : '—')
+                        : '—';
+                }
+                textoResumen('telefono', 'telefono');
+            }
+
+            function mostrarPaso(n) {
+                pasoActual = Math.min(Math.max(1, n), totalPasos);
+                pasos.forEach(function (s) {
+                    s.hidden = s.getAttribute('data-paso') !== String(pasoActual);
+                });
+                indicadores.forEach(function (seg) {
+                    var idx = Number(seg.getAttribute('data-step-indicator'));
+                    seg.classList.toggle('pacientes-progress-segment--active', idx <= pasoActual);
+                    seg.classList.toggle('pacientes-progress-segment--current', idx === pasoActual);
+                });
+                if (etiquetaPaso) {
+                    etiquetaPaso.textContent = 'Paso ' + pasoActual + ' de ' + totalPasos;
+                }
+                btnAnterior.hidden = pasoActual === 1;
+                btnSiguiente.hidden = pasoActual === totalPasos;
+                btnGuardar.hidden = pasoActual !== totalPasos;
+                if (pasoActual === totalPasos) {
+                    actualizarResumen();
+                }
+            }
+
+            function pasoValido() {
+                var seccion = pasos[pasoActual - 1];
+                if (!seccion) {
+                    return true;
+                }
+                var campos = seccion.querySelectorAll('input, select');
+                for (var i = 0; i < campos.length; i++) {
+                    if (!campos[i].checkValidity()) {
+                        campos[i].reportValidity();
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            btnSiguiente.addEventListener('click', function () {
+                if (pasoValido() && pasoActual < totalPasos) {
+                    mostrarPaso(pasoActual + 1);
+                }
+            });
+
+            btnAnterior.addEventListener('click', function () {
+                if (pasoActual > 1) {
+                    mostrarPaso(pasoActual - 1);
+                }
+            });
+
+            // Validación de duplicado del documento de identidad (en vivo)
+            var docInput = document.getElementById('documentoIdentidad');
+            var docError = document.querySelector('.is-documento-error');
+
+            function ocultarErrorDocumento() {
+                if (docError) {
+                    docError.style.display = 'none';
+                }
+                if (docInput) {
+                    docInput.classList.remove('is-invalid');
+                }
+            }
+
+            function verificarDocumento() {
+                if (!docInput || !docError) {
+                    return;
+                }
+                var valor = docInput.value.trim();
+                if (valor === '') {
+                    ocultarErrorDocumento();
+                    return;
+                }
+                var id = docInput.getAttribute('data-paciente-id') || '';
+                var url = '/pacientes/existe-documento?documento=' + encodeURIComponent(valor)
+                        + '&id=' + encodeURIComponent(id);
+                fetch(url, { headers: { 'Accept': 'application/json' } })
+                    .then(function (respuesta) { return respuesta.json(); })
+                    .then(function (datos) {
+                        if (datos.duplicado) {
+                            docInput.classList.add('is-invalid');
+                            docError.style.display = 'flex';
+                        } else {
+                            ocultarErrorDocumento();
+                        }
+                    })
+                    .catch(function () {
+                        ocultarErrorDocumento();
+                    });
+            }
+
+            if (docInput) {
+                docInput.addEventListener('input', verificarDocumento);
+                docInput.addEventListener('blur', verificarDocumento);
+            }
+
+            mostrarPaso(1);
+        })();
+    </script>
+
+</th:block>
+
+</html>
