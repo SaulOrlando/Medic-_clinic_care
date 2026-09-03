@@ -8,123 +8,165 @@
     <div class="usuarios-alerts">
         <div th:if="${exito}" class="alert alert-success animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
-            <span th:text="${exito}">Operación correcta.</span>
+            <span th:text="${exito}">Operacion correcta.</span>
         </div>
         <div th:if="${error}" class="alert alert-error animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
-            <span th:text="${error}">Ocurrió un error.</span>
+            <span th:text="${error}">Ocurrio un error.</span>
         </div>
     </div>
 
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="recetas-header">
         <div class="consultas-header-text">
             <h2 class="page-title"
-                th:text="${modo == 'crear'} ? 'Nueva Receta Médica' : 'Editar Medicamento'">Nueva Receta Médica</h2>
-            <p class="page-subtitle">Agregue los medicamentos prescritos para la consulta seleccionada.</p>
+                th:text="${modo == 'crear'} ? 'Nueva Receta Medica' : 'Editar Medicamento'">Nueva Receta Medica</h2>
+            <p class="page-subtitle">Agregue uno o mas medicamentos prescritos para la consulta seleccionada.</p>
         </div>
     </div>
 
-    <!-- Form Card -->
-    <form th:object="${receta}" method="post"
-          th:action="${modo == 'crear'} ? @{/recetas/guardar} : @{/recetas/{id}/editar(id=${receta.idRecetaDetalle})}"
-          class="recetas-form-card">
-
+    <!-- Consulta selection form (only when no consultation passed) -->
+    <form th:if="${modo == 'crear' and consulta == null}" method="get" th:action="@{/recetas/nueva}" class="recetas-form-card animate-fade-in" style="margin-bottom: var(--space-6);">
         <div class="consultas-form-body" style="padding: 0;">
-
-            <!-- Consulta selection (only in create mode when no consulta passed) -->
-            <div class="consultas-form-field" th:if="${modo == 'crear' and consulta == null}">
-                <label for="idConsulta">Consulta *</label>
-                <select id="idConsulta" name="idConsulta" class="form-input" required>
+            <div class="consultas-form-field">
+                <label for="idConsultaSelect">Consulta *</label>
+                <select id="idConsultaSelect" name="idConsulta" class="form-input" required>
                     <option value="">Seleccione la consulta...</option>
                     <option th:each="c : ${consultas}"
                             th:value="${c.idConsulta}"
-                            th:text="'Consulta #' + ${c.idConsulta} + ' · ' + ${c.cita?.paciente?.nombres} + ' ' + ${c.cita?.paciente?.apellidos} + ' · ' + ${#temporals.format(c.cita?.fechaHora, 'dd/MM/yyyy HH:mm')}">
-                        Consulta
+                            th:text="'Consulta #' + ${c.idConsulta} + ' - ' + ${c.cita?.paciente?.nombres} + ' ' + ${c.cita?.paciente?.apellidos} + ' - ' + ${#temporals.format(c.cita?.fechaHora, 'dd/MM/yyyy HH:mm')}">
                     </option>
                 </select>
             </div>
-
-            <!-- Empty consultas message -->
-            <div class="consultas-form-field" th:if="${modo == 'crear' and consulta == null and sinConsultas}">
+            <div class="consultas-form-field" th:if="${sinConsultas}">
                 <div class="alert alert-warning">
                     <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">info</span>
-                    <span>No tiene consultas registradas. Registre una consulta médica en <a th:href="@{/consultas}">Consulta Médica</a> antes de generar una receta.</span>
+                    <span>No tiene consultas registradas. Registre una consulta medica en <a th:href="@{/consultas}">Consulta Medica</a> antes de generar una receta.</span>
                 </div>
             </div>
+        </div>
+        <div class="recetas-form-actions">
+            <a href="/recetas" class="btn btn-outline">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Seleccionar Consulta</button>
+        </div>
+    </form>
 
-            <!-- Read-only consulta info when editing/adding to existing consulta -->
-            <div class="consultas-form-field" th:if="${consulta != null}">
-                <label>Consulta seleccionada</label>
-                <input type="hidden" name="idConsulta" th:value="${consulta.idConsulta}" />
-                <div class="form-input" style="display:flex;align-items:center;gap:12px;color:var(--color-text);cursor:default;">
-                    <span class="material-symbols-outlined" style="font-size:20px;">monitor_heart</span>
-                    <span th:text="'Consulta #' + ${consulta.idConsulta} + ' · ' + ${consulta.cita?.paciente?.nombres} + ' ' + ${consulta.cita?.paciente?.apellidos}">
-                        Consulta
-                    </span>
+    <!-- Multi-medicine form (when consultation is known) -->
+    <form th:if="${consulta != null or modo == 'editar'}" method="post"
+          th:action="${modo == 'crear'} ? @{/recetas/guardar} : @{/recetas/{id}/editar(id=${receta.idRecetaDetalle})}"
+          id="recetaForm" class="recetas-form-card animate-fade-in">
+
+        <!-- Hidden consultation ID -->
+        <input type="hidden" name="idConsulta" th:value="${consulta?.idConsulta}" />
+
+        <!-- Read-only consulta info -->
+        <div class="consultas-form-field" style="margin-bottom: var(--space-4);">
+            <label>Consulta seleccionada</label>
+            <div class="form-input" style="display:flex;align-items:center;gap:12px;color:var(--color-text);cursor:default;">
+                <span class="material-symbols-outlined" style="font-size:20px;">monitor_heart</span>
+                <span th:text="'Consulta #' + ${consulta?.idConsulta} + ' - ' + ${consulta?.cita?.paciente?.nombres} + ' ' + ${consulta?.cita?.paciente?.apellidos}">
+                    Consulta
+                </span>
+            </div>
+        </div>
+
+        <hr class="consultas-form-divider"/>
+
+        <!-- Medication rows container -->
+        <div id="medicamentosContainer">
+            <div class="med-row" data-index="0">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-3);">
+                    <h4 style="font-size:var(--font-size-sm);font-weight:var(--font-weight-semibold);color:var(--color-text-secondary);">Medicamento 1</h4>
+                    <button type="button" class="btn btn-sm btn-outline med-remove" style="display:none;" onclick="removeMedRow(this)">
+                        <span class="material-symbols-outlined" style="font-size:16px;">delete</span>
+                    </button>
+                </div>
+                <div class="consultas-form-body" style="padding:0;">
+                    <div class="consultas-form-field">
+                        <label>Medicamento *</label>
+                        <select name="medIds" class="form-input med-select" required>
+                            <option value="">Seleccione el medicamento...</option>
+                            <option th:each="m : ${medicamentos}"
+                                    th:value="${m.idMedicamento}"
+                                    th:text="${m.nombreComercial} + ' ' + ${m.concentracion} + ' (Stock: ' + ${m.stockDisponible} + ')'">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="consultas-form-field">
+                        <label>Dosis</label>
+                        <input type="text" name="medDosis" class="form-input" maxlength="255" placeholder="ej. 1 tableta" />
+                    </div>
+                    <div class="consultas-form-field">
+                        <label>Cantidad *</label>
+                        <input type="number" name="medCantidad" class="form-input" min="1" step="1" placeholder="Unidades" required />
+                    </div>
+                    <div class="consultas-form-field">
+                        <label>Frecuencia</label>
+                        <input type="text" name="medFrecuencia" class="form-input" maxlength="255" placeholder="ej. Diariamente" />
+                    </div>
+                    <div class="consultas-form-field">
+                        <label>Duracion</label>
+                        <input type="text" name="medDuracion" class="form-input" maxlength="255" placeholder="ej. 90 dias" />
+                    </div>
+                    <div class="consultas-form-field" style="grid-column: 1 / -1;">
+                        <label>Indicaciones / Notas *</label>
+                        <textarea name="medIndicaciones" rows="2" class="form-input" placeholder="ej. Tomar por la manana, antes de los alimentos" required></textarea>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <hr class="consultas-form-divider"/>
-
-            <!-- Medicamento -->
-            <div class="consultas-form-field">
-                <label for="medicamento.idMedicamento">Medicamento *</label>
-                <select id="medicamento.idMedicamento" name="medicamento.idMedicamento" class="form-input" required>
-                    <option value="">Seleccione el medicamento...</option>
-                    <option th:each="m : ${medicamentos}"
-                            th:value="${m.idMedicamento}"
-                            th:selected="${receta.medicamento?.idMedicamento == m.idMedicamento}"
-                            th:text="${m.nombreComercial} + ' ' + ${m.concentracion} + ' (Stock: ' + ${m.stockDisponible} + ')'">
-                        Medicamento
-                    </option>
-                </select>
-            </div>
-
-            <!-- Dosis -->
-            <div class="consultas-form-field">
-                <label for="dosis">Dosis</label>
-                <input type="text" id="dosis" class="form-input"
-                       th:field="*{dosis}" maxlength="255" placeholder="ej. 1 tableta" />
-            </div>
-
-            <!-- Cantidad (para stock) -->
-            <div class="consultas-form-field">
-                <label for="cantidad">Cantidad *</label>
-                <input type="number" id="cantidad" class="form-input"
-                       th:field="*{cantidad}" min="1" step="1" placeholder="Unidades a dispensar" required />
-            </div>
-
-            <!-- Frecuencia -->
-            <div class="consultas-form-field">
-                <label for="frecuencia">Frecuencia</label>
-                <input type="text" id="frecuencia" class="form-input"
-                       th:field="*{frecuencia}" maxlength="255" placeholder="ej. Diariamente" />
-            </div>
-
-            <!-- Duración -->
-            <div class="consultas-form-field">
-                <label for="duracion">Duración</label>
-                <input type="text" id="duracion" class="form-input"
-                       th:field="*{duracion}" maxlength="255" placeholder="ej. 90 días" />
-            </div>
-
-            <!-- Indicaciones -->
-            <div class="consultas-form-field" style="grid-column: 1 / -1;">
-                <label for="indicaciones">Indicaciones / Notas *</label>
-                <textarea id="indicaciones" rows="3"
-                          th:field="*{indicaciones}"
-                          placeholder="ej. Tomar por la mañana, antes de los alimentos" required></textarea>
-            </div>
+        <!-- Add medication button -->
+        <div style="margin: var(--space-4) 0;">
+            <button type="button" class="btn btn-outline" onclick="addMedRow()">
+                <span class="material-symbols-outlined" style="font-size:18px;">add</span>
+                Agregar otro medicamento
+            </button>
         </div>
 
         <div class="recetas-form-actions">
             <a th:href="${consulta != null} ? @{/recetas/consulta/{id}(id=${consulta.idConsulta})} : @{/recetas}"
                class="btn btn-outline">Cancelar</a>
             <button type="submit" class="btn btn-primary"
-                    th:text="${modo == 'crear'} ? 'Agregar a la Receta' : 'Guardar Cambios'">Agregar</button>
+                    th:text="${modo == 'crear'} ? 'Guardar Receta' : 'Guardar Cambios'">Guardar</button>
         </div>
     </form>
+
+    <script th:inline="javascript">
+        (function () {
+            'use strict';
+
+            var container = document.getElementById('medicamentosContainer');
+            if (!container) return;
+
+            var rowTmpl = container.querySelector('.med-row');
+            if (!rowTmpl) return;
+            var rowHtml = rowTmpl.outerHTML;
+
+            window.addMedRow = function () {
+                var div = document.createElement('div');
+                div.innerHTML = rowHtml;
+                var newRow = div.firstElementChild;
+                container.appendChild(newRow);
+                renumberRows();
+            };
+
+            window.removeMedRow = function (btn) {
+                var row = btn.closest('.med-row');
+                row.remove();
+                renumberRows();
+            };
+
+            function renumberRows() {
+                var rows = container.querySelectorAll('.med-row');
+                rows.forEach(function (row, i) {
+                    row.querySelector('h4').textContent = 'Medicamento ' + (i + 1);
+                    var removeBtn = row.querySelector('.med-remove');
+                    removeBtn.style.display = rows.length > 1 ? 'inline-flex' : 'none';
+                });
+            }
+        })();
+    </script>
 
 </th:block>
 

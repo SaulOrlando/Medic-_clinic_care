@@ -411,44 +411,44 @@ SET @consFri1 = SCOPE_IDENTITY();
 
 -- ============ CATEGORIAS ============
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Analgesicos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Analgesicos', 'Medicamentos para el alivio del dolor');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Analgesicos', 'Medicamentos para el alivio del dolor', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Antibioticos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Antibioticos', 'Medicamentos para infecciones bacterianas');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Antibioticos', 'Medicamentos para infecciones bacterianas', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Antihistaminicos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Antihistaminicos', 'Medicamentos para alergias');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Antihistaminicos', 'Medicamentos para alergias', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Vitaminas y Suplementos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Vitaminas y Suplementos', 'Complementos nutricionales');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Vitaminas y Suplementos', 'Complementos nutricionales', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Antiinflamatorios')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Antiinflamatorios', 'Medicamentos para reducir inflamacion');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Antiinflamatorios', 'Medicamentos para reducir inflamacion', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Dermatologicos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Dermatologicos', 'Tratamientos para afecciones de la piel');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Dermatologicos', 'Tratamientos para afecciones de la piel', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Gastrointestinal')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Gastrointestinal', 'Medicamentos para el sistema digestivo');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Gastrointestinal', 'Medicamentos para el sistema digestivo', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Cardiovasculares')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Cardiovasculares', 'Medicamentos para el sistema cardiovascular');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Cardiovasculares', 'Medicamentos para el sistema cardiovascular', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Respiratorios')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Respiratorios', 'Medicamentos para afecciones respiratorias');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Respiratorios', 'Medicamentos para afecciones respiratorias', 1);
 
 IF NOT EXISTS (SELECT 1 FROM categorias_medicamentos WHERE nombre = 'Antifungicos')
-    INSERT INTO categorias_medicamentos (nombre, descripcion) VALUES
-    ('Antifungicos', 'Medicamentos para infecciones por hongos');
+    INSERT INTO categorias_medicamentos (nombre, descripcion, activa) VALUES
+    ('Antifungicos', 'Medicamentos para infecciones por hongos', 1);
 
 -- ============ MEDICAMENTOS ============
 DECLARE @catAnalg   INT = (SELECT id_categoria FROM categorias_medicamentos WHERE nombre = 'Analgesicos');

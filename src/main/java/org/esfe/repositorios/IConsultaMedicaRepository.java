@@ -22,23 +22,27 @@ public interface IConsultaMedicaRepository extends JpaRepository<ConsultaMedica,
 
     boolean existsByCitaIdCita(Integer idCita);
 
-    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario"})
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
     @Query("SELECT c FROM ConsultaMedica c WHERE c.cita.medico.idMedico = :idMedico ORDER BY c.fechaConsulta DESC")
     List<ConsultaMedica> findByMedico(@Param("idMedico") Integer idMedico);
 
-    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario"})
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
     @Query("SELECT c FROM ConsultaMedica c WHERE c.cita.paciente.idPaciente = :idPaciente ORDER BY c.fechaConsulta DESC")
     List<ConsultaMedica> findByPaciente(@Param("idPaciente") Integer idPaciente);
 
-    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario"})
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
+    @Query("SELECT c FROM ConsultaMedica c WHERE c.idConsulta = :id")
+    Optional<ConsultaMedica> findByIdWithDetails(@Param("id") Integer id);
+
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
     @Query("SELECT c FROM ConsultaMedica c ORDER BY c.fechaConsulta DESC")
     List<ConsultaMedica> findAllWithDetails();
 
-    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario"})
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
     @Query("SELECT c FROM ConsultaMedica c WHERE c.cita.medico.idMedico = :idMedico AND (LOWER(c.cita.paciente.nombres) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.cita.paciente.apellidos) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.cita.paciente.codigoExpediente) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.motivoConsulta) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.diagnostico) LIKE LOWER(CONCAT('%',:busqueda,'%'))) ORDER BY c.fechaConsulta DESC")
     List<ConsultaMedica> buscarPorMedicoYBusqueda(@Param("idMedico") Integer idMedico, @Param("busqueda") String busqueda);
 
-    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario"})
+    @EntityGraph(attributePaths = {"cita", "cita.paciente", "cita.medico", "cita.medico.usuario", "recetasDetalle"})
     @Query("SELECT c FROM ConsultaMedica c WHERE (LOWER(c.cita.paciente.nombres) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.cita.paciente.apellidos) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.cita.paciente.codigoExpediente) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.motivoConsulta) LIKE LOWER(CONCAT('%',:busqueda,'%')) OR LOWER(c.diagnostico) LIKE LOWER(CONCAT('%',:busqueda,'%'))) ORDER BY c.fechaConsulta DESC")
     List<ConsultaMedica> buscarPorBusqueda(@Param("busqueda") String busqueda);
 }

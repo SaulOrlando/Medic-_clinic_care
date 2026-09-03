@@ -47,7 +47,7 @@ public class HistorialCita {
     private EstadoCita estadoNuevo;
 
     @Size(max = 1000)
-    @Column(name = "motivo", columnDefinition = "TEXT")
+    @Column(name = "motivo", columnDefinition = "nvarchar(MAX)")
     private String motivo;
 
     @NotNull

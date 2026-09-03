@@ -9,7 +9,8 @@
             <h1 class="page-title">Categorías de Medicamentos</h1>
             <p class="page-subtitle">Gestiona las categorías del inventario farmacéutico.</p>
         </div>
-        <a href="#" th:href="@{/categorias-medicamentos/nuevo}" class="btn btn-primary">
+        <a href="#" th:href="@{/categorias-medicamentos/nuevo}" class="btn btn-primary"
+           th:if="${usuario?.rol?.name() != 'MEDICO'}">
             <span class="material-symbols-outlined">add</span>
             Nueva Categoría
         </a>
@@ -42,8 +43,8 @@
                     <td th:text="${cat.nombre}"></td>
                     <td th:text="${cat.descripcion != null ? cat.descripcion : '—'}">—</td>
                     <td>
-                        <span th:if="${#lists.size(cat.medicamentos) == 0}" class="badge badge-success">Activa</span>
-                        <span th:if="${#lists.size(cat.medicamentos) > 0}" class="badge badge-warning">En uso</span>
+                        <span th:if="${cat.activa == null or cat.activa}" class="badge badge-success">Activa</span>
+                        <span th:if="${cat.activa != null and !cat.activa}" class="badge badge-neutral">Inactiva</span>
                     </td>
                     <td>
                         <div class="flex" style="gap: var(--space-2);">

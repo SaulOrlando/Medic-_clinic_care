@@ -26,7 +26,7 @@ public class CategoriaMedicamentoService implements ICategoriaMedicamentoService
     @Override
     @Transactional(readOnly = true)
     public List<CategoriaMedicamento> obtenerTodos() {
-        return categoriaMedicamentoRepository.findAll();
+        return categoriaMedicamentoRepository.findAllByOrderByNombreAsc();
     }
 
     @Override

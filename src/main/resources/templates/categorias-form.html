@@ -48,6 +48,15 @@
                                   th:field="*{descripcion}" placeholder="Descripción opcional de la categoría..." maxlength="1000"></textarea>
                         <small class="form-hint" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error</small>
                     </div>
+
+                    <div class="form-group full-width">
+                        <label class="form-label">Estado</label>
+                        <label class="form-check" for="activa">
+                            <input type="checkbox" id="activa" class="form-check-input" th:field="*{activa}" />
+                            <span class="form-check-label">Categoría activa</span>
+                        </label>
+                        <small class="form-hint">Una categoría activa puede seleccionarse al registrar medicamentos. Desmárcala para marcarla como inactiva.</small>
+                    </div>
                 </div>
 
                 <div class="categorias-form-actions">

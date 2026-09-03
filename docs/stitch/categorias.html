@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Categorías de Medicamentos - MediClinic Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004786",
+                        "surface-bright": "#f3faff",
+                        "on-secondary-fixed-variant": "#005312",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#1b6d24",
+                        "surface-container-highest": "#cfe6f2",
+                        "on-secondary-container": "#217128",
+                        "primary-container": "#1976d2",
+                        "on-surface": "#071e27",
+                        "on-secondary-fixed": "#002204",
+                        "error": "#ba1a1a",
+                        "surface": "#f3faff",
+                        "inverse-surface": "#1e333c",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#fffdff",
+                        "tertiary-container": "#a66700",
+                        "secondary-fixed": "#a3f69c",
+                        "inverse-on-surface": "#dff4ff",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed": "#ffddba",
+                        "secondary-container": "#a0f399",
+                        "outline": "#717783",
+                        "surface-container": "#dbf1fe",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "surface-container-high": "#d5ecf8",
+                        "surface-container-low": "#e6f6ff",
+                        "outline-variant": "#c1c6d4",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-background": "#071e27",
+                        "surface-variant": "#cfe6f2",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "surface-tint": "#005faf",
+                        "on-primary-container": "#fffdff",
+                        "primary-fixed": "#d4e3ff",
+                        "primary": "#005dac",
+                        "inverse-primary": "#a5c8ff",
+                        "background": "#f3faff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#88d982",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#c7dde9",
+                        "tertiary": "#845100",
+                        "on-surface-variant": "#414752"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "layout-margin": "24px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "2xl": "48px",
+                        "xs": "4px",
+                        "layout-gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for clean look */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #c1c6d4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #717783; }
+        
+        /* Modal transitions */
+        .modal-enter { opacity: 0; transform: translateX(100%); }
+        .modal-enter-active { opacity: 1; transform: translateX(0); transition: opacity 300ms, transform 300ms; }
+        .modal-exit { opacity: 1; transform: translateX(0); }
+        .modal-exit-active { opacity: 0; transform: translateX(100%); transition: opacity 300ms, transform 300ms; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar -->
+<nav class="w-[260px] h-screen fixed left-0 top-0 bg-surface-container-low dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flex flex-col py-lg transition-colors duration-200 ease-in-out z-20">
+<div class="px-layout-margin mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim tracking-tight">MediClinic Care</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Clinical Management</p>
+</div>
+<div class="flex-1 overflow-y-auto px-md space-y-sm">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-body-md text-body-md font-medium">Tablero</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">person</span>
+<span class="font-body-md text-body-md font-medium">Pacientes</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">medical_services</span>
+<span class="font-body-md text-body-md font-medium">Médicos</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">event_available</span>
+<span class="font-body-md text-body-md font-medium">Citas</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">medical_information</span>
+<span class="font-body-md text-body-md font-medium">Consultas</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">prescriptions</span>
+<span class="font-body-md text-body-md font-medium">Recetas</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">inventory_2</span>
+<span class="font-body-md text-body-md font-medium">Inventario</span>
+</a>
+<!-- Active Tab -->
+<a class="flex items-center gap-md px-md py-sm rounded-r-lg -ml-md text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-surface-container-high dark:bg-surface-variant transition-colors duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">category</span>
+<span class="font-body-md text-body-md font-medium">Categorías</span>
+</a>
+</div>
+<div class="mt-auto px-md space-y-sm pt-md border-t border-outline-variant/30">
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary">settings</span>
+<span class="font-body-md text-body-md font-medium">Ajustes</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container transition-colors duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-error">logout</span>
+<span class="font-body-md text-body-md font-medium">Cerrar sesión</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[260px] flex flex-col h-screen relative">
+<!-- TopNavBar -->
+<header class="h-16 sticky top-0 bg-surface dark:bg-background border-b border-outline-variant dark:border-outline flex justify-between items-center px-lg transition-all duration-200 z-10">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="font-label-md text-label-md">Inventario</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-label-md text-label-md text-primary font-semibold">Categorías de Medicamentos</span>
+</div>
+<div class="flex items-center gap-lg">
+<!-- Actions -->
+<div class="flex items-center gap-sm">
+<button aria-label="Notificaciones" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button aria-label="Ayuda" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+</div>
+<!-- Profile -->
+<div class="flex items-center gap-md border-l border-outline-variant pl-lg">
+<div class="text-right">
+<p class="font-body-sm text-body-sm font-medium text-on-surface">Dr. Smith</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Recepcionista</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm">
+                        DS
+                    </div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-layout-margin">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-layout-margin">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Categorías de Medicamentos</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Gestione las clasificaciones para el inventario de farmacia.</p>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-colors shadow-sm" onclick="toggleSidebar()">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    Nueva Categoría
+                </button>
+</div>
+<!-- Search and Filter Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md mb-layout-margin flex flex-col md:flex-row gap-md items-center justify-between">
+<div class="relative w-full md:w-96">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-xl pr-md py-sm bg-surface-container-low border border-transparent focus:border-primary focus:bg-surface-container-lowest rounded-lg font-body-sm text-body-sm outline-none transition-all placeholder:text-on-surface-variant/60 text-on-surface" placeholder="Buscar categoría..." type="text"/>
+</div>
+<div class="flex items-center gap-md w-full md:w-auto">
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md w-full md:w-auto justify-center">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filtros
+                    </button>
+<button class="flex items-center gap-xs px-md py-sm border border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md w-full md:w-auto justify-center">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Exportar
+                    </button>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="py-md px-lg font-label-md text-label-md text-on-surface-variant font-semibold">Nombre de Categoría</th>
+<th class="py-md px-lg font-label-md text-label-md text-on-surface-variant font-semibold">Descripción</th>
+<th class="py-md px-lg font-label-md text-label-md text-on-surface-variant font-semibold text-right">Medicamentos Activos</th>
+<th class="py-md px-lg font-label-md text-label-md text-on-surface-variant font-semibold text-center">Estado</th>
+<th class="py-md px-lg font-label-md text-label-md text-on-surface-variant font-semibold text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50 font-body-md text-body-md">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-md px-lg font-medium text-on-surface">Analgésicos</td>
+<td class="py-md px-lg text-on-surface-variant truncate max-w-[200px]">Medicamentos para el alivio del dolor crónico y agudo.</td>
+<td class="py-md px-lg text-right font-data-mono text-data-mono">145</td>
+<td class="py-md px-lg text-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Activo</span>
+</td>
+<td class="py-md px-lg text-right">
+<button aria-label="Editar" class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-error-container transition-colors opacity-50 cursor-not-allowed group-hover:opacity-100" disabled="" title="No se puede eliminar: Contiene medicamentos activos">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-md px-lg font-medium text-on-surface">Antibióticos</td>
+<td class="py-md px-lg text-on-surface-variant truncate max-w-[200px]">Tratamiento de infecciones bacterianas comunes.</td>
+<td class="py-md px-lg text-right font-data-mono text-data-mono">89</td>
+<td class="py-md px-lg text-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Activo</span>
+</td>
+<td class="py-md px-lg text-right">
+<button aria-label="Editar" class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-error-container transition-colors opacity-50 cursor-not-allowed group-hover:opacity-100" disabled="" title="No se puede eliminar: Contiene medicamentos activos">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-md px-lg font-medium text-on-surface">Antihistamínicos</td>
+<td class="py-md px-lg text-on-surface-variant truncate max-w-[200px]">Prevención y tratamiento de reacciones alérgicas.</td>
+<td class="py-md px-lg text-right font-data-mono text-data-mono">42</td>
+<td class="py-md px-lg text-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Activo</span>
+</td>
+<td class="py-md px-lg text-right">
+<button aria-label="Editar" class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-error-container transition-colors opacity-50 cursor-not-allowed group-hover:opacity-100" disabled="" title="No se puede eliminar: Contiene medicamentos activos">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Empty Category) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-md px-lg font-medium text-on-surface">Suplementos Deportivos</td>
+<td class="py-md px-lg text-on-surface-variant truncate max-w-[200px]">Vitaminas y minerales para rendimiento físico.</td>
+<td class="py-md px-lg text-right font-data-mono text-data-mono text-on-surface-variant/50">0</td>
+<td class="py-md px-lg text-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-label-md text-[10px] uppercase tracking-wider">Inactivo</span>
+</td>
+<td class="py-md px-lg text-right">
+<button aria-label="Editar" class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-error-container transition-colors" onclick="alert('¿Seguro que desea eliminar esta categoría vacía?')" title="Eliminar categoría">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="py-md px-lg font-medium text-on-surface">Vitaminas</td>
+<td class="py-md px-lg text-on-surface-variant truncate max-w-[200px]">Complejos vitamínicos generales y específicos.</td>
+<td class="py-md px-lg text-right font-data-mono text-data-mono">112</td>
+<td class="py-md px-lg text-center">
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md text-[10px] uppercase tracking-wider">Activo</span>
+</td>
+<td class="py-md px-lg text-right">
+<button aria-label="Editar" class="p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:text-error hover:bg-error-container transition-colors opacity-50 cursor-not-allowed group-hover:opacity-100" disabled="" title="No se puede eliminar: Contiene medicamentos activos">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination Footer -->
+<div class="bg-surface-container-low border-t border-outline-variant px-lg py-sm flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mostrando 1-5 de 24 categorías</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-lowest disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="p-1 rounded border border-outline-variant text-on-surface-variant hover:bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Information Banner -->
+<div class="mt-lg flex gap-md p-md bg-surface-container border border-primary/20 rounded-lg">
+<span class="material-symbols-outlined text-primary mt-xs">info</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-semibold mb-xs">Política de Eliminación de Categorías</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Para mantener la integridad del inventario clínico, el sistema restringe la eliminación de categorías que contengan medicamentos registrados. Debe reasignar o eliminar los medicamentos asociados (cantidad mayor a 0) antes de intentar borrar la categoría.
+                    </p>
+</div>
+</div>
+</main>
+</div>
+<!-- Overlay & Right Sidebar Modal (Create Category) -->
+<div class="fixed inset-0 bg-on-background/20 backdrop-blur-sm z-30 hidden transition-opacity" id="backdrop" onclick="toggleSidebar()"></div>
+<aside class="fixed top-0 right-0 h-screen w-[400px] bg-surface-container-lowest shadow-2xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out border-l border-outline-variant flex flex-col" id="creationSidebar">
+<!-- Sidebar Header -->
+<div class="h-16 border-b border-outline-variant px-lg flex items-center justify-between bg-surface">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">Nueva Categoría</h3>
+<button class="p-1 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors" onclick="toggleSidebar()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Form Content -->
+<div class="flex-1 overflow-y-auto p-lg">
+<form class="space-y-lg" id="categoryForm" onsubmit="handleFormSubmit(event)">
+<!-- Input Group: Nombre -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-xs" for="catName">
+                        Nombre de la Categoría <span class="text-error">*</span>
+</label>
+<input class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50" id="catName" name="catName" placeholder="Ej. Antipiréticos" required="" type="text"/>
+<p class="mt-1 font-body-sm text-[11px] text-on-surface-variant">Nombre único para clasificar medicamentos.</p>
+</div>
+<!-- Input Group: Descripción -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-xs" for="catDesc">
+                        Descripción (Opcional)
+                    </label>
+<textarea class="w-full px-md py-sm border border-outline-variant rounded-lg font-body-md text-body-md text-on-surface bg-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant/50 resize-none" id="catDesc" name="catDesc" placeholder="Breve descripción del propósito de la categoría..." rows="4"></textarea>
+</div>
+<!-- Input Group: Color Tag (Visual Organization) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface font-semibold mb-sm">
+                        Etiqueta Visual (Opcional)
+                    </label>
+<div class="flex gap-sm">
+<button class="w-8 h-8 rounded-full bg-error-container border-2 border-transparent focus:border-outline hover:opacity-80 transition-all" type="button"></button>
+<button class="w-8 h-8 rounded-full bg-primary-container border-2 border-outline hover:opacity-80 transition-all ring-2 ring-primary ring-offset-1" type="button"></button>
+<button class="w-8 h-8 rounded-full bg-secondary-container border-2 border-transparent focus:border-outline hover:opacity-80 transition-all" type="button"></button>
+<button class="w-8 h-8 rounded-full bg-tertiary-container border-2 border-transparent focus:border-outline hover:opacity-80 transition-all" type="button"></button>
+</div>
+</div>
+</form>
+</div>
+<!-- Sidebar Footer Actions -->
+<div class="p-lg border-t border-outline-variant bg-surface flex items-center justify-end gap-md">
+<button class="px-lg py-sm font-label-md text-label-md font-semibold text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors" onclick="toggleSidebar()">
+                Cancelar
+            </button>
+<button class="px-lg py-sm font-label-md text-label-md font-semibold bg-primary text-on-primary hover:bg-primary/90 rounded-lg shadow-sm transition-colors flex items-center gap-xs" form="categoryForm" type="submit">
+                Guardar Categoría
+            </button>
+</div>
+</aside>
+<script>
+        // Sidebar Toggle Logic
+        const sidebar = document.getElementById('creationSidebar');
+        const backdrop = document.getElementById('backdrop');
+
+        function toggleSidebar() {
+            const isClosed = sidebar.classList.contains('translate-x-full');
+            
+            if (isClosed) {
+                sidebar.classList.remove('translate-x-full');
+                backdrop.classList.remove('hidden');
+                // Small delay to allow display block to render before opacity transition
+                setTimeout(() => backdrop.classList.add('opacity-100'), 10);
+            } else {
+                sidebar.classList.add('translate-x-full');
+                backdrop.classList.remove('opacity-100');
+                setTimeout(() => backdrop.classList.add('hidden'), 300); // Wait for transition
+            }
+        }
+
+        // Form Submission Logic
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('catName');
+            
+            if (!nameInput.value.trim()) {
+                // Basic validation visual feedback (though 'required' attribute handles most)
+                nameInput.classList.add('border-error');
+                return;
+            }
+            
+            // In a real app, this would be an API call
+            nameInput.classList.remove('border-error');
+            
+            // Show brief success state on button
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalContent = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">check</span> Guardado';
+            submitBtn.classList.replace('bg-primary', 'bg-secondary');
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalContent;
+                submitBtn.classList.replace('bg-secondary', 'bg-primary');
+                e.target.reset();
+                toggleSidebar();
+            }, 1000);
+        }
+    </script>
+</body></html>

@@ -28,13 +28,19 @@ public class CategoriaMedicamento {
     private String nombre;
 
     @Size(max = 1000)
-    @Column(name = "descripcion", columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "nvarchar(MAX)")
     private String descripcion;
+
+    @Column(name = "activa", nullable = false, columnDefinition = "bit default 1")
+    private Boolean activa = Boolean.TRUE;
 
     @OneToMany(mappedBy = "categoria")
     private List<Medicamento> medicamentos = new ArrayList<>();
 
     public void crearCategoria() {
+        if (activa == null) {
+            activa = Boolean.TRUE;
+        }
     }
 
     public void editarCategoria() {
@@ -70,6 +76,14 @@ public class CategoriaMedicamento {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public Boolean getActiva() {
+        return activa;
+    }
+
+    public void setActiva(Boolean activa) {
+        this.activa = activa;
     }
 
     public List<Medicamento> getMedicamentos() {

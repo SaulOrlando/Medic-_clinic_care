@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/recetas")
@@ -58,14 +57,30 @@ public class RecetaController {
 
     @GetMapping("/nueva")
     @PreAuthorize("hasRole('MEDICO')")
-    public String nueva(@ModelAttribute("usuario") Usuario usuario, Model model) {
-        List<ConsultaMedica> consultas = consultasDelMedico(usuario);
-        List<Medicamento> medicamentos = medicamentoService.obtenerTodos();
+    public String nueva(@ModelAttribute("usuario") Usuario usuario,
+                        @RequestParam(value = "idConsulta", required = false) Integer idConsulta,
+                        Model model) {
         model.addAttribute("activePage", "recetas");
-        model.addAttribute("receta", new RecetaDetalle());
-        model.addAttribute("consultas", consultas);
-        model.addAttribute("medicamentos", medicamentos);
+        model.addAttribute("medicamentos", medicamentoService.obtenerTodos());
         model.addAttribute("modo", "crear");
+
+        if (idConsulta != null) {
+            return consultaMedicaService.obtenerPorId(idConsulta)
+                    .map(consulta -> {
+                        model.addAttribute("consulta", consulta);
+                        model.addAttribute("receta", new RecetaDetalle());
+                        return "recetas-form";
+                    })
+                    .orElseGet(() -> {
+                        List<ConsultaMedica> consultas = consultasDelMedico(usuario);
+                        model.addAttribute("consultas", consultas);
+                        model.addAttribute("sinConsultas", consultas.isEmpty());
+                        return "recetas-form";
+                    });
+        }
+
+        List<ConsultaMedica> consultas = consultasDelMedico(usuario);
+        model.addAttribute("consultas", consultas);
         model.addAttribute("sinConsultas", consultas.isEmpty());
         return "recetas-form";
     }
@@ -81,29 +96,55 @@ public class RecetaController {
 
     @PostMapping("/guardar")
     @PreAuthorize("hasRole('MEDICO')")
-    public String guardar(@ModelAttribute("receta") RecetaDetalle receta,
-                          @RequestParam(value = "idConsulta", required = false) Integer idConsulta,
+    public String guardar(@RequestParam(value = "idConsulta") Integer idConsulta,
+                          @RequestParam(value = "medIds", required = false) List<Integer> medIds,
+                          @RequestParam(value = "medDosis", required = false) List<String> medDosis,
+                          @RequestParam(value = "medCantidad", required = false) List<Integer> medCantidad,
+                          @RequestParam(value = "medFrecuencia", required = false) List<String> medFrecuencia,
+                          @RequestParam(value = "medDuracion", required = false) List<String> medDuracion,
+                          @RequestParam(value = "medIndicaciones", required = false) List<String> medIndicaciones,
                           RedirectAttributes redirectAttributes) {
         try {
-            if (idConsulta == null) {
-                throw new IllegalArgumentException("Debe seleccionar una consulta para la receta.");
-            }
             ConsultaMedica consulta = consultaMedicaService.obtenerPorId(idConsulta)
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "Consulta no encontrada con id: " + idConsulta));
-            receta.setConsulta(consulta);
-            recetaDetalleService.guardar(receta);
+                    .orElseThrow(() -> new IllegalArgumentException("Consulta no encontrada con id: " + idConsulta));
+
+            if (medIds == null || medIds.isEmpty()) {
+                throw new IllegalArgumentException("Debe seleccionar al menos un medicamento.");
+            }
+
+            int guardados = 0;
+            for (int i = 0; i < medIds.size(); i++) {
+                Integer idMed = medIds.get(i);
+                if (idMed == null) continue;
+
+                Medicamento medicamento = medicamentoService.obtenerPorId(idMed)
+                        .orElseThrow(() -> new IllegalArgumentException("Medicamento no encontrado con id: " + idMed));
+
+                RecetaDetalle detalle = new RecetaDetalle();
+                detalle.setConsulta(consulta);
+                detalle.setMedicamento(medicamento);
+                detalle.setDosis(medDosis != null && i < medDosis.size() ? medDosis.get(i) : null);
+                detalle.setCantidad(medCantidad != null && i < medCantidad.size() ? medCantidad.get(i) : null);
+                detalle.setFrecuencia(medFrecuencia != null && i < medFrecuencia.size() ? medFrecuencia.get(i) : null);
+                detalle.setDuracion(medDuracion != null && i < medDuracion.size() ? medDuracion.get(i) : null);
+                detalle.setIndicaciones(medIndicaciones != null && i < medIndicaciones.size() ? medIndicaciones.get(i) : null);
+                recetaDetalleService.guardar(detalle);
+                guardados++;
+            }
+
             redirectAttributes.addFlashAttribute("exito",
-                    "Medicamento agregado a la receta de la consulta correctamente.");
+                    guardados + " medicamento(s) agregado(s) a la receta correctamente.");
             return "redirect:/recetas/consulta/" + idConsulta;
         } catch (IllegalArgumentException | IllegalStateException ex) {
             redirectAttributes.addFlashAttribute("error", ex.getMessage());
-            return "redirect:/recetas/nueva";
+            return "redirect:/recetas/nueva?idConsulta=" + idConsulta;
         }
     }
 
     @GetMapping("/consulta/{idConsulta}")
-    public String verPorConsulta(@PathVariable Integer idConsulta, Model model,
+    public String verPorConsulta(@PathVariable Integer idConsulta,
+                                  @ModelAttribute("usuario") Usuario usuario,
+                                  Model model,
                                   RedirectAttributes redirectAttributes) {
         return consultaMedicaService.obtenerPorId(idConsulta)
                 .map(consulta -> {

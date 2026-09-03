@@ -121,7 +121,8 @@ GO
 CREATE TABLE categorias_medicamentos (
     id_categoria INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
-    descripcion NVARCHAR(MAX)
+    descripcion NVARCHAR(MAX),
+    activa BIT NOT NULL DEFAULT 1
 );
 GO
 

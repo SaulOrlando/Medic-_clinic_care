@@ -8,25 +8,21 @@
     <div class="usuarios-alerts no-print">
         <div th:if="${exito}" class="alert alert-success animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
-            <span th:text="${exito}">Operación correcta.</span>
+            <span th:text="${exito}">Operacion correcta.</span>
         </div>
         <div th:if="${error}" class="alert alert-error animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
-            <span th:text="${error}">Ocurrió un error.</span>
+            <span th:text="${error}">Ocurrio un error.</span>
         </div>
     </div>
 
     <!-- Actions Bar (No Print) -->
-    <div class="recetas-actions-bar no-print">
+    <div class="recetas-actions-bar no-print animate-fade-in">
         <div class="recetas-actions-info">
             <span class="material-symbols-outlined" style="font-size: 20px; color: var(--color-primary);">info</span>
-            <span>Esta receta está lista para ser impresa o compartida.</span>
+            <span>Esta receta esta lista para ser impresa.</span>
         </div>
         <div class="recetas-actions-buttons">
-            <button type="button" class="btn btn-outline" onclick="window.print()">
-                <span class="material-symbols-outlined" style="font-size: 18px;">mail</span>
-                Enviar por Correo
-            </button>
             <button type="button" class="btn btn-primary" onclick="window.print()">
                 <span class="material-symbols-outlined" style="font-size: 18px;">print</span>
                 Imprimir Receta
@@ -35,27 +31,27 @@
     </div>
 
     <!-- Extra actions: manage medications (no print) -->
-    <div class="recetas-actions-bar no-print" th:if="${usuario?.rol?.name() == 'MEDICO'}">
+    <div class="recetas-actions-bar no-print animate-fade-in" th:if="${usuario?.rol?.name() == 'MEDICO'}">
         <div class="recetas-actions-info">
             <span class="material-symbols-outlined" style="font-size: 20px; color: var(--color-primary);">medication</span>
-            <span>Gestión de medicamentos en esta receta.</span>
+            <span>Gestion de medicamentos en esta receta.</span>
         </div>
         <div class="recetas-actions-buttons">
             <a th:href="@{/recetas/consulta/{id}/agregar(id=${consulta.idConsulta})}" class="btn btn-outline btn-sm">
-                <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
-                Agregar Medicamento
+                <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                Modificar Receta
             </a>
         </div>
     </div>
 
     <!-- Prescription Pad -->
-    <div class="prescription-pad">
+    <div class="prescription-pad animate-fade-in">
 
         <!-- Clinic Header -->
         <div class="prescription-clinic-header">
             <div>
                 <h1 class="prescription-clinic-name">MediClinic Care</h1>
-                <p class="prescription-clinic-address">123 Health Ave, Distrito Médico</p>
+                <p class="prescription-clinic-address">123 Health Ave, Distrito Medico</p>
                 <p class="prescription-clinic-address">Cityville, ST 12345 | Tel: (555) 123-4567</p>
             </div>
             <div class="prescription-doctor">
@@ -82,7 +78,7 @@
                     12 Oct 1954</p>
             </div>
             <div>
-                <p class="prescription-patient-label">Género</p>
+                <p class="prescription-patient-label">Genero</p>
                 <p class="prescription-patient-value"
                    th:text="${consulta?.cita?.paciente?.genero}">M</p>
             </div>
@@ -96,96 +92,90 @@
         <!-- Rx Symbol -->
         <div class="prescription-rx">Rx</div>
 
-        <!-- Medications List Table -->
-        <div style="overflow-x:auto;">
-            <table class="prescription-table">
-                <thead>
-                    <tr>
-                        <th>Medicamento</th>
-                        <th>Dosis</th>
-                        <th>Frecuencia</th>
-                        <th>Duración</th>
-                        <th>Notas</th>
-                        <th class="no-print">Estado</th>
-                        <th class="no-print" style="text-align:right;">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${#lists.isEmpty(recetas)}">
-                        <td colspan="7" style="text-align:center;color:var(--color-text-muted);">
-                            Esta consulta aún no tiene medicamentos prescritos.
-                        </td>
-                    </tr>
-                    <tr th:each="det : ${recetas}">
-                        <td>
-                            <span class="font-semibold"
-                                  th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1 tableta</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.frecuencia} ?: '—'">Diariamente</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.duracion} ?: '—'">90 días</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.indicaciones}">Tomar por la mañana</span>
-                        </td>
-                        <td class="no-print">
-                            <span class="recetas-badge recetas-badge--prescrita"
-                                  th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'recetas-badge--dispensada' : ''"
-                                  th:text="${det.estado.name() == 'PRESCRITA'} ? 'Prescrita' : 'Dispensada'">Prescrita</span>
-                        </td>
-                        <td class="no-print text-right">
-                            <div class="consultas-acciones" style="justify-content:flex-end;">
-                                <a th:if="${usuario?.rol?.name() == 'MEDICO'}"
-                                   th:href="@{/recetas/{id}/editar(id=${det.idRecetaDetalle})}"
-                                   class="consultas-accion" title="Editar">
-                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                                </a>
-                                <form th:if="${usuario?.rol?.name() == 'MEDICO'}"
-                                      th:action="@{/recetas/{id}/eliminar(id=${det.idRecetaDetalle})}" method="post"
-                                      class="consultas-accion-form"
-                                      th:data-confirm="'¿Desea eliminar ' + ${det.medicamento?.nombreComercial} + ' de la receta?'">
-                                    <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-                                    </button>
-                                </form>
-                                <form th:if="${det.estado.name() == 'PRESCRITA' and (usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'ADMINISTRADOR')}"
-                                      th:action="@{/recetas/{id}/dispensar(id=${det.idRecetaDetalle})}" method="post"
-                                      class="consultas-accion-form">
-                                    <button type="submit" class="consultas-accion" title="Dispensar (descuenta stock)">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">pharmacy</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Medications List Grid -->
+        <div class="prescription-grid">
+            <div class="prescription-grid-head">
+                <span>Medicamento</span>
+                <span>Dosis</span>
+                <span>Frecuencia</span>
+                <span>Duracion</span>
+                <span>Notas</span>
+                <span class="no-print">Estado</span>
+                <span class="no-print right">Acciones</span>
+            </div>
+            <div class="prescription-grid-row" th:if="${#lists.isEmpty(recetas)}">
+                <div class="prescription-grid-cell prescription-grid-cell--empty">
+                    Esta consulta aun no tiene medicamentos prescritos.
+                </div>
+            </div>
+            <div class="prescription-grid-row" th:each="det : ${recetas}">
+                <div class="prescription-grid-cell prescription-grid-cell--main">
+                    <span class="font-semibold"
+                          th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
+                </div>
+                <div class="prescription-grid-cell">
+                    <span th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1 tableta</span>
+                </div>
+                <div class="prescription-grid-cell">
+                    <span th:text="${det.frecuencia} ?: '---'">Diariamente</span>
+                </div>
+                <div class="prescription-grid-cell">
+                    <span th:text="${det.duracion} ?: '---'">90 dias</span>
+                </div>
+                <div class="prescription-grid-cell">
+                    <span th:text="${det.indicaciones}">Tomar por la manana</span>
+                </div>
+                <div class="prescription-grid-cell no-print">
+                    <span class="recetas-badge recetas-badge--prescrita"
+                          th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'recetas-badge--dispensada' : ''"
+                          th:text="${det.estado.name() == 'PRESCRITA'} ? 'Prescrita' : 'Dispensada'">Prescrita</span>
+                </div>
+                <div class="prescription-grid-cell no-print right">
+                    <div class="consultas-acciones" style="justify-content:flex-end; flex-wrap:wrap;">
+                        <a th:if="${usuario?.rol?.name() == 'MEDICO'}"
+                           th:href="@{/recetas/{id}/editar(id=${det.idRecetaDetalle})}"
+                           class="consultas-accion" title="Editar">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                        </a>
+                        <form th:if="${usuario?.rol?.name() == 'MEDICO'}"
+                              th:action="@{/recetas/{id}/eliminar(id=${det.idRecetaDetalle})}" method="post"
+                              class="consultas-accion-form"
+                              th:data-confirm="'Desea eliminar ' + ${det.medicamento?.nombreComercial} + ' de la receta?'">
+                            <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                            </button>
+                        </form>
+                        <form th:if="${det.estado.name() == 'PRESCRITA' and (usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'ADMINISTRADOR')}"
+                              th:action="@{/recetas/{id}/dispensar(id=${det.idRecetaDetalle})}" method="post"
+                              class="consultas-accion-form">
+                            <button type="submit" class="btn btn-primary btn-sm" title="Dispensar (descuenta stock)">
+                                Dispensar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Footer / Signature -->
         <div class="prescription-footer">
             <div class="prescription-notes">
                 <p class="prescription-notes-label">Notas / Instrucciones</p>
-                <p class="prescription-notes-text">Tome los medicamentos según lo recetado. Consulte al médico ante cualquier reacción adversa.</p>
+                <p class="prescription-notes-text">Tome los medicamentos segun lo recetado. Consulte al medico ante cualquier reaccion adversa.</p>
             </div>
             <div class="prescription-signature">
                 <div class="prescription-signature-line">
                     <p class="prescription-signature-name"
                        th:text="${consulta?.cita?.medico?.usuario?.nombreCompleto}">Dr. Smith</p>
                 </div>
-                <p class="prescription-signature-label">Firma del Médico</p>
+                <p class="prescription-signature-label">Firma del Medico</p>
             </div>
         </div>
 
         <!-- ERX ID -->
         <div class="prescription-erx no-print">
             <p class="prescription-erx-text"
-               th:text="'ID de Receta Electrónica: ERX-' + ${#temporals.year(#temporals.createNow())} + '-' + ${consulta?.idConsulta}">ID de Receta Electrónica: ERX-20231026-998A</p>
+               th:text="'ID de Receta Electronica: ERX-' + ${#temporals.year(#temporals.createNow())} + '-' + ${consulta?.idConsulta}">ID de Receta Electronica: ERX-20231026-998A</p>
         </div>
     </div>
 

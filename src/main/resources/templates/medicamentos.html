@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org"
-       th:replace="~{fragments/base :: layout(~{::content})}">
+      th:replace="~{fragments/base :: layout(~{::content})}">
 
 <th:block th:fragment="content">
 
@@ -8,126 +8,146 @@
     <div class="usuarios-alerts">
         <div th:if="${exito}" class="alert alert-success animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
-            <span th:text="${exito}">Operación correcta.</span>
+            <span th:text="${exito}">Operacion correcta.</span>
         </div>
         <div th:if="${error}" class="alert alert-error animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
-            <span th:text="${error}">Ocurrió un error.</span>
+            <span th:text="${error}">Ocurrio un error.</span>
         </div>
     </div>
 
-    <!-- Header Section -->
-    <div class="usuarios-header">
-        <div class="usuarios-header-text">
-            <h2 class="page-title">Inventario de Medicamentos</h2>
-            <p class="page-subtitle">Control de stock, alertas de caducidad y organización por categorías.</p>
-        </div>
-        <a href="/medicamentos/nuevo" class="btn btn-primary">
-            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
-            Nuevo Medicamento
-        </a>
-    </div>
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb animate-fade-in">
+        <span class="breadcrumb-item"><a href="/panel">Inicio</a></span>
+        <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
+        <span class="breadcrumb-item">Inventario</span>
+    </nav>
 
-    <!-- Stats Cards -->
-    <div class="medicamentos-stats">
-        <div class="medicamentos-stat-card">
-            <span class="material-symbols-outlined">inventory_2</span>
-            <span class="medicamentos-stat-value" th:text="${totalMedicamentos}">0</span>
-            <span class="medicamentos-stat-label">Total Medicamentos</span>
+    <!-- Page Header -->
+    <div class="page-header animate-fade-in">
+        <div>
+            <h1 class="page-title">Inventario de Medicamentos</h1>
+            <p class="page-subtitle">Control de stock, alertas de caducidad y organizacion por categorias.</p>
         </div>
-        <div class="medicamentos-stat-card medicamentos-stat-card--warning">
-            <span class="material-symbols-outlined">warning</span>
-            <span class="medicamentos-stat-value" th:text="${stockBajo}">0</span>
-            <span class="medicamentos-stat-label">Stock Bajo</span>
-        </div>
-        <div class="medicamentos-stat-card medicamentos-stat-card--danger">
-            <span class="material-symbols-outlined">schedule</span>
-            <span class="medicamentos-stat-value" th:text="${vencidos}">0</span>
-            <span class="medicamentos-stat-label">Vencidos</span>
-        </div>
-        <div class="medicamentos-stat-card">
-            <span class="material-symbols-outlined">category</span>
-            <span class="medicamentos-stat-value" th:text="${totalCategorias}">0</span>
-            <span class="medicamentos-stat-label">Categorías</span>
+        <div class="flex" style="gap: var(--space-3);">
+            <a th:if="${usuario?.rol?.name() != 'MEDICO'}"
+               href="/medicamentos/nuevo" class="btn btn-primary">
+                <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                Nuevo Medicamento
+            </a>
         </div>
     </div>
 
-    <!-- Data Table Card -->
-    <div class="medicamentos-table-card">
+    <!-- Bento Grid Layout -->
+    <div style="display: grid; grid-template-columns: 1fr; gap: var(--space-5);" class="animate-fade-in">
 
-        <!-- Table -->
-        <div class="usuarios-table-wrap">
-            <table class="usuarios-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre Comercial</th>
-                        <th>Nombre Genérico</th>
-                        <th>Categoría</th>
-                        <th>Presentación</th>
-                        <th class="text-right">Stock</th>
-                        <th>Vencimiento</th>
-                        <th>Estado</th>
-                        <th class="text-right">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:if="${#lists.isEmpty(medicamentos)}">
-                        <td colspan="9">
-                            <div class="usuarios-empty">
-                                <span class="material-symbols-outlined" style="font-size: 32px;">inventory_2_off</span>
-                                <p>No se encontraron medicamentos registrados.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="med : ${medicamentos}"
-                        th:classappend="${!med.validarCaducidad()} ? 'usuarios-row-inactive' : ''"
-                        class="usuarios-row">
-                        <td class="usuarios-mono" th:text="${med.idMedicamento}">1</td>
-                        <td>
-                            <span class="font-semibold" th:text="${med.nombreComercial}">Nombre</span>
-                        </td>
-                        <td>
-                            <span class="text-secondary" th:text="${med.nombreGenerico}">Genérico</span>
-                        </td>
-                        <td>
-                            <span th:text="${med.categoria?.nombre}">Categoría</span>
-                        </td>
-                        <td>
-                            <span th:text="${med.presentacion}">Presentación</span>
-                        </td>
-                        <td class="text-right">
-                            <span class="badge"
-                                  th:classappend="${med.stockDisponible <= 10} ? 'badge-danger' : (${med.stockDisponible <= 30} ? 'badge-warning' : 'badge-success')"
-                                  th:text="${med.stockDisponible}">0</span>
-                        </td>
-                        <td th:text="${#temporals.format(med.fechaVencimiento, 'dd/MM/yyyy')}">2025/01/01</td>
-                        <td>
-                            <div class="usuarios-estado"
-                                 th:classappend="${med.validarCaducidad()} ? 'usuarios-estado--activo' : 'usuarios-estado--inactivo'">
-                                <span class="usuarios-estado-dot"></span>
-                                <span th:text="${med.validarCaducidad()} ? 'Vigente' : 'Vencido'">Vigente</span>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="usuarios-acciones">
-                                <a th:href="@{/medicamentos/{id}/editar(id=${med.idMedicamento})}"
-                                   class="usuarios-accion" title="Editar">
-                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                                </a>
-                                <form th:action="@{/medicamentos/{id}/eliminar(id=${med.idMedicamento})}" method="post"
-                                      class="usuarios-accion-form" th:data-confirm="'¿Desea eliminar el medicamento ' + ${med.nombreComercial} + '?'"
-                                      th:if="${#lists.isEmpty(med.recetasDetalle) and #lists.isEmpty(med.movimientosInventario)}">
-                                    <button type="submit" class="usuarios-accion usuarios-accion--peligro" title="Eliminar">
-                                        <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Stats Row (3 cards) -->
+        <div class="medicamentos-stats">
+            <div class="medicamentos-stat-card">
+                <span class="material-symbols-outlined">medication</span>
+                <span class="medicamentos-stat-value" th:text="${totalMedicamentos}">0</span>
+                <span class="medicamentos-stat-label">Articulos Totales</span>
+            </div>
+            <div class="medicamentos-stat-card medicamentos-stat-card--warning">
+                <span class="material-symbols-outlined">warning</span>
+                <span class="medicamentos-stat-value" th:text="${stockBajo}">0</span>
+                <span class="medicamentos-stat-label">Stock Bajo</span>
+            </div>
+            <div class="medicamentos-stat-card medicamentos-stat-card--danger">
+                <span class="material-symbols-outlined">event_busy</span>
+                <span class="medicamentos-stat-value" th:text="${vencidos}">0</span>
+                <span class="medicamentos-stat-label">Proximo a Vencer</span>
+            </div>
         </div>
+
+        <!-- Main Table Card -->
+        <div class="medicamentos-table-card">
+            <div class="consultas-nueva-header" style="border-bottom: 1px solid var(--color-border);">
+                <h3 style="font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-text);">Stock Actual</h3>
+                <div class="flex" style="gap: var(--space-2);">
+                    <span class="badge badge-neutral" th:text="${totalCategorias} + ' categorias'">0 categorias</span>
+                </div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Comercial</th>
+                            <th>Nombre Generico</th>
+                            <th>Categoria</th>
+                            <th class="text-right">Stock</th>
+                            <th>Vencimiento</th>
+                            <th class="text-center">Estado</th>
+                            <th th:if="${usuario?.rol?.name() != 'MEDICO'}" class="text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${#lists.isEmpty(medicamentos)}">
+                            <td th:colspan="${usuario?.rol?.name() != 'MEDICO'} ? 7 : 6">
+                                <div class="consultas-empty">
+                                    <span class="material-symbols-outlined" style="font-size: 32px;">inventory_2_off</span>
+                                    <p>No se encontraron medicamentos registrados.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr th:each="med : ${medicamentos}"
+                            th:classappend="${!med.validarCaducidad()} ? 'usuarios-row-inactive' : ''"
+                            class="usuarios-row">
+                            <td>
+                                <span class="font-semibold text-primary" th:text="${med.nombreComercial}">Nombre</span>
+                            </td>
+                            <td>
+                                <span class="text-secondary" th:text="${med.nombreGenerico}">Generico</span>
+                            </td>
+                            <td>
+                                <span class="badge badge-neutral" th:text="${med.categoria?.nombre}">Categoria</span>
+                            </td>
+                            <td class="text-right" style="font-family: 'Inter', monospace; font-weight: var(--font-weight-medium);">
+                                <span th:text="${med.stockDisponible}">0</span>
+                            </td>
+                            <td style="font-family: 'Inter', monospace;">
+                                <span th:text="${#temporals.format(med.fechaVencimiento, 'yyyy-MM-dd')}">2025-01-01</span>
+                            </td>
+                            <td class="text-center">
+                                <!-- Estado: Vigente -->
+                                <span th:if="${med.validarCaducidad() and med.stockDisponible > 10}"
+                                      class="material-symbols-outlined" style="font-size: 20px; color: var(--color-secondary);">check_circle</span>
+                                <!-- Estado: Proximo a vencer -->
+                                <span th:if="${med.validarCaducidad() and med.stockDisponible <= 10 and med.stockDisponible > 0}"
+                                      class="badge badge-warning">STOCK BAJO</span>
+                                <!-- Estado: Vencido/Bloqueado -->
+                                <span th:unless="${med.validarCaducidad()}"
+                                      class="badge badge-danger" style="text-decoration: line-through;">VENCIDO</span>
+                            </td>
+                            <td th:if="${usuario?.rol?.name() != 'MEDICO'}" class="text-right">
+                                <div class="consultas-acciones" style="opacity: 1;">
+                                    <a th:href="@{/medicamentos/{id}/editar(id=${med.idMedicamento})}"
+                                       class="consultas-accion" title="Editar">
+                                        <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                    </a>
+                                    <form th:action="@{/medicamentos/{id}/eliminar(id=${med.idMedicamento})}" method="post"
+                                          class="consultas-accion-form"
+                                          th:data-confirm="'Desea eliminar el medicamento ' + ${med.nombreComercial} + '?'"
+                                          th:if="${#lists.isEmpty(med.recetasDetalle) and #lists.isEmpty(med.movimientosInventario)}">
+                                        <button type="submit" class="consultas-accion consultas-accion--peligro" title="Eliminar">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="consultas-summary animate-fade-in" th:if="${not #lists.isEmpty(medicamentos)}">
+        <span class="text-muted text-sm">
+            Mostrando <span th:text="${totalMedicamentos}">0</span> medicamento(s)
+        </span>
     </div>
 
     <script th:inline="javascript">

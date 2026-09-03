@@ -8,18 +8,25 @@
     <div class="usuarios-alerts">
         <div th:if="${exito}" class="alert alert-success animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">check_circle</span>
-            <span th:text="${exito}">Operación correcta.</span>
+            <span th:text="${exito}">Operacion correcta.</span>
         </div>
         <div th:if="${error}" class="alert alert-error animate-fade-in">
             <span class="material-symbols-outlined alert-icon" style="font-size: 18px;">error</span>
-            <span th:text="${error}">Ocurrió un error.</span>
+            <span th:text="${error}">Ocurrio un error.</span>
         </div>
     </div>
 
-    <!-- Header Section -->
-    <div class="recetas-header">
-        <div class="consultas-header-text">
-            <h2 class="page-title">Recetas Médicas</h2>
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb animate-fade-in">
+        <span class="breadcrumb-item"><a href="/panel">Inicio</a></span>
+        <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
+        <span class="breadcrumb-item">Recetas</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header animate-fade-in">
+        <div>
+            <h1 class="page-title">Recetas Medicas</h1>
             <p class="page-subtitle">Prescripciones generadas por consulta. Gestione, imprima y dispense medicamentos.</p>
         </div>
         <a th:if="${usuario?.rol?.name() == 'MEDICO'}" href="/recetas/nueva" class="btn btn-primary">
@@ -29,7 +36,7 @@
     </div>
 
     <!-- Groups by Consulta -->
-    <div th:if="${#maps.isEmpty(agrupadas)}" class="recetas-empty-card">
+    <div th:if="${#maps.isEmpty(agrupadas)}" class="recetas-empty-card animate-fade-in">
         <div class="recetas-empty">
             <span class="material-symbols-outlined" style="font-size: 32px;">description</span>
             <p>No se encontraron recetas registradas.</p>
@@ -37,7 +44,8 @@
     </div>
 
     <div th:each="entry : ${agrupadas}"
-         th:with="consulta=${entry.key}, detalles=${entry.value}">
+         th:with="consulta=${entry.key}, detalles=${entry.value}"
+         class="animate-fade-in">
 
         <div class="recetas-group">
             <!-- Group Header -->
@@ -49,8 +57,8 @@
                         <p class="recetas-group-name"
                            th:text="${consulta?.cita?.paciente?.nombres + ' ' + consulta?.cita?.paciente?.apellidos}">Paciente</p>
                         <p class="recetas-group-meta"
-                           th:text="'Consulta #' + ${consulta?.idConsulta} + ' · Cita ' + ${#temporals.format(consulta?.cita?.fechaHora, 'dd/MM/yyyy HH:mm')} + ' · ' + (${consulta?.cita?.medico?.usuario?.nombreCompleto ?: 'Médico'})">
-                            Consulta #1 · Cita 01/01/2025 09:00 · Dra. Ejemplo
+                           th:text="'Consulta #' + ${consulta?.idConsulta} + ' - Cita ' + ${#temporals.format(consulta?.cita?.fechaHora, 'dd/MM/yyyy HH:mm')} + ' - ' + (${consulta?.cita?.medico?.usuario?.nombreCompleto ?: 'Medico'})">
+                            Consulta #1 - Cita 01/01/2025 09:00 - Dra. Ejemplo
                         </p>
                     </div>
                 </div>
@@ -62,44 +70,52 @@
                 </div>
             </div>
 
-            <!-- Medications table -->
-            <table class="recetas-table">
-                <thead>
-                    <tr>
-                        <th>Medicamento</th>
-                        <th>Dosis</th>
-                        <th>Frecuencia</th>
-                        <th>Duración</th>
-                        <th>Notas</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="det : ${detalles}">
-                        <td>
-                            <span class="font-semibold"
-                                  th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.frecuencia} ?: '—'">Diariamente</span>
-                        </td>
-                        <td>
-                            <span th:text="${det.duracion} ?: '—'">90 días</span>
-                        </td>
-                        <td>
-                            <span th:text="${#strings.abbreviate(det.indicaciones, 60)}">Indicaciones</span>
-                        </td>
-                        <td>
-                            <span class="recetas-badge recetas-badge--prescrita"
-                                  th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'recetas-badge--dispensada' : ''"
-                                  th:text="${det.estado.name() == 'PRESCRITA'} ? 'Prescrita' : 'Dispensada'">Prescrita</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Medications grid -->
+            <div class="recetas-grid">
+                <div class="recetas-grid-head">
+                    <span>Medicamento</span>
+                    <span>Dosis</span>
+                    <span>Frecuencia</span>
+                    <span>Duracion</span>
+                    <span>Notas</span>
+                    <span>Estado</span>
+                    <span class="no-print right">Acciones</span>
+                </div>
+                <div class="recetas-grid-row" th:each="det : ${detalles}">
+                    <div class="recetas-grid-cell recetas-grid-cell--main">
+                        <span class="font-semibold"
+                              th:text="${det.medicamento?.nombreComercial} + ' ' + ${det.medicamento?.concentracion}">Lisinopril 10mg</span>
+                    </div>
+                    <div class="recetas-grid-cell">
+                        <span th:text="${det.dosis} ?: ${det.cantidad} + ' ' + ${det.medicamento?.unidadMedida}">1</span>
+                    </div>
+                    <div class="recetas-grid-cell">
+                        <span th:text="${det.frecuencia} ?: '---'">Diariamente</span>
+                    </div>
+                    <div class="recetas-grid-cell">
+                        <span th:text="${det.duracion} ?: '---'">90 dias</span>
+                    </div>
+                    <div class="recetas-grid-cell">
+                        <span th:text="${#strings.abbreviate(det.indicaciones, 60)}">Indicaciones</span>
+                    </div>
+                    <div class="recetas-grid-cell">
+                        <span class="recetas-badge recetas-badge--prescrita"
+                              th:classappend="${det.estado.name() == 'DISPENSADA'} ? 'recetas-badge--dispensada' : ''"
+                              th:text="${det.estado.name() == 'PRESCRITA'} ? 'Prescrita' : 'Dispensada'">Prescrita</span>
+                    </div>
+                    <div class="recetas-grid-cell no-print right">
+                        <div class="consultas-acciones" style="justify-content:flex-end; flex-wrap:wrap;">
+                            <form th:if="${det.estado.name() == 'PRESCRITA' and (usuario?.rol?.name() == 'RECEPCIONISTA' or usuario?.rol?.name() == 'ADMINISTRADOR')}"
+                                  th:action="@{/recetas/{id}/dispensar(id=${det.idRecetaDetalle})}" method="post"
+                                  class="consultas-accion-form">
+                                <button type="submit" class="btn btn-primary btn-sm" title="Dispensar (descuenta stock)">
+                                    Dispensar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

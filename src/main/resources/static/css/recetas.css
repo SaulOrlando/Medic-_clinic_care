@@ -108,6 +108,108 @@
     text-align: right;
 }
 
+/* --- Prescription grid (list view) --- */
+.recetas-grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+}
+
+.recetas-grid-head,
+.recetas-grid-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr) minmax(0, 0.9fr) minmax(0, 0.7fr) minmax(0, 1.4fr) minmax(0, 0.7fr) 190px;
+    gap: var(--space-1);
+    align-items: center;
+}
+
+.recetas-grid-head {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+    background-color: var(--color-surface-container-lowest);
+}
+
+.recetas-grid-row {
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.recetas-grid-row:last-child {
+    border-bottom: none;
+}
+
+.recetas-grid-row:hover {
+    background-color: var(--color-primary-50);
+}
+
+.recetas-grid-cell {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.recetas-grid-cell--main {
+    font-weight: var(--font-weight-semibold);
+}
+
+.recetas-grid-cell .recetas-badge {
+    white-space: nowrap;
+}
+
+.recetas-grid-cell.right {
+    text-align: right;
+}
+
+.recetas-grid-cell.right .consultas-acciones,
+.prescription-grid-cell.right .consultas-acciones {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+@media (max-width: 900px) {
+    .recetas-grid {
+        display: block;
+    }
+
+    .recetas-grid-head {
+        display: none;
+    }
+
+    .recetas-grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2) var(--space-4);
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-4) var(--space-6);
+    }
+
+    .recetas-grid-row:last-child {
+        border-bottom: none;
+    }
+
+    .recetas-grid-cell {
+        padding: 0;
+        text-align: left;
+    }
+
+    .recetas-grid-cell--main {
+        grid-column: 1 / -1;
+    }
+
+    .recetas-grid-cell.right {
+        grid-column: 1 / -1;
+        text-align: left;
+        margin-top: var(--space-1);
+    }
+}
+
 /* --- Badges --- */
 .recetas-badge {
     display: inline-flex;
@@ -331,6 +433,96 @@
     border-bottom: none;
 }
 
+/* --- Prescription grid (detalle view) --- */
+.prescription-grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+}
+
+.prescription-grid-head,
+.prescription-grid-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr) minmax(0, 0.9fr) minmax(0, 0.7fr) minmax(0, 1.5fr) minmax(0, 0.7fr) 190px;
+    gap: var(--space-1);
+    align-items: center;
+}
+
+.prescription-grid-head {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid var(--color-border);
+    white-space: nowrap;
+}
+
+.prescription-grid-row {
+    padding: var(--space-4);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+.prescription-grid-row:last-child {
+    border-bottom: none;
+}
+
+.prescription-grid-row:hover {
+    background-color: var(--color-surface-container-low);
+}
+
+.prescription-grid-cell {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.prescription-grid-cell--main {
+    font-weight: var(--font-weight-semibold);
+}
+
+.prescription-grid-cell--empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: var(--space-4);
+}
+
+.prescription-grid-cell.right {
+    text-align: right;
+}
+
+@media (max-width: 900px) {
+    .prescription-grid-head {
+        display: none;
+    }
+
+    .prescription-grid-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2) var(--space-4);
+    }
+
+    .prescription-grid-cell {
+        padding: 0;
+        text-align: left;
+    }
+
+    .prescription-grid-cell--main {
+        grid-column: 1 / -1;
+    }
+
+    .prescription-grid-cell.right {
+        grid-column: 1 / -1;
+        text-align: left;
+        margin-top: var(--space-1);
+    }
+}
+
 /* --- Footer / signature --- */
 .prescription-footer {
     margin-top: var(--space-4);
@@ -444,7 +636,10 @@
 .consultas-acciones {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: var(--space-2);
+    width: 100%;
+    min-width: 0;
 }
 
 .consultas-accion {
@@ -470,6 +665,17 @@
 .consultas-accion--peligro:hover {
     background-color: var(--color-error-bg);
     color: var(--color-error);
+}
+
+.consultas-accion--dispensar {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius-md);
+}
+
+.consultas-accion--dispensar:hover {
+    background-color: var(--color-primary-dark, #1565c0);
+    color: #fff;
 }
 
 .consultas-accion-form {

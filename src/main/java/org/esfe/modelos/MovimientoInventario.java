@@ -52,7 +52,7 @@ public class MovimientoInventario {
     private LocalDateTime fechaMovimiento = LocalDateTime.now();
 
     @Size(max = 1000)
-    @Column(name = "motivo", columnDefinition = "TEXT")
+    @Column(name = "motivo", columnDefinition = "nvarchar(MAX)")
     private String motivo;
 
     public Integer getIdMovimiento() {

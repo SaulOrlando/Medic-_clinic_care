@@ -38,18 +38,22 @@ public class ConsultaMedica {
 
     @NotBlank
     @Size(max = 1000)
-    @Column(name = "motivo_consulta", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "motivo_consulta", nullable = false, columnDefinition = "nvarchar(MAX)")
     private String motivoConsulta;
 
     @NotBlank
     @Size(max = 1000)
-    @Column(name = "sintomatologia", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "sintomatologia", nullable = false, columnDefinition = "nvarchar(MAX)")
     private String sintomatologia;
 
     @NotBlank
     @Size(max = 1000)
-    @Column(name = "diagnostico", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "diagnostico", nullable = false, columnDefinition = "nvarchar(MAX)")
     private String diagnostico;
+
+    @Size(max = 2000)
+    @Column(name = "plan_tratamiento", columnDefinition = "nvarchar(MAX)")
+    private String planTratamiento;
 
     @OneToMany(mappedBy = "consulta")
     private List<RecetaDetalle> recetasDetalle = new ArrayList<>();
@@ -104,6 +108,14 @@ public class ConsultaMedica {
 
     public void setDiagnostico(String diagnostico) {
         this.diagnostico = diagnostico;
+    }
+
+    public String getPlanTratamiento() {
+        return planTratamiento;
+    }
+
+    public void setPlanTratamiento(String planTratamiento) {
+        this.planTratamiento = planTratamiento;
     }
 
     public List<RecetaDetalle> getRecetasDetalle() {

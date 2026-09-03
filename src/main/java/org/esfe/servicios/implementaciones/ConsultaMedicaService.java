@@ -33,7 +33,7 @@ public class ConsultaMedicaService implements IConsultaMedicaService {
     @Override
     @Transactional(readOnly = true)
     public Optional<ConsultaMedica> obtenerPorId(Integer idConsulta) {
-        return consultaMedicaRepository.findById(idConsulta);
+        return consultaMedicaRepository.findByIdWithDetails(idConsulta);
     }
 
     @Override

@@ -15,7 +15,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 | 1 | El sistema valida el formato del correo/usuario y la contrasena | ✅ Cumple | `UsuarioService.autenticar()` valida credenciales via `IUsuarioRepository.findByCorreoAndContrasena()`. `CustomUserDetailsService` valida que el usuario exista y este activo. |
 | 2 | Muestra un mensaje claro de error si los datos son incorrectos | ✅ Cumple | `login.html` muestra `${param.error}` con mensaje de error visible. |
 | 3 | Redirige al panel principal (dashboard) correspondiente segun el rol del usuario tras un acceso exitoso | ✅ Cumple | `SecurityConfig` configura `defaultSuccessUrl("/panel", true)`. El `GlobalModelAdvice` expone `usuario` y `rolNombre` a todas las vistas para que el sidebar filtre por rol. |
-| 4 | Incluye opcion de "Ocultar/Mostrar" contrasena | ⚠️ Parcial | `login.html` tiene campo de contrasena pero se requiere verificar si el toggle JS esta implementado. |
+| 4 | Incluye opcion de "Ocultar/Mostrar" contrasena | ✅ Cumple | `login.html` incluye boton `#togglePassword` con icono `visibility`/`visibility_off` y JS que alterna el tipo del input y actualiza el atributo `aria-label`. |
 
 ### Subtareas completadas
 - SCRUM-120: Enum RolUsuario ✅
@@ -82,7 +82,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 
 | # | Criterio | Estado | Evidencia |
 |---|---|---|---|
-| 1 | El sistema muestra un calendario interactivo con bloques de tiempo disponibles por medico | ⚠️ Parcial | `citas.html` existe con vista tipo calendario. Se requiere verificar que la vista muestre bloques visuales de disponibilidad (puede ser tabla/lista en lugar de calendario visual). |
+| 1 | El sistema muestra un calendario interactivo con bloques de tiempo disponibles por medico | ✅ Cumple | `citas.html` implementa un calendario visual con vista Semana y Mes (navegacion, boton "Hoy", filtro por medico), bloques por cita en cada dia/columna, panel de detalle lateral y modales para programar/reprogramar/cancelar. |
 | 2 | Se evita la duplicidad de citas (no permite agendar dos citas en el mismo horario con el mismo medico) | ✅ Cumple | `CitaService.programarCita()` valida `verificarDisponibilidad()` que usa `existeConflictoHorario()` filtrando por rango de fechas y excluyendo CANCELADA. |
 | 3 | La cita se crea inicialmente con el estado "Programada" | ✅ Cumple | `Cita.java` tiene `@Enumerated(EnumType.STRING)` con default `PROGRAMADA`. `CitaService.programarCita()` crea con este estado. |
 
@@ -128,7 +128,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 | 2 | Al guardar la consulta, el estado de la cita cambia automaticamente a "Atendida" | ✅ Cumple | `ConsultaMedicaService.registrarConsulta()` hace `cita.setEstado(EstadoCita.ATENDIDA)` antes de guardar. |
 
 ### Subtareas completadas
-- SCRUM-140: Vista consulta medica ✅ (en revision visual)
+- SCRUM-140: Vista consulta medica ✅ (formulario SOAP alineado al Stitch)
 - SCRUM-162: Extender ConsultaMedicaRepository (findByCita) ✅
 - SCRUM-163: IConsultaMedicaService ✅
 - SCRUM-164: ConsultaMedicaService ✅
@@ -151,8 +151,8 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 | 5 | Guardar la receta | ✅ Cumple | `RecetaController` tiene endpoints CRUD completos. |
 | 6 | Seleccionar medicamento | ✅ Cumple | `recetas-form.html` carga catalogo de medicamentos disponibles. |
 | 7 | Indicar dosis | ✅ Cumple | Campo `cantidad` en `RecetaDetalle.java`. |
-| 8 | Indicar cada cuanto debe tomarlo (frecuencia) | ⚠️ Verificar | El campo `indicaciones` (TEXT) probablemente cubre frecuencia. No hay campo separado para frecuencia. Verificar si `indicaciones` es suficiente o si falta un campo dedicado. |
-| 9 | Indicar por cuantos dias (duracion) | ⚠️ Verificar | Similar al anterior. Puede estar incluido en `indicaciones`. Verificar si la vista lo presenta como campos separados o un solo campo de texto libre. |
+| 8 | Indicar cada cuanto debe tomarlo (frecuencia) | ✅ Cumple | `recetas-form.html` tiene campo separado "Frecuencia" (`medFrecuencia`) por medicamento; `RecetaController.guardar()` lo persiste en `RecetaDetalle.frecuencia`. |
+| 9 | Indicar por cuantos dias (duracion) | ✅ Cumple | `recetas-form.html` tiene campo separado "Duracion" (`medDuracion`); `RecetaController.guardar()` lo persiste en `RecetaDetalle.duracion`. |
 
 ### Subtareas completadas
 - SCRUM-141: Enum EstadoReceta ✅
@@ -160,7 +160,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 - SCRUM-148: RecetaDetalle.java ✅
 - SCRUM-149: ConsultaMedicaRepository + RecetaDetalleRepository ✅
 - SCRUM-150: IRecetaDetalleService ✅
-- SCRUM-152: Vista recetas medicas ✅ (en revision)
+- SCRUM-152: Vista recetas medicas ✅ (formulario multi-medicamento con frecuencia/duracion)
 - SCRUM-181: RecetaDetalleService ✅
 
 ---
@@ -176,7 +176,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 | 1 | Campos: Nombre comercial, Nombre generico, Presentacion (pastillas, jarabe), Unidad de medida y fecha de vencimiento | ✅ Cumple | `Medicamento.java` tiene todos estos campos: `nombreComercial`, `nombreGenerico`, `presentacion`, `unidadMedida`, `concentracion`, `fechaVencimiento`. |
 | 2 | Asignacion obligatoria a una categoria de medicamento previamente existente | ✅ Cumple | `Medicamento` tiene `@ManyToOne CategoriaMedicamento categoria` con `@NotNull`. Validado en `MedicamentoService.crearMedicamento()`. |
 | 3 | Control de stock disponible en inventario | ✅ Cumple | `stockInicial` y `stockDisponible` en `Medicamento.java`. `Medicamento.actualizarStock()` descuenta. Vista muestra metricas de stock. |
-| 4 | Validacion de caducidad: No se debe tener medicamentos vencidos | ⚠️ Parcial | `Medicamento.validarCaducidad()` existe y la vista muestra badges. Sin embargo, **no se impide el guardado** de medicamentos vencidos — solo se muestra el estado visual. Se podria mejorar para bloquear el alta de medicamentos ya vencidos. |
+| 4 | Validacion de caducidad: No se debe tener medicamentos vencidos | ✅ Cumple | `Medicamento.validarCaducidad()` marca el estado visual (badges) y ademas `MedicamentoService.crearMedicamento()` **rechaza el alta** si `fechaVencimiento` es nula o no supera la fecha actual ("La fecha de vencimiento debe ser posterior a la fecha actual"). |
 
 ### Subtareas completadas
 - SCRUM-143: Medicamento.java ✅
@@ -202,7 +202,7 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 |---|---|---|---|
 | 1 | Permite crear, editar y eliminar categorias | ✅ Cumple | `CategoriaMedicamentoController` tiene CRUD completo: crear, editar, eliminar. |
 | 2 | No se puede eliminar una categoria si tiene medicamentos activos asociados | ✅ Cumple | `CategoriaMedicaService.eliminarCategoria()` valida `tieneMedicamentosAsociados()` y lanza excepcion. |
-| 3 | Listado visual de categorias ordenadas alfabeticamente | ⚠️ Parcial | Vista `categorias-medicamentos.html` existe. Se requiere verificar si el listado esta ordenado por nombre en el repository o en el controller. `ICategoriaMedicamentoRepository` no tiene query explicita de ordenamiento por `findAll()` — depende del orden de JPA por defecto (por PK). **Posible gap: falta `findAllByOrderByNombre()` o `@OrderBy("nombre")`.** |
+| 3 | Listado visual de categorias ordenadas alfabeticamente | ✅ Cumple | `ICategoriaMedicamentoRepository.findAllByOrderByNombreAsc()` y `CategoriaMedicamentoService.obtenerTodos()` lo usan para listar las categorias ordenadas alfabeticamente por nombre. |
 
 ### Subtareas completadas
 - SCRUM-112: CategoriaMedicamento.java ✅
@@ -217,33 +217,33 @@ Verificacion de requisitos extraidos de las historias de usuario en JIRA (`docs/
 
 | Historia | Criterios totales | Cumplidos | Parciales | No cumplidos |
 |---|---|---|---|---|
-| SCRUM-116: Inicio de Sesion | 4 | 3 | 1 (toggle contrasena) | 0 |
+| SCRUM-116: Inicio de Sesion | 4 | 4 | 0 | 0 |
 | SCRUM-117: Registro de Pacientes | 5 | 5 | 0 | 0 |
 | SCRUM-118: Registros Medicos | 3 | 3 | 0 | 0 |
-| SCRUM-119: Agendamiento de Citas | 3 | 2 | 1 (calendario visual) | 0 |
+| SCRUM-119: Agendamiento de Citas | 3 | 3 | 0 | 0 |
 | SCRUM-7: Modificacion/Cancelacion Citas | 3 | 3 | 0 | 0 |
 | SCRUM-6: Registro de Consulta Medica | 2 | 2 | 0 | 0 |
-| SCRUM-110+111: Receta Medica | 9 | 6 | 3 (frecuencia, duracion como campos separados) | 0 |
-| SCRUM-11: Registro de Medicina | 4 | 3 | 1 (bloqueo caducidad) | 0 |
-| SCRUM-5: Gestion de Categorias | 3 | 2 | 1 (orden alfabetico) | 0 |
-| **TOTAL** | **36** | **29** | **7** | **0** |
+| SCRUM-110+111: Receta Medica | 9 | 9 | 0 | 0 |
+| SCRUM-11: Registro de Medicina | 4 | 4 | 0 | 0 |
+| SCRUM-5: Gestion de Categorias | 3 | 3 | 0 | 0 |
+| **TOTAL** | **36** | **36** | **0** | **0** |
 
 ---
 
 ## Gaps identificados (a revisar/corregir)
 
 ### Seguridad
-1. **`CategoriaMedicamentoController` no tiene `@PreAuthorize`** — cualquier usuario autenticado puede acceder a crear/editar/eliminar categorias, aunque el sidebar lo oculte. Falta `@PreAuthorize("hasAnyRole('ADMINISTRADOR','RECEPCIONISTA','MEDICO')")` o equivalente.
-2. **Contrasenas en texto plano** — `PlainTextPasswordEncoder` no hashea contrasenas. Esto es un riesgo de seguridad significativo para produccion.
-3. **`HistorialCita` y `MovimientoInventario` — `@PreAuthorize` no verificado** — estos modulos dependen del controlador padre (Citas/Inventario) pero se debe verificar que no existan rutas huérfanas.
+1. ✅ **`CategoriaMedicamentoController` sin `@PreAuthorize`** — **RESUELTO.** Ahora tiene `@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'RECEPCIONISTA', 'MEDICO')")` a nivel de clase. `MedicamentoController`, `RecetaController`, etc. tambien lo tienen.
+2. ❌ **Contrasenas en texto plano** — **PENDIENTE.** `SecurityConfig.passwordEncoder()` sigue usando `PlainTextPasswordEncoder`, que no hashea contrasenas. Riesgo de seguridad significativo para produccion.
+3. ⚠️ **`HistorialCita` y `MovimientoInventario` — `@PreAuthorize` no verificado** — estos modulos dependen del controlador padre (Citas/Inventario) pero se debe verificar que no existan rutas huerfanas.
 
 ### Funcionalidad
-4. **Toggle mostrar/ocultar contrasena en login** — Verificar que `login.html` tenga el JS para mostrar/ocultar contrasena.
-5. **Orden alfabetico de categorias** — `CategoriaMedicamentoRepository` no tiene query con `ORDER BY nombre`. Agregar `findAllByOrderByNombre()` o `@OrderBy` en la entidad.
-6. **Bloqueo de medicamentos vencidos** — `Medicamento.validarCaducidad()` solo marca el estado visualmente. Podria agregarse validacion en `MedicamentoService` para rechazar creacion/edicion si `fechaVencimiento` es anterior a hoy.
-7. **Receta — campos de frecuencia/duracion** — Actualmente un solo campo `indicaciones` (TEXT). Si la UI lo requiere como campos separados (dosis, frecuencia, duracion), hay que refactorizar `RecetaDetalle`.
-8. **Vista de Citas — calendario visual** — Verificar si `citas.html` muestra un calendario interactivo (drag & drop, bloques de tiempo) o solo una tabla/lista. El criterio pide "calendario interactivo con bloques de tiempo".
-9. **Vistas de Pacientes, Medicos, Consultas, Recetas en "En revision"** — Los templates existen pero pueden no estar 100% alineados al diseno Stitch.
+4. ✅ **Toggle mostrar/ocultar contrasena en login** — **RESUELTO.** `login.html` implementa el boton `#togglePassword` con JS que alterna tipo de input.
+5. ✅ **Orden alfabetico de categorias** — **RESUELTO.** Se agrego `findAllByOrderByNombreAsc()` a `ICategoriaMedicamentoRepository` y `CategoriaMedicamentoService.obtenerTodos()` lo usa. (Ultimo criterio de aceptacion que faltaba; ahora 36/36.)
+6. ✅ **Bloqueo de medicamentos vencidos** — **RESUELTO.** `MedicamentoService.crearMedicamento()` rechaza el alta si `fechaVencimiento` es nula o anterior a hoy.
+7. ✅ **Receta — campos de frecuencia/duracion** — **RESUELTO.** `recetas-form.html` y `RecetaController.guardar()` manejan Dosis, Cantidad, Frecuencia, Duracion e Indicaciones como campos separados por medicamento.
+8. ✅ **Vista de Citas — calendario visual** — **RESUELTO.** `citas.html` muestra calendario interactivo con vistas Semana/Mes, bloques por cita, panel de detalle y modales.
+9. ✅ **Vistas de Pacientes, Medicos, Consultas, Recetas en "En revision"** — **RESUELTO/MEJORADO.** Los templates se alinearon al diseno Stitch (login con toggle, calendario de citas, formulario SOAP, receta multi-medicamento con frecuencia/duracion, etc.).
 
 ### Pendientes sin resolver en JIRA
 10. **SCRUM-165: "Borrar"** — Subtarea sin resolver y sin asignar dentro de SCRUM-6 (Registro de consulta medica). Verificar si es relevante.

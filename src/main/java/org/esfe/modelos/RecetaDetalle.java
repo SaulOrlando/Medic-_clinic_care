@@ -43,7 +43,7 @@ public class RecetaDetalle {
 
     @NotBlank
     @Size(max = 1000)
-    @Column(name = "indicaciones", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "indicaciones", nullable = false, columnDefinition = "nvarchar(MAX)")
     private String indicaciones;
 
     @Size(max = 255)

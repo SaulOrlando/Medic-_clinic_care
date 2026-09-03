@@ -36,7 +36,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/medicamentos")
@@ -57,10 +56,7 @@ public class MedicamentoController {
         List<Medicamento> medicamentos = medicamentoService.obtenerTodos();
         List<Medicamento> stockBajo = medicamentoService.obtenerConStockBajo(10);
         List<Medicamento> vencidos = medicamentoService.obtenerVencidosAntesDe(LocalDate.now());
-        List<CategoriaMedicamento> categorias = medicamentoService.obtenerTodos().stream()
-                .map(m -> m.getCategoria())
-                .distinct()
-                .collect(Collectors.toList());
+        List<CategoriaMedicamento> categorias = categoriaMedicamentoService.obtenerTodos();
 
         model.addAttribute("activePage", "medicamentos");
         model.addAttribute("medicamentos", medicamentos);
@@ -75,10 +71,7 @@ public class MedicamentoController {
     public String nuevo(Model model) {
         model.addAttribute("activePage", "medicamentos");
         model.addAttribute("medicamento", new Medicamento());
-        model.addAttribute("categorias", medicamentoService.obtenerTodos().stream()
-                .map(m -> m.getCategoria())
-                .distinct()
-                .collect(Collectors.toList()));
+        model.addAttribute("categorias", categoriaMedicamentoService.obtenerTodos());
         model.addAttribute("modo", "crear");
         return "medicamentos-form";
     }
@@ -110,10 +103,7 @@ public class MedicamentoController {
                 .map(med -> {
                     model.addAttribute("activePage", "medicamentos");
                     model.addAttribute("medicamento", med);
-                    model.addAttribute("categorias", medicamentoService.obtenerTodos().stream()
-                            .map(m -> m.getCategoria())
-                            .distinct()
-                            .collect(Collectors.toList()));
+                    model.addAttribute("categorias", categoriaMedicamentoService.obtenerTodos());
                     model.addAttribute("modo", "editar");
                     return "medicamentos-form";
                 })

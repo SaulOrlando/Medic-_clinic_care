@@ -188,6 +188,7 @@ public class ConsultaMedicaController {
             existente.setMotivoConsulta(consulta.getMotivoConsulta());
             existente.setSintomatologia(consulta.getSintomatologia());
             existente.setDiagnostico(consulta.getDiagnostico());
+            existente.setPlanTratamiento(consulta.getPlanTratamiento());
 
             consultaMedicaService.guardar(existente);
             redirectAttributes.addFlashAttribute("exito", "Consulta actualizada correctamente.");
